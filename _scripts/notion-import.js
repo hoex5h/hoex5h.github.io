@@ -110,6 +110,8 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         // author
         let authors = r.properties?.["작성자"]?.["people"].map((m) => m["name"]);
 
+
+        let cover = r.properties?.["커버"]?.["select"]?.["name"];
         // frontmatter
         let fmtags = "";
         let fmcats = "";
@@ -180,7 +182,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
             }
         );
 
-        const cover = index === 0 ? "assets/images/writing.jpg" : `upload/${ftitle}/0.png`;
+        cover = `assets/images/${cover}.jpg`;
 
         const fm = `---
 layout: post
