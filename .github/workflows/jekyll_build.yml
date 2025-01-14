@@ -1,17 +1,61 @@
-name: Build and deploy to GitHub Pages
+name: Build and Deploy Jekyll to gh-pages
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    branches:
+      - main # `main` 브랜치에 푸시될 때 트리거
+  workflow_run:
+    workflows: ["Build and Deploy"]
+    types:
+      - completed
 jobs:
-  github-pages:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: helaili/jekyll-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target_branch: 'gh-pages'
+          node-version: 10 # 필요한 Node.js 버전
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install # `gulp` 및 기타 의존성 설치
+
+      - name: Run Gulp tasks
+        run: |
+          npx gulp # Gulp를 실행하여 CSS 및 기타 파일 빌드
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1 # 필요한 Ruby 버전
+
+      - name: Clean `_site` directory
+        run: |
+          rm -rf ./_site
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+          bundle clean --force
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      - name: test
+        run: |
+          cat _site/assets/built/screen.css | grep post-card-author-m
+          
+          
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }} # GitHub 인증 토큰
+          publish_branch: gh-pages                  # 배포할 브랜치
+          publish_dir: ./_site                      # 배포할 디렉토리
