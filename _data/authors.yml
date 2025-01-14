@@ -1,58 +1,10 @@
 hoeeeeeh:
   username: hoeeeeeh
   name: 김영길
-  url_full: https://blog.liboo.kr/
-  url: blog.liboo.kr
-  bio: The professional publishing platform
+  url_full: https://hoex5h.github.io/
+  url: hoex5h.github.io
+  bio: 백엔드 개발자
   picture: assets/images/ghost.png
   facebook: ghost
   twitter: tryghost
-  cover: False
-
-gominzip:
-  username: gominzip
-  name: 고민지
-  location: London, UK
-  url_full: http://hannah.wf/
-  url: hannah.wf
-  bio: Hannah is the co-founder and lead developer at Ghost. She spends her days looking after Ghost's developer community, tracking down bugs & ensuring Ghost(Pro) is a happy place.
-  picture: assets/images/hannah.jpg
-  facebook: False
-  twitter: erisds
-  cover: assets/images/hannah-cover.jpg
-
-Jisukim:
-  username: Jisukim
-  name: 김지수
-  location: On a plane
-  url_full: http://john.onolan.org/
-  url: john.onolan.org
-  bio: Founder at Ghost.org. Writes about open source, startup life, non-profits, and publishing platforms. Travels the world with a bag of kites.
-  picture: assets/images/john.jpg
-  facebook: False
-  twitter: False
-  cover: False
-
-"홍창현":
-  username: 홍창현
-  name: 홍창현
-  location: Ilasn, Korea
-  url_full: False
-  url: False
-  bio: "안녕하세요. 프론트엔드 개발자가 되고싶은 홍창현입니다. 잘 부탁드립니다."
-  picture: assets/images/lewis.jpeg
-  facebook: False
-  twitter: False
-  cover: False
-
-"김준서":
-  username: 김준서
-  name: 김준서
-  location: Kentucky, USA
-  url_full: False
-  url: False
-  bio: I was the 16th president of the USA until I was assassinated in April of 1865. I led the US through its Civil War - its bloodiest and greatest moral, constitutional and political crisis.
-  picture: assets/images/abraham.jpg
-  facebook: False
-  twitter: False
   cover: False
