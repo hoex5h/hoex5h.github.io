@@ -56,6 +56,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     });
 
     const pages = response.results;
+    console.log(pages);
     while (response.has_more) {
         const nextCursor = response.next_cursor;
         response = await notion.databases.query({
@@ -84,6 +85,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
         // title
         let title = id;
         let ptitle = r.properties?.["제목"]?.["title"];
+        console.log(title);
         if (ptitle?.length > 0) {
             title = ptitle[0]?.["plain_text"];
         }
