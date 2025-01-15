@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>개발자 원칙</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/%EA%B0%9C%EB%B0%9C%EC%9E%90_%EC%9B%90%EC%B9%99" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="개발자 원칙" />
+    <meta property="og:description" content="개발자 원칙 오류를 만날 때가 가장 성장하기 좋을 때다. 엔지니어의 실력은 얼마나 많은 오류와 장애를 만나고 이를 해결했는지 여부에 따라 갈린다. 어떻게 더 나은 개발자로 나아갈 수 있는가? 오류가 발생하면 소스 코드 레벨에서 이해하자. 왜 구글에 검색하는 방법이 아니라, 소스 코드 레벨에서 이해하자라고 하는걸까? 검색으로 문제를 해결하고 끝내버리면 실제로 깊은" />
+    <meta property="og:url" content="https://hoex5h.github.io/%EA%B0%9C%EB%B0%9C%EC%9E%90_%EC%9B%90%EC%B9%99" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:10:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:10:00+00:00" />
+    <meta property="article:tag" content="개발" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="개발자 원칙" />
+    <meta name="twitter:description" content="개발자 원칙 오류를 만날 때가 가장 성장하기 좋을 때다. 엔지니어의 실력은 얼마나 많은 오류와 장애를 만나고 이를 해결했는지 여부에 따라 갈린다. 어떻게 더 나은 개발자로 나아갈 수 있는가? 오류가 발생하면 소스 코드 레벨에서 이해하자. 왜 구글에 검색하는 방법이 아니라, 소스 코드 레벨에서 이해하자라고 하는걸까? 검색으로 문제를 해결하고 끝내버리면 실제로 깊은" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="개발" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/%EA%B0%9C%EB%B0%9C%EC%9E%90_%EC%9B%90%EC%B9%99",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/book.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/%EA%B0%9C%EB%B0%9C%EC%9E%90_%EC%9B%90%EC%B9%99"
+    },
+    "description": "개발자 원칙 오류를 만날 때가 가장 성장하기 좋을 때다. 엔지니어의 실력은 얼마나 많은 오류와 장애를 만나고 이를 해결했는지 여부에 따라 갈린다. 어떻게 더 나은 개발자로 나아갈 수 있는가? 오류가 발생하면 소스 코드 레벨에서 이해하자. 왜 구글에 검색하는 방법이 아니라, 소스 코드 레벨에서 이해하자라고 하는걸까? 검색으로 문제를 해결하고 끝내버리면 실제로 깊은"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="개발자 원칙" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag- post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag//'>개발</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">개발자 원칙</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/book.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <h1 id="개발자-원칙">개발자 원칙</h1>
+
+<h1 id="오류를-만날-때가-가장-성장하기-좋을-때다">오류를 만날 때가 가장 성장하기 좋을 때다.</h1>
+
+<p>엔지니어의 실력은 얼마나 많은 오류와 장애를 만나고 이를 해결했는지 여부에 따라 갈린다.</p>
+
+<p>어떻게 더 나은 개발자로 나아갈 수 있는가?</p>
+
+<ol>
+  <li>
+    <p>오류가 발생하면 소스 코드 레벨에서 이해하자.</p>
+
+    <p>왜 구글에 검색하는 방법이 아니라, 소스 코드 레벨에서 이해하자라고 하는걸까?</p>
+
+    <p>검색으로 문제를 해결하고 끝내버리면 실제로 깊은 지식을 얻기가 어렵다.</p>
+  </li>
+  <li>
+    <p>알아낸 지식을 글로 공개하라.</p>
+
+    <p>소스 레벨에서 이해한 내용을 글로 공개하고, 오래 기억할 수 있게하면서 다른 사람의 조언도 들을 기회로 만들어라.</p>
+  </li>
+  <li>정말인지 소스 코드로 확인하기
+자바7 -&gt; 자바8로 가면 CPU 사용량이 줄어든다. 그렇게만 알고 자바8로 업그레이드 하지 말고, 이유를 알아내라.
+실제로 소스 코드를 뜯어봐야 작동 원리를 이해할 수 있다.</li>
+  <li>
+    <p>결과물을 내 것으로 만들기
+타이밍 공격 -&gt; abcdef.startsWith(“b”) 는 당연히 false 이다. 문자열의 첫 알파벳인 a 가 b와 다르기 떄문.</p>
+
+    <p>그런데 어느 정도 긴 문자열이고, 반복을 많이 한다면 실패 응답이 돌아오기까지의 시간을 측정해서 암호를 추측할 수 있게 된다.</p>
+
+    <p>늘 시간복잡도가 빠르기만해서 좋은 것은 아니다.</p>
+  </li>
+</ol>
+
+<p>개발을 하며 순간마다 떠오르는 이런 의문들에 대해서 가볍게 넘어가지 말자. 하나하나 쌓이다보면 좋은 기술력이 될 것이다.</p>
+
+<h1 id="디자인이랑-무엇인가">디자인이랑 무엇인가?</h1>
+
+<h2 id="아주-작은-단위의-코드에-적용되는-원칙">아주 작은 단위의 코드에 적용되는 원칙?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">KISS</code>: Keep It Simple, Stupid (제발 클래스나 메서드를 간단하게 만들라는 법칙)
+<code class="language-plaintext highlighter-rouge">DRY</code>: Do not Repeat Yourself, (반복되는 기능이나 객체를 하나로 만들어서 관리하라는 법칙)
+<code class="language-plaintext highlighter-rouge">YAGNI</code>: You Ain’t Gonna Need it (코드를 적어나가다 보면 갑자기 머릿속에서 떠오르는 필요한 기능이 있어서 막 적지만 결국 안 쓴다는 법칙)</p>
+
+<h2 id="solid-원칙">SOLID 원칙?</h2>
+
+<p>SRP : 단일 책임 원칙 (각 클래스는 하나의 정보만을 가지게 만들어야 한다)
+OCP : 개방 폐쇄 원칙 (확장에는 열려있으며 변경에는 닫혀 있어야 한다)
+LSP : 리스코프 치환 원칙 (인터페이스의 서브타이핑은 인터페이스에 정의된 형태를 최대한 유지해야 한다?)
+ISP : 인터페이스 분리 원칙 (인터페이스는 최소한으로 유지하라)
+DIP : 의존 관계 역전 원칙 (상위 레벨의 모듈이나 인터페이스가 서브 클래스나 타이핑에 영향을 받아서는 안된다)</p>
+
+<p>이러한 디자인의 원칙은 있는데, <code class="language-plaintext highlighter-rouge">소프트웨어 디자인</code> 에 대한 정의는 어딨을까?</p>
+
+<p><code class="language-plaintext highlighter-rouge">디자인</code> 은 뭘까? 한글로 번역하면 <code class="language-plaintext highlighter-rouge">설계</code> 인데, 사전에 따르면</p>
+
+<blockquote>
+  <p>건축물 설립이나 토지 공사, 기계의 제작 따위에서 그 목적에 따라 실제적인 계획을 세우고 구체적으로 도면을 그려 명시하는 일</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>이라는 의미로 해석이 가능한데, 설계를 하는 방법에 완벽한 것이 없다. 그리고 설계도면을 보고 똑같은 건축물이 나오는 것과는 달리 소프트웨어의 설계를 보고 같은 결과물이 나오기는 힘들다.
+</code></pre></div></div>
+
+<p>설계는 시스템이 어떤 요구사항을 만족시키는 조건을 정의하는 것이다. 라는 개념에서 바라보자.</p>
+
+<p>가령 <code class="language-plaintext highlighter-rouge">드론은 날 수 있어야 한다</code> 라는 요구사항을 예시로 든다면 이런 요구사항을 만족한다는 것을 증명할 수 있는, 아주 세밀하고 상세한 조건을 정의해야 한다.
+화성의 대기 상태를 파악하고, 화성을 분석하는 등의 파악이 필요하다.</p>
+
+<h1 id="나의-메이저-버전을-업그레이드-하는-마이너-원칙들">나의 메이저 버전을 업그레이드 하는 마이너 원칙들</h1>
+
+<p><code class="language-plaintext highlighter-rouge">개발자는 평생 공부하는 직업이다. 신기술을 탐험하는 숙명을 가진 직업이 개발자다.</code></p>
+
+<h2 id="나만의-속도로-가라-방향을-잘-정하고-자신의-속력을-잘-파악해라">나만의 속도로 가라. 방향을 잘 정하고 자신의 속력을 잘 파악해라.</h2>
+
+<p>그렇다면 나만의 속도는 어떻게 인지할 수 있을까? -&gt; ‘낯선 방식으로 해결하기’
+<code class="language-plaintext highlighter-rouge">학습은 익숙한 것을 의식하지 않고 반복하는 게 아니라, 낯선 것을 의도를 갖고 배우는 것</code></p>
+
+<h2 id="어떤-대상이-물어보더라도-그-사람이-이해하기-쉽게-설명할-수-있어야-진짜로-아는-것-이다">어떤 대상이 물어보더라도 그 사람이 이해하기 쉽게 설명할 수 있어야 진짜로 ‘아는 것’ 이다.</h2>
+
+<p>형식지 -&gt; 암기로 터득한 지식 -&gt; 쉽게 잊을 수 있다.</p>
+
+<p>암묵지 -&gt; 직접 체험해서 체화한 지식 -&gt; 쉽게 잊혀지지 않는다.</p>
+
+<p>결국 둘 다 필요하긴 하다..</p>
+
+<h2 id="남들에게-자존심을-세우기보다-나의-자존감을-채워라">남들에게 자존심을 세우기보다 나의 자존감을 채워라</h2>
+
+<p>다른 사람들이랑 비교하지말고 하루하루 자신이 성장해나가는 것을 느껴라</p>
+
+<p>목표를 세세하게 나누어서 하나씩 해결해나가는 성취감을 느껴라</p>
+
+<h2 id="혼자-프로그래밍하면-스스로-방향을-바꾸는것을-쉽게-인지하지-못한다---짝-프로그래밍">혼자 프로그래밍하면 스스로 방향을 바꾸는것을 쉽게 인지하지 못한다. -&gt; 짝 프로그래밍</h2>
+
+<p>서로 과정을 기록하고 공유하는 맥락이 제일 중요하다.</p>
+
+<h2 id="의도적으로-실수해라">의도적으로 실수해라</h2>
+
+<p>의도적으로 실수해서 어떻게 되는지 체화했다.</p>
+
+<p>누구나 실수할 수 있다고 가정하고 최종 릴리즈가 되기 전에 실수를 찾아낼 수 있는 안정적인 흐름을 만들어야 한다.</p>
+
+<p>소프트웨어 개발은 유연하게 해라. 다른 사람의 의견을 듣고 서로 공유해라</p>
+
+<p>실패해라 -&gt; 코드를 완성 못해도 좋다. 자신이 생각한 방향으로 시도해보고 실패하는 것은 의미가 있다.
+테스트 조건을 가정하고, 결과를 예측하고, 생각이 맞았는지 -&gt; 그러고 나서 개선해라. -&gt; 정리해서 오픈 소스 형태로 공유해라.</p>
+
+<h1 id="달리는-기차의-바퀴를-갈아-끼우기">달리는 기차의 바퀴를 갈아 끼우기</h1>
+
+<p>여러 번의 개발 문화에 대한 질문을 정리하다보니, 어느정도의 행동 강령이 된 세 가지가 있다고 한다.</p>
+
+<h2 id="밥값">밥값</h2>
+
+<blockquote>
+  <p>Make it work, then make it better (“일단 동작하게 만들다음, 더 좋게 만들어라”)</p>
+</blockquote>
+
+<h3 id="일단-동작하게-만들어라">일단 동작하게 만들어라</h3>
+
+<p>일단 동작하게 만들어라, 라는 말은 이해하기 어렵지 않다. 어떻게든 요구사항을 만족해서 정상적으로 수행되도록 하라는 것이다.</p>
+
+<p>사실 이렇게만 보면 언젠간 가능해보이지만 현실은 제약사항이 좀 붙는다. 시간, 비용, 인원 등의 자원에 해당하는 것이 대표적인 제약사항일 것이다.</p>
+
+<p>이러한 제약 조건들을 극복하고 제대로 동작하는 코드를 제때 만드는 것을 글쓴이는 <code class="language-plaintext highlighter-rouge">밥값</code> 이라고 부른다.
+밥값에는 난이도에 제약은 크게 없다. 만약 신입이 일을 너무 어려워한다면 쉬운 일을 줌으로써 밥값을 하도록 할 수도 있다.</p>
+
+<p>지금 당장 요구사항을 만족하면서 잘 돌아가는 코드가 없다면, 미래에 그 조직이 유지될 수 있을까?</p>
+
+<p>아마 불가능할 것이다. 따라서 지금 당장 실행되는 코드가 있어야 미래에 더 좋은 코드를 만들 수 있다.</p>
+
+<h3 id="더-좋게-만들어라">더 좋게 만들어라</h3>
+
+<p>더 좋게 만들어라 라는 말은 생각해볼 것이 좀 있다.</p>
+
+<p>더 좋은 것의 기준이 뭘까? 더 좋은 코드는 어떤 코드일까?</p>
+
+<h3 id="더-좋은-코드">더 좋은 코드</h3>
+
+<p>대체로 더 좋은 코드라는 말을 쓸 때 <code class="language-plaintext highlighter-rouge">가독성</code>, <code class="language-plaintext highlighter-rouge">성능</code>, <code class="language-plaintext highlighter-rouge">유연성</code> 을 제시한다.</p>
+
+<p>가독성은 말 그대로 코드를 읽기 쉬워짐으로써 기능이나 버그 수정에 훨씬 용이하다. 가독성이 좋은 코드는 좋은 <code class="language-plaintext highlighter-rouge">관행</code> 을 따른다.</p>
+
+<ul>
+  <li>줄 바꿈, 탭, 들여쓰기 등등에서 모두와의 약속을 지켜라. 변수명을 지을때도 습관을 지켜라. 예외를 던지기로 했으면 예외를 던져라, null을 반환하기로 했으면 null을 반환해라.</li>
+  <li>코멘트가 필요없어도 이해 되는 코드는 매우 훌륭하다. 그러나 흐름을 설명하는 코멘트나 반드시 필요한 코멘트를 적는 것에는 주저하지 말자.</li>
+  <li>코드가 짧은 것이 읽기 좋다. 함축적인 코드보다는 명시적인 코드가 읽기 좋다.</li>
+  <li>삭제해야 할 코드를 굳이 주석으로 남겨두지 마라. Git 이 알아서 보관해준다.</li>
+</ul>
+
+<p>성능은 매우 중요한 조건이지만 대부분의 경우에서는 우선순위가 높지 않다.</p>
+
+<blockquote>
+  <p>섣부른 최적화는 모든 악의 근원이다.</p>
+</blockquote>
+
+<blockquote>
+  <p>최적화의 규칙</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 하지 마라.
+2. 아직 하지 마라 (전문가 전용)
+</code></pre></div></div>
+
+<p>성능이 좋은 코드는 대부분 이해하기 어렵다. 정말 성능이 필요한 코드가 있다면 어느 코드가 대부분의 자원을 사용하는지, 프로파일링을 해야한다.
+그런 코드들을 격리하고 적절한 시점에 최적화해라.</p>
+
+<p>유연성이 있고 어려운 코드 보다는 유연성이 없더라도 쉬운 코드가 더 좋은 코드이다.</p>
+
+<p>유연성에는 추상화가 필요하다. 그러나 추상화를 숭배하고 남발하지는 마라.</p>
+
+<p>if 문을 극단적으로 배제하고, Factory 를 과도하게 사용하고, 클린 코드와 SOLID 를 ‘과도하게’ 숭배하면서 추상화를 챙기지 마라.</p>
+
+<blockquote>
+  <p>잘못된 추상화보다는 중복이 낫다.</p>
+</blockquote>
+
+<p>일단 Make it work 를 챙겨라. 그리고 가독성을 최우선으로 챙겨라. 성능과 유연성은 그 다음이다.</p>
+
+<h2 id="기술-부채란">기술 부채란?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">기술 부채</code>는 당면한 기술적인 문제 해결을 뒤로 미루고, 시급한 비지니스 문제 해결을 우선시하는 일이 반복되면서, 언젠가부터 기술이 비즈니스의 발목을 잡는 상황을 재정적인 부채에 빗단 말이다.</p>
+
+<p>빚을 내서 돈을 쓰면 이자를 댓가로 지불을 해야하는 것 처럼, 기술적인 문제 해결을 뒤로 미루고 비즈니스를 우선시하면 개발 지연과 품질 저하라는 대가를 지불해야 한다.</p>
+
+<p>그렇게 기술 부채가 늘어나면 결국 전면 재개발을 해야하거나 서비스 중단이라는 결과로 이어질지도 모른다.</p>
+
+<p>앞에서 우선 동작하게 하라고 했는데 이러면 기술 부채가 늘어나지는 않을까? 라고 생각할 수 있다. 분명히 동작하게 만든 뒤에는 더 좋은 코드로의 개선이 필요하다.</p>
+
+<p>이럴 때 필요한 것이 보이스카웃 캠핑 규칙이다.</p>
+
+<blockquote>
+  <p>언제나 발견했을 때보다 깨끗하게 해놓고 캠핑장을 떠나라.</p>
+</blockquote>
+
+<p>수정한 코드는 원래 코드보다는 깨끗해야 한다. 최소한 더 나빠지면 안된다.</p>
+
+<p>물론 현실에서 이렇게 관리하는 건 쉽지 않다. 최소한 더 나빠지지 않게 관리를 하면서 시간을 들여 천천히 더 좋은 개선 방향을 설정하고 실행해야한다.</p>
+
+<p>최근에는 레거시 코드라는 말은 마치 기술 부채와도 비슷한 뉘앙스로 쓰인다.</p>
+
+<p>하나씩 뜯어고쳐야 할 코드라는 의미로 보이는데, 방대한 레거시 부채를 빠른 시일내로 고치려고 한다면 레거시 코드의 양을 보고 좌절할지도 모른다. 천천히 시간을 들여 고쳐라.</p>
+
+<p>부채 청산의 시작은 자동화된 테스트를 확보하는 것이다. 테스트 코드를 작성하면서 부채를 관리할 수 있다면, 그것은 더 이상 부채가 아니다.</p>
+
+<p>현실에서 기술 부채가 없는 개발은 불가능하다. 우리가 지향해야 하는 목표는 기술 부채를 잘 식별해서, 관리 가능한 부채로 만드는 것이다.</p>
+
+<h2 id="삽질">삽질</h2>
+
+<p>기존에 잘 굴러가던 코드를 다시 발명하는 짓은 삽질일까?
+보통은 잘 굴러가는 바퀴를 다시 발명할 필요는 없다. 하지만 개발자는 다르다. 내가 자주 사용하는, 미래에도 자주 사용할 기술이라면 다시 발명해 볼 필요도 있다.</p>
+
+<p>잘 굴러가던 코드를 다시 작성해보면서 작동 원리등의 지식과 경험을 배울 수 있고 운이 좋다면 더 좋은 코드로의 개선도 가능할 것이다.</p>
+
+<h2 id="은탄환">은탄환</h2>
+
+<p>모든 문제를 해결할 수 있는 은탄환은 개발자한테는 없다.</p>
+
+<p>코드를 많이 읽고, 많이 쓰고, 많이 생각해라.</p>
+
+<p>코드 리뷰를 할때 많이 읽어라. 기왕 읽을거면 좋은 코드를 읽어라. 여러 번 반복해서 읽되, 한 줄 읽는데 시간을 너무 많이 쓰지는 마라.</p>
+
+<p>글쓴이가 이 코드를 왜 썼는지 의도(컨텍스트)도 같이 파악하면서 읽어라.</p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">개발자 원칙</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#개발자-원칙">개발자 원칙</a></li><li><a href="#오류를-만날-때가-가장-성장하기-좋을-때다">오류를 만날 때가 가장 성장하기 좋을 때다.</a></li><li><a href="#디자인이랑-무엇인가">디자인이랑 무엇인가?</a><ul><li><a href="#아주-작은-단위의-코드에-적용되는-원칙">아주 작은 단위의 코드에 적용되는 원칙?</a></li><li><a href="#solid-원칙">SOLID 원칙?</a></li></ul></li><li><a href="#나의-메이저-버전을-업그레이드-하는-마이너-원칙들">나의 메이저 버전을 업그레이드 하는 마이너 원칙들</a><ul><li><a href="#나만의-속도로-가라-방향을-잘-정하고-자신의-속력을-잘-파악해라">나만의 속도로 가라. 방향을 잘 정하고 자신의 속력을 잘 파악해라.</a></li><li><a href="#어떤-대상이-물어보더라도-그-사람이-이해하기-쉽게-설명할-수-있어야-진짜로-아는-것-이다">어떤 대상이 물어보더라도 그 사람이 이해하기 쉽게 설명할 수 있어야 진짜로 ‘아는 것’ 이다.</a></li><li><a href="#남들에게-자존심을-세우기보다-나의-자존감을-채워라">남들에게 자존심을 세우기보다 나의 자존감을 채워라</a></li><li><a href="#혼자-프로그래밍하면-스스로-방향을-바꾸는것을-쉽게-인지하지-못한다---짝-프로그래밍">혼자 프로그래밍하면 스스로 방향을 바꾸는것을 쉽게 인지하지 못한다. -&gt; 짝 프로그래밍</a></li><li><a href="#의도적으로-실수해라">의도적으로 실수해라</a></li></ul></li><li><a href="#달리는-기차의-바퀴를-갈아-끼우기">달리는 기차의 바퀴를 갈아 끼우기</a><ul><li><a href="#밥값">밥값</a><ul><li><a href="#일단-동작하게-만들어라">일단 동작하게 만들어라</a></li><li><a href="#더-좋게-만들어라">더 좋게 만들어라</a></li><li><a href="#더-좋은-코드">더 좋은 코드</a></li></ul></li><li><a href="#기술-부채란">기술 부채란?</a></li><li><a href="#삽질">삽질</a></li><li><a href="#은탄환">은탄환</a></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

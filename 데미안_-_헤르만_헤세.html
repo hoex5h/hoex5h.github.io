@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>데미안 - 헤르만 헤세</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/%EB%8D%B0%EB%AF%B8%EC%95%88_-_%ED%97%A4%EB%A5%B4%EB%A7%8C_%ED%97%A4%EC%84%B8" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="데미안 - 헤르만 헤세" />
+    <meta property="og:description" content="데미안 - 헤르만 헤세 데미안 나는 ‘고전’ 이라는 장르에 대해 크게 관심이 없었다. 주로 어떠한 원리, 개념들이나 자연적인 것에 대한 책들, 혹은 누군가의 일대기를 읽었다. 고전은 둘째치고 나의 내면을 찾아간다든지, 자기 인식에 관한 어떠한 책들도 나는 읽어본 적이 없다. 읽기 싫었던 것은 아니지만 내가 좋아하는 분야가 명확했기 때문이다. 이번에 읽게된" />
+    <meta property="og:url" content="https://hoex5h.github.io/%EB%8D%B0%EB%AF%B8%EC%95%88_-_%ED%97%A4%EB%A5%B4%EB%A7%8C_%ED%97%A4%EC%84%B8" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:04:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:04:00+00:00" />
+    <meta property="article:tag" content="문학" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="데미안 - 헤르만 헤세" />
+    <meta name="twitter:description" content="데미안 - 헤르만 헤세 데미안 나는 ‘고전’ 이라는 장르에 대해 크게 관심이 없었다. 주로 어떠한 원리, 개념들이나 자연적인 것에 대한 책들, 혹은 누군가의 일대기를 읽었다. 고전은 둘째치고 나의 내면을 찾아간다든지, 자기 인식에 관한 어떠한 책들도 나는 읽어본 적이 없다. 읽기 싫었던 것은 아니지만 내가 좋아하는 분야가 명확했기 때문이다. 이번에 읽게된" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="문학" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/%EB%8D%B0%EB%AF%B8%EC%95%88_-_%ED%97%A4%EB%A5%B4%EB%A7%8C_%ED%97%A4%EC%84%B8",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/book.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/%EB%8D%B0%EB%AF%B8%EC%95%88_-_%ED%97%A4%EB%A5%B4%EB%A7%8C_%ED%97%A4%EC%84%B8"
+    },
+    "description": "데미안 - 헤르만 헤세 데미안 나는 ‘고전’ 이라는 장르에 대해 크게 관심이 없었다. 주로 어떠한 원리, 개념들이나 자연적인 것에 대한 책들, 혹은 누군가의 일대기를 읽었다. 고전은 둘째치고 나의 내면을 찾아간다든지, 자기 인식에 관한 어떠한 책들도 나는 읽어본 적이 없다. 읽기 싫었던 것은 아니지만 내가 좋아하는 분야가 명확했기 때문이다. 이번에 읽게된"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="데미안 - 헤르만 헤세" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag- tag- post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag//'>문학</a>,
+                
+                
+                
+                <a href='/tag//'>철학</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">데미안 - 헤르만 헤세</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/book.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <h1 id="데미안---헤르만-헤세">데미안 - 헤르만 헤세</h1>
+
+<p>데미안</p>
+
+<p>나는 ‘고전’ 이라는 장르에 대해 크게 관심이 없었다. 주로 어떠한 원리, 개념들이나 자연적인 것에 대한 책들, 혹은 누군가의 일대기를 읽었다. 고전은 둘째치고 나의 내면을 찾아간다든지, 자기 인식에 관한 어떠한 책들도 나는 읽어본 적이 없다. 읽기 싫었던 것은 아니지만 내가 좋아하는 분야가 명확했기 때문이다. 이번에 읽게된 데미안은 예상하듯이 내가 읽던 책들과는 매우 달랐다.</p>
+
+<p>주인공 에밀 싱클레어는 따뜻하고 화목한 부모님과 가족들, ‘선’에 속해 자라면서도 살인,강간,강도와 같은 비참하고 암울한 ‘악’ 의 이야기들을 집안의 하녀에게 들으며 자랐다. 어릴 적 그는 ‘선’ 의 세계에서 벗어날 생각이 크게 없었으며 당연한 운명으로 받아들였다. 그러다 프란츠 크로머라는 아이를 만나게 되는데, 이 아이는 ‘악’ 에 속해있는 아이였고 주인공 싱클레어를 악의 세계로 강하게 끌어 당긴다. 여기서 크로머는 싱클레어에게 ‘악’ 을 계몽시켜주는 역할이 아니라 그저 주인공에게 위해를 가하고 악의 ‘하수인’으로 만들어 부려먹는 악마에 가깝다. 고통에 몸부림치는 싱클레어를 구원해주는 사람이 등장하는데 이 사람이 바로 데미안이다. 또래 아이들보다 어른스러운 외모와 행동, 말투를 지니고 있었으며 중성적인 얼굴을 지녔다. 크로머로부터 싱클레어를 구해준 데미안은 싱클레어와 친해지고 카인과 아벨 이야기를 한다. 성경 구절에 카인은 ‘악’, 아벨은 ‘선’ 으로 표현되고 있었고 부모님과 선생님들도 그렇게 가르쳤다. 당연히 그들에게서 자란 싱클레어도 마찬가지였다. 그러나 데미안은 이에 다른 생각을 가졌고 싱클레어와 자신의 생각을 공유한다. 이는 오직 ‘선’을 좇아 살아가던 싱클레어의 생각에 균열을 일으켰다. 밝디밝은 빛의 세계에 속해 ‘악’을 배척하고 ‘선’을 숭배하던 싱클레어는 데미안과의 교감을 통해 ‘선은 무조건 옳지 않고 악은 무조건 나쁘지 않다.그 가치를 판단하는 것은 오직 자신의 내면만이 가능하고, 선과 악을 좇는 것이 아니라 자신의 내면을 좇아야한다.’ 라는 것을 깨닫는다.</p>
+
+<p>여기까지 읽으면서 자신의 내면이라는 말에 굉장히 난해함을 느꼈다. 나는 선과 악은 자신의 내면보다 공동체와 규칙이 정한다는 느낌을 강하게 받고 있었다. 요즘처럼 코로나 바이러스가 창궐하는 것과 같은 어려운 시기에는 더더욱이 공동체가 정한 규칙은 무조건적으로 지켜져야 한다고 생각한다. 그러나 자신의 내면이 강하게 악을 지지한다면 이것은 선이 될 수 있을까. 반대로 강하게 선을 배척한다면 이것은 악이 될 수 있을까. 책에 나오는 대다수는 나와 같은 생각을 하며 살아가는 평범한 사람들이다. 반대로 데미안과 그의 어머니는 남들이 정한 기준이 아닌 자신의 내면을 기준 삼아 살아간다. 주인공인 싱클레어는 바로 나같은 사람들과 데미안 사이에서 갈등하던 존재였고 끝내 자신이 살아온 ‘선’의 세계를 부수고 나가는 사람이 된다. 여기서 데미안의 명언으로 꼽히는 문장이 나오는데,</p>
+
+<p>“새는 알에서 나오기 위해 투쟁한다. 알은 세계이다. 태어나려고 하는 자는 누구든 하나의 세계를 파괴하여야 한다. 새는 신을 향해 날아간다. 그 신의 이름은 아브락사스이다”</p>
+
+<p>라는 문장이다. ‘싱클레어를 비롯해 모든 사람들은 자신의 내면이 원하는 바를 이루기 위해서는, 본인들이 그저 안락하게 살아가던 세계를 박차고 나와 그 세계를 파괴해야한다.</p>
+
+<p>자신의 내면이 무엇을 원하는지 알아야하며, 그것을 깨닫고 난 뒤에는 알에서 나오도록 투쟁해야한다’ 라고 나는 느꼈다. 아브락사스라는 신은 ‘선’ 과 ‘악’을 모두 지닌 존재로 표현된다.</p>
+
+<p>싱클레어는 원래 ‘선’의 세계에 속했지만 크로머를 만나 비록 강제적 이었을지라도 ‘악’ 을 경험하게 된다. 그 후 데미안에게 구해져 ‘선’의 세계로 돌아갔지만 데미안과의 교감으로 자신의 내면을 탐구하며 선과 악 사이에서 갈팡질팡한다. 내면이 좇고자 하는 것이 무엇인지 모르던 싱클레어는 술과 못된 무리들과 어울리며 악을 탐구하기도 하고, 공원에서 마주친 어떤 여자에게 사랑에 빠져 악에서 벗어나기도 한다. 훗날 그 여자에게 ‘베아트리체’ 라는 이름을 혼자 짓고 그녀의 그림을 그리는 연습을 하는데, 완성된 그림을 보더니 자신이 그린 사람은 베아트리체가 아니라 데미안이었다는 사실을 깨닫는다. 싱클레어의 내면이 좇던 모습은 데미안이 좇던 모습과 동일했기 때문이었을까.</p>
+
+<p>이 책에서 주고자 하는 교훈은 ‘남들의 잣대에 휘둘리지 말고 자신의 내면이 원하는 꿈을 찾고, 꿈을 위해 살아오던 알을 부셔라. 자신이 원하는것은 선과 악을 모두 지녔고 꿈을 판단하는 주체는 남이 아니라 바로 자신의 내면이다.’ 라고 느꼈다.</p>
+
+<p>모두들 한 번 쯤은 어떤것들에 대해 남들이 아니라고 말할 때 도전해본 경험들이 있을 것이다. 결과가 좋았든 좋지 않았든 그 도전에 대해 후회는 없었을 것이고 나 또한 그러한 경험이 있다. 그렇기 때문에 이 책의 교훈에 크게 공감했고 모든 사람들이 한 번 쯤은 도움을 받을 수 있는 문장이라고 생각한다. 하지만 요즘들어, 무언가를 선택하기에 있어 자신의 내면이 영향력을 가장 많이 행사하는건 맞지만 오로지 내면만을 보고 선택할 수 있을까? 라는 생각이 든다. 사람은 무리를 지어 살아가고 공동체를 형성해 서로를 보호하고 공감하며 살아가는데 자신의 내면만 생각할 수 있는걸까 라는 생각을 하며 읽게 되었다. 한 편으로는 주인공이 부러웠고 또 다른 한 편으로는 걱정 되었다. 만약 내 자신이 싱클레어였다면 데미안과의 만남은 나를 바꿀 수 있었을까?</p>
+
+<p>대학생이 된 싱클레어는 데미안과 조우하게 되는데, 이는 싱클레어가 강렬하게 데미안과 다시 만나고 싶다고 생각하기 때문이다. 자신의 내면이 강렬하게 원하면 이루어진다는 데미안의 말이 맞아떨어지는 순간이었다. 싱클레어는 데미안과 만나기 전부터 여러 꿈들을 꾸어왔는데 여러 꿈들에는 어떤 사람이 나왔다. 여성이면서 남성이기도 하고 아름다운 외모를 지녔으며 어머니같으면서도 동시에 애인같은 사람이었다고 한다. 이 꿈에 나오던 사람은 바로 데미안의 어머니였고, 작중에서 신적인 존재로 표현된다. 싱클레어는 데미안과 데미안의 어머니, 에바부인과 자주 어울리며 내면의 탐구에 더욱 정진했고 행복한 시간을 보낸다. 행복한 꿈이 지속될 것이라고만 생각하던 싱클레어에게 에바부인은 영원한 꿈은 없다며, 언제까지나 어떤 꿈이 계속되지는 않는다고 얘기한다.</p>
+
+<p>싱클레어는 에바부인에게 친구,어머니,애인 등등 다양한 감정을 느끼고 그녀에게 더욱 빠져들게 된다. 그러자 에바부인은 싱클레어를 불러 이러한 말을 한다.</p>
+
+<p>“ 사랑은 간청해서는 안 돼요. … 강요해서도 안 됩니다. 사랑은, 그 자체 안에서 확신에 이르는 힘을 가져야 합니다. 그러면 사랑은 더 이상 끌림을 당하는 것이 아니라 스스로 끕니다. 싱클레어, 당신의 사랑은 나에게 끌리고 있어요. 언젠가 내가 아니라 당신의 사랑이 나를 끌면, 그러면 내가 갈 겁니다. 나는 선물을 주지는 않겠어요. 쟁취되겠습니다.”</p>
+
+<p>사실 이 챕터부터는 읽으면서도 이해하기 조금 어려웠다. 에바 부인을 최대한 신적인 존재로 이끌어가야 싱클레어의 행동들이 이해되었다. 게다가 마치 예언을 하는듯한 데미안과 에바부인때문에 더더욱 몰입하기가 힘들었다. 이전까지는 그래도 굳센 내면을 가진 사람들이라고 믿었다면 이제는 완전히 신 적인 존재가 되어버린 것 같았다.</p>
+
+<p>데미안과 에바부인은 지속적으로 불길한 꿈을 꾸고, 여러 징조들을 느낀다. 그 징조는 곧 전쟁이라는 현실이 되었다. 데미안과 싱클레어는 전쟁에 참가하게 되고 싱클레어는 이 곳에서 모든 사람이 한 가지의 이상(꿈)을 좇는 광경을 목격한다. 죽음을 목도하면서도 꿈을 위해 운명에 접근해가는 사람들을 보며 사람들이 알을 부수고 있음을 보게 된다. 그러다 불의의 사고로 호송되어 치료받는 도중 데미안을 만나는데, 데미안 역시 치료를 받는 중이었다. 데미안은 이제까지 한 번도 언급한 적 없던 프란츠 크로머의 일을 언급하며 앞으로 내가 필요할 때는 나를 직접 부르는 것이 아닌 자신의 내면에 귀를 기울이라고 한다. 그리고 싱클레어는 자신의 내면에 데미안이 있음을 느끼며 이야기는 끝이난다.</p>
+
+<p>데미안이라는 책은 흥미로우면서도 굉장히 어려웠다. 읽는 내내 한 문장을 여러번 읽어보기도 했고 그럼에도 이해가 안되는 부분이 많았다. 어떠한 교훈을 주려고 하는지는 이해를 했으나 문장 하나하나가 추상적이었고 직관적인 느낌을 받기 어려웠다.</p>
+
+<p>또한 초반부와 달리 후반부에는 신적인 존재와 영적인 요소가 많아 사실감이 존재하던 초반부에 비해 후반부는 이해하기 더욱 어려웠다.</p>
+
+<p>헤르만 헤세는 이 책으로 제1차 세계대전에 의해 좌절감을 느낀 수 많은 청년들에게 희망을 주었다고 한다. 언제까지나 고통에 몸부림칠 것이 아니라, 세계를 깨고 나오라는 이야기를 하고 싶었을거라 생각한다. 그리고 그 말은 당시 사람들뿐 아니라 현대인들에게까지 통용되는 이야기라 아직까지도 인기가 많은 책이 아닐까 싶다.</p>
+
+<p>한 번만 읽고 이해하기는 많이 어려운 책이라는 느낌을 받았다. 누군가가 책에 대해 물어본다면 나도 잘 모른다고 얘기할 것 같다. 꼭 다시 읽고 곱씹어 봐야겠다.</p>
+
+<p>추가로 작은 책이라 그런지 오타가 너무 많다. 다음엔 작은 책을 별로 안사고 싶다.</p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag//">문학</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%AA%A8%EB%B9%84%EB%94%95_-_%ED%97%88%EB%A8%BC_%EB%A9%9C%EB%B9%8C">모비딕 - 허먼 멜빌</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag//">
+                    
+                    See all 1 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">데미안 - 헤르만 헤세</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#데미안---헤르만-헤세">데미안 - 헤르만 헤세</a></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

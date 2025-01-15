@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/algorithm/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/algorithm/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">이분 탐색</title>
+      <link href="https://hoex5h.github.io/%EC%9D%B4%EB%B6%84_%ED%83%90%EC%83%89" rel="alternate" type="text/html" title="이분 탐색" />
+      <published>2025-01-14T02:11:00+00:00</published>
+      <updated>2025-01-14T02:11:00+00:00</updated>
+      <id>https://hoex5h.github.io/%EC%9D%B4%EB%B6%84_%ED%83%90%EC%83%89</id>
+      <content type="html" xml:base="https://hoex5h.github.io/%EC%9D%B4%EB%B6%84_%ED%83%90%EC%83%89">&lt;h1 id=&quot;이분-탐색&quot;&gt;이분 탐색&lt;/h1&gt;
+
+&lt;p&gt;알고리즘 문제에서 단골 문제로 등장하는 이분 탐색을 정리하려고 한다.&lt;/p&gt;
+
+&lt;p&gt;단순히 Target 을 찾는 것부터, Target 이 들어갈 자리(lower bound, upper bound)를 찾는 방법에 대해서도 한 번 정리해보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;이분-탐색target과-동일한게-있을-때&quot;&gt;이분 탐색(Target과 동일한게 있을 때)&lt;/h2&gt;
+
+&lt;p&gt;이분 탐색의 가장 기초적인 형태로, 찾고 싶은 Target 이 몇 번째 인덱스에 존재하는지 찾는 방법이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python
+def simple_binary_search(target: int, arr: list):
+    # 오름차순이라고 가정, 만약 arr 의 정렬이 보장되어 있지 않다면 정렬을 해야한다.
+    arr.sort()
+
+    start = 0
+    end = len(arr) - 1
+
+    while start &amp;lt;= end:
+        mid = (start + end) // 2
+        print(mid, arr[mid])
+
+        if target &amp;gt; arr[mid]:
+            start = mid + 1
+        elif target &amp;lt; arr[mid]:
+            end = mid - 1
+        else:
+            # target == arr[mid]
+            return mid
+
+    # target 을 찾지 못함
+    return -
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이분 탐색은 말 그대로, 이등분하여 탐색하는 알고리즘이다. 로직을 자세히 보아도 이해하는데 크게 어려움은 없다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 target 이상인 것 중에 가장 첫 번째 인덱스를 찾고 싶거나, target 보다 큰 것중에 가장 작은 인덱스를 찾는 방법을 알아보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;lower-bound&quot;&gt;Lower Bound&lt;/h2&gt;
+
+&lt;p&gt;(target &amp;lt;= arr[idx]) target 보다 크거나 같은 것 중에 가장 첫 번째 인덱스를 찾고 싶다면 어떻게 해야할까?&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python
+arr = [1, 3, 5, 5, 5, 7, 9]
+target = 5
+
+# 원하는 정답 = 2 (5, 5, 5의 인덱스 중에서 가장 작은 인덱스)
+# 위의 simple_binary_search() 함수의 결과값 = 3
+
+def lower_bound_bisect(target: int, arr: list):
+    # 오름차순이라고 가정, 만약 arr 의 정렬이 보장되어 있지 않다면 정렬을 해야한다.
+    arr.sort()
+
+    start = 0
+    end = len(arr)
+
+    while start &amp;lt; end:
+        mid = (start + end) // 2
+        print(mid, arr[mid])
+
+        if target &amp;gt;= arr[mid]:
+            end = mid
+        elif target &amp;lt; arr[mid]:
+            start = mid + 1
+
+        &quot;&quot;&quot;
+        만약 target 보다 작다면, start 를 mid + 1 로 바꿔서 이분한 배열의 오른쪽만 다시 확인하게 하고
+        만약 target 보다 크거나 같다면, mid 를 포함한 채로, 배열의 왼쪽을 다시 살펴본다.
+
+        왜 mid - 1 이 아니라, mid 일까? -&amp;gt; 찾고 싶은 것이 `target 보다 크거나 같은 것` 이므로, target &amp;gt;= arr[mid] 를 만족하는 순간
+        우리가 찾고자 하는 것이다. 그렇기 때문에 정답 범주에 넣어두어야 한다.
+        &quot;&quot;&quot;
+    return start
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;upper-bound&quot;&gt;Upper Bound&lt;/h2&gt;
+
+&lt;p&gt;이번에는 target 보다 큰 것 중에, 가장 작은 인덱스 값을 알아보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python
+arr = [1, 3, 5, 5, 5, 7, 9]
+target = 5
+
+# 원하는 정답 = 5 (1, 3, 5, 5, 5까지는 target 보다 작거나 같은 값이고, 7부터 target 보다 큰 값이므로)
+
+def upper_bound_bisect(target: int, arr: list):
+    # 오름차순이라고 가정, 만약 arr 의 정렬이 보장되어 있지 않다면 정렬을 해야한다.
+    arr.sort()
+
+    start = 0
+    end = len(arr)
+
+    while start &amp;lt; end:
+        mid = (start + end) // 2
+        print(mid, arr[mid])
+
+        if target &amp;gt; arr[mid]:
+            end = mid
+        elif target &amp;lt;= arr[mid]:
+            start = mid + 1
+        &quot;&quot;&quot;
+        만약 target 보다 작거나 같다면, start 를 mid + 1 로 바꿔서 이분한 배열의 오른쪽만 다시 살펴보게 하고
+        만약 target 보다 크다면, mid 를 포함한 채로 왼쪽을 다시 살펴보게 한다.
+
+        왜 mid - 1 이 아니라, mid 일까? -&amp;gt; 찾고 싶은 것이 `target 보다 큰 것` 이므로, target &amp;gt; arr[mid] 를 만족하는 순간
+        우리가 찾고자 하는 것이다. 그렇기 때문에 정답 범주에 넣어두어야 한다.
+        &quot;&quot;&quot;
+    return start
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;차이점&quot;&gt;차이점&lt;/h2&gt;
+
+&lt;p&gt;단순 이분 탐색과 lower / upper bound 의 while 종료 조건 차이점을 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;while start &amp;lt;= end&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;while start &amp;lt; end&lt;/code&gt; 이 있는데, Lower/Upper 탐색은 1캰씩 움직이며 찾아나가는데 start &amp;lt;= end 로 하게 되면 소수점 버림으로 인해서 무한 루프에 빠질 수 있다.&lt;/p&gt;
+
+&lt;p&gt;또한 Lower/Upper 의 return 은 mid 가 아니라 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start&lt;/code&gt; 인데, 이는 당연하게도 Lower 과 Upper 이 각각 크거나 같은 것 중에 최소값, 큰 것 중에 최소값을 return 해야하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;Lower/Upper 의 end 초기값도 조금 다른데, len(arr) - 1 이 아니라, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len(arr)&lt;/code&gt; 이다. 이는 조건을 만족하는 곳이 없으면 무조건 len(arr) 의 위치에 넣으면 되기 때문이다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Algorithm" />
+      
+
+      
+        <summary type="html">이분 탐색</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">우선순위 큐</title>
+      <link href="https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90" rel="alternate" type="text/html" title="우선순위 큐" />
+      <published>2025-01-14T02:11:00+00:00</published>
+      <updated>2025-01-14T02:11:00+00:00</updated>
+      <id>https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90</id>
+      <content type="html" xml:base="https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90">&lt;p&gt;이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다.&lt;/p&gt;
+
+&lt;p&gt;다만 파이썬에는 여러가지 자료구조와 함수들이 잘 구현되어 있는데 자바스크립트를 써보니까 우선순위 큐가 내장 라이브러리에 없었다!&lt;/p&gt;
+
+&lt;p&gt;이번 기회에 자바스크립트 공부 겸 힙과 우선순위 큐에 대해 다시 복습하고 직접 구현해보려고 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;heap&quot;&gt;Heap&lt;/h1&gt;
+
+&lt;p&gt;우선 순위 큐는 힙 자료구조를 사용하기 때문에 힙이 무엇인지 알고 있어야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;힙(Heap)&lt;/code&gt; 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;최댓값 혹은 최솟값을 빠르게 찾아내는 연산을 위해&lt;/code&gt; 설계된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;완전 이진 트리&lt;/code&gt; 자료구조이다.&lt;/p&gt;
+
+&lt;p&gt;최댓값을 빠르게 찾고 부모노드의 키 값이 자식 노드의 키 값보다 항상 큰 힙을 최대 힙, 최솟값을 빠르게 찾고 부모노드의 키 값이 자식 노드의 키 값보다 항상 작은 힙을 최소 힙이라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;우선 순위 큐에서도 작을 수록 우선순위가 높은지, 클 수록 우선순위가 높은지에 따라 최대 힙, 최소 힙을 적절히 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;보통 최소 힙 라이브러리가 내장되어 있기 때문에, 만약 클 수록 우선순위가 높다면 데이터 전체에 -1 을 곱하는 등의 처리를 통해 최소 힙을 최대 힙처럼 사용할 수도 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;우선-순위-큐&quot;&gt;우선 순위 큐&lt;/h1&gt;
+
+&lt;p&gt;그렇다면 우선 순위 큐는 어떤 식으로 구현되어 있을까?&lt;/p&gt;
+
+&lt;p&gt;최소 힙과 최대 힙은 거의 유사하기도 하고, 위에서 말한 것처럼 활용할 수도 있기 때문에 최소 힙 우선순위 큐를 한 번 살펴보려고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+class PriorityQueue {
+  constructor() {
+    this.heap = []; // 데이터를 담을 배열
+  }
+
+  enqueue(value) {
+    // 1. 힙 자료구조에 value 를 넣고
+    // 2. value 가 알맞은 자리를 찾아갈 수 있도록 한다. -&amp;gt; 아래의 bubbleUp 함수를 사용할 예정
+  }
+
+  dequeue() {
+    // 1. 힙 자료구조의 루트 노드에 해당하는 값을 임시로 저장해두고
+    // (pop 이 아님! pop(0)은 O(n) 의 시간복잡도를 가지기 떄문에 힙 자료구조를 사용하는 의미가 없어짐
+    // 2. 맨 마지막 리프 노드에 해당하는 값을 루트 노드에 저장하고,
+    // 3. 해당 루트 노드의 값이 알맞은 자리를 찾아갈 수 있도록 한다. -&amp;gt; 아래의 bubbleDown 함수를 사용할 예정
+  }
+
+  peek() {
+    // 루트 노드를 pop 하는 것이 목적이 아닌, 그저 루트 노드를 참조하고자 할 때
+    return this.heap.length &amp;gt; 0 ? this.heap[0] : null;
+  }
+
+  bubbleUp(index) {
+    // index 번 째에 해당하는 노드의 값보다 작은 값이 있다면, index 노드를 위로 올려보내야 한다.
+  }
+
+  bubbleDown(index) {
+    // index 번 째에 해당하는 노드의 값보다 큰 값이 있다면, index 노드를 아래로 내려보내야 한다.
+  }
+
+  swap(i, j) {
+    // i, j 값 스왑
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+  }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;함수를 구현하기 전에 간략한 설명과 함께 하나씩 구현해보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;bubbleup&quot;&gt;bubbleUp&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+bubbleUp(index) {
+  // index 번 째에 해당하는 노드의 값보다 작은 값이 있다면, index 노드를 위로 올려보내야 한다.
+    while (index &amp;gt; 0) {
+    const parentIndex = Math.floor((index - 1) / 2); // index 노드의 부모 노드 구하기.
+    if (this.heap[parentIndex] &amp;lt;= this.heap[index]) break; // 최소 힙이므로 부모노드는 항상 자식 노드보다 작거나 같다!
+
+    this.swap(index, parentIndex); // index 랑 부모노드랑 스왑
+    index = parentIndex; // 부모노드로 올라간 index 부터 반복
+  }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;자식노드(index) 와 부모노드를 비교하는 bubbleUp 함수.&lt;/p&gt;
+
+&lt;p&gt;bubbleUp 함수는 우리가 버블정렬을 하는 것 처럼, 두 값을 비교해서 위치를 바꾸는 함수이다.
+최소 힙을 구현하려고 하므로 부모노드는 항상 자식 노드보다 작거나 같아야 한다.&lt;/p&gt;
+
+&lt;p&gt;부모노드의 값을 구하는 방법은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.floor((index - 1) / 2)&lt;/code&gt; 인데&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;부모노드(0) -&amp;gt; 자식 노드(1, 2)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;부모노드(1) -&amp;gt; 자식 노드(3, 4)
+
+
+부모노드(n) -&amp;gt; 자식 노드(2n + 1, 2n + 2) 임을 알 수 있다.
+
+
+따라서 자식 노드가 +1, +2(왼쪽, 오른쪽) 중에 어떤 쪽인지에 상관없이 부모노드를 구하는 방법이 위의 방법인 것이다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;bubbledown&quot;&gt;bubbleDown&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+  bubbleDown(index) {
+    // index 번 째에 해당하는 노드의 값보다 큰 값이 있다면, index 노드를 아래로 내려보내야 한다.
+    while (true) {
+      const leftChildIndex = 2 * index + 1; // 왼쪽 자식 노드
+      const rightChildIndex = 2 * index + 2; // 오른쪽 자식 노드
+      let smallestIndex = index; // 부모노드, 왼쪽 자식노드, 오른쪽 자식 노드 중에 가장 작은 값을 저장할 변수
+
+      if (leftChildIndex &amp;lt; this.heap.length &amp;amp;&amp;amp; this.heap[leftChildIndex] &amp;lt; this.heap[smallestIndex]) {
+        // 만약 부모노드보다 왼쪽 자식 노드가 작다면 smallestIndex 를 왼쪽 자식 노드로 변경
+        smallestIndex = leftChildIndex;
+      }
+
+      if (rightChildIndex &amp;lt; this.heap.length &amp;amp;&amp;amp; this.heap[rightChildIndex] &amp;lt; this.heap[smallestIndex]) {
+        // 만약 위의 if 문에서 왼쪽 자식 노드가 작았다면 smallestIndex 는 왼쪽 자식 노드,
+        // 아니라면 부모 노드
+        // 똑같이 오른쪽 자식 노드랑 비교
+        smallestIndex = rightChildIndex;
+      }
+      // 만약 가장 작은 노드가 부모 노드라면 최소 힙의 조건을 만족하므로 break
+      if (smallestIndex === index) break;
+
+      // 자식 노드 중에 더 작은 노드(smallestIndex) 와 부모노드를 스왑
+      this.swap(index, smallestIndex);
+
+      //더 작은 노드의 위치에 index 노드를 두고 반복
+      index = smallestIndex;
+    }
+  }
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;bubbleDown 도 bubbleUp 와는 반대로 내려오는 것이기 때문에,&lt;/p&gt;
+
+&lt;p&gt;index에 해당하는 노드가 제자리를 찾을 때까지 자식 노드와의 비교를 반복한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;enqueue-dequeue&quot;&gt;enqueue, dequeue&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+  enqueue(value) {
+    // 1. 힙 자료구조에 value 를 넣고
+    this.heap.push(value);
+    // 2. value 가 알맞은 자리를 찾아갈 수 있도록 한다. -&amp;gt; 아래의 bubbleUp 함수를 사용할 예정
+    this.bubbleUp(this.heap.length - 1);
+  }
+
+  dequeue() {
+    if (this.heap.length === 0) return null;
+
+    // 1. 힙 자료구조의 루트 노드(0번째 Index)에 해당하는 값을 임시로 저장해두고
+    // (pop 이 아님! pop(0)은 O(n) 의 시간복잡도를 가지기 떄문에 힙 자료구조를 사용하는 의미가 없어짐
+    const min = this.heap[0];
+    // 2. 맨 마지막 리프 노드에 해당하는 값을 루트 노드에 저장하고,
+    const last = this.heap.pop();
+    if (this.heap.length &amp;gt; 0) {
+      this.heap[0] = last;
+
+      // 3. 해당 루트 노드의 값이 알맞은 자리를 찾아갈 수 있도록 한다. -&amp;gt; bubbleDown
+      this.bubbleDown(0);
+    }
+
+    return min;
+  }
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Algorithm" />
+      
+
+      
+        <summary type="html">이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다.</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

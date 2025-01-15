@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Express.js 따라 만들기</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Express.js 따라 만들기" />
+    <meta property="og:description" content="ts/js 로 express 따라 만들기 ts/js 로 express 따라 만들기 node 로 웹 서버를 만들때부터 express 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 app.use 를 사용했던 것 같다. 그래서 이번 기회에 express 를 socket 으로 구현해보려고 한다. http 모듈이 아니라 왜 socket 을 사용해야할까? 일단 웹" />
+    <meta property="og:url" content="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/javascript.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:tag" content="Javascript" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Express.js 따라 만들기" />
+    <meta name="twitter:description" content="ts/js 로 express 따라 만들기 ts/js 로 express 따라 만들기 node 로 웹 서버를 만들때부터 express 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 app.use 를 사용했던 것 같다. 그래서 이번 기회에 express 를 socket 으로 구현해보려고 한다. http 모듈이 아니라 왜 socket 을 사용해야할까? 일단 웹" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/javascript.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Javascript" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/javascript.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0"
+    },
+    "description": "ts/js 로 express 따라 만들기 ts/js 로 express 따라 만들기 node 로 웹 서버를 만들때부터 express 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 app.use 를 사용했던 것 같다. 그래서 이번 기회에 express 를 socket 으로 구현해보려고 한다. http 모듈이 아니라 왜 socket 을 사용해야할까? 일단 웹"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Express.js 따라 만들기" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-javascript tag-typescript post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag/javascript/'>JAVASCRIPT</a>,
+                
+                
+                
+                <a href='/tag/typescript/'>TYPESCRIPT</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">Express.js 따라 만들기</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/javascript.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <p>ts/js 로 express 따라 만들기</p>
+
+<h1 id="tsjs-로-express-따라-만들기">ts/js 로 express 따라 만들기</h1>
+
+<p>node 로 웹 서버를 만들때부터 <code class="language-plaintext highlighter-rouge">express</code> 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 <code class="language-plaintext highlighter-rouge">app.use</code> 를 사용했던 것 같다.</p>
+
+<p>그래서 이번 기회에 express 를 <code class="language-plaintext highlighter-rouge">socket</code> 으로 구현해보려고 한다.</p>
+
+<h2 id="http-모듈이-아니라-왜-socket-을-사용해야할까">http 모듈이 아니라 왜 socket 을 사용해야할까?</h2>
+
+<p>일단 <code class="language-plaintext highlighter-rouge">웹 서버</code> 라는걸 생각해보면 당연히 <code class="language-plaintext highlighter-rouge">http</code> 모듈을 사용하는 것이 편하다.</p>
+
+<p>소켓으로 구현한다고 해도 클라이언트가 http 프로토콜로 보낸다면 웹 서버에서도 소켓을 http 모듈처럼 사용해야할 것이다.</p>
+
+<p>그럼에도 socket 으로 구현해보면 좋은 이유는 <code class="language-plaintext highlighter-rouge">결국 http 통신도 소켓 통신</code> 이라는 것이다.</p>
+
+<p>node 의 <a href="https://nodejs.org/api/http.html#class-httpserver">http 모듈</a>에서 서버를 생성할 때, 결국 <a href="https://nodejs.org/api/net.html#class-netserver">소켓 모듈</a> 을 상속받아서 사용한다.</p>
+
+<p>소켓 모듈은 <a href="https://nodejs.org/api/events.html#class-eventemitter">EventEmitter</a> 모듈을 상속받는데, 데이터가 들어오거나 소켓 연결이 생성되거나 끊어졌을 때 등의 이벤트가 발생하게끔 만들어졌기 때문이다.</p>
+
+<p>그래서 소켓을 활용한다는것은 node.js 개발자로서 가장 아래까지 내려가볼 수 있는 기회라고 생각한다.</p>
+
+<p>추후에는 handshake 과정까지 만들어보고싶다.</p>
+
+<p>그래도 추후에 꼭 네트워크 공부는 추가로 하자..</p>
+
+<h2 id="socket-으로-listen">Socket 으로 <code class="language-plaintext highlighter-rouge">Listen</code></h2>
+
+<p>Socket 으로 Express 를 구현하기로 했으니 당연하게도 socket 을 활용해서 서버를 만들어야한다.</p>
+
+<p>이는 위에서 언급했던 node 의 <a href="https://nodejs.org/api/net.html#class-netserver">net.server</a> 를 활용하면 된다.</p>
+
+<p>여기서 우리가 만들 Express 가 net.server 를 상속받을지, 아니면 net.Server 객체를 그냥 사용할지에 대해서 고민을 할 수 있는데
+net.Server 를 상속받는다는 것은 net.Server 의 메소드를 오버라이딩 한다든지, 추가 메소드를 만드는 등의 작업이 있을 경우 유효하다고 생각한다.</p>
+
+<p>우리의 커스텀 Express 에서는 net.Server 의 메소드들을 사용할 것이지, 추가로 메소드를 생성/변경 등을 하지 않을 것 같아서 상속 받지는 않을 예정이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typescript
+import net from 'net';
+
+class Express {
+
+  listen(port: number, callback: () =&gt; void) {
+
+    const server = net.createServer((socket) =&gt; {
+      socket.on('data', (data) =&gt; {
+        /*
+            ...
+            TODO: socket 으로 넘어온 Request 를 Express 에서 쓸 수 있도록 파싱
+            ...
+        */
+      });
+    });
+
+    server.listen(port, () =&gt; {
+      callback();
+    });
+
+  }
+}
+
+
+</code></pre></div></div>
+
+<p>net.CreateServer 를 통해서 tcp 연결을 만들고, <code class="language-plaintext highlighter-rouge">data</code> 이벤트가 발생했을 때 데이터들을 가지고 우리가 사용하기 편하도록 파싱하는 과정을 거치면 될 것 같다.</p>
+
+<h3 id="-socket-은-stream-이다">🤔 socket 은 stream 이다!</h3>
+
+<p>여기서 생각해보면 좋을 점은 socket 은 <code class="language-plaintext highlighter-rouge">Stream</code> 을 활용한다.</p>
+
+<p>node 의 <a href="https://nodejs.org/api/net.html#class-netsocket">net.Socket</a> 은 <a href="https://nodejs.org/api/stream.html#class-streamduplex">stream.Duplex</a> 를 상속받아서 사용하고 있다.</p>
+
+<blockquote>
+  <p>Stream 에 대한 정리는 여기서 볼 수 있다.</p>
+</blockquote>
+
+<p>즉, 클라이언트가 보낸 <code class="language-plaintext highlighter-rouge">모든 데이터</code> 가 수신될 때까지 기다리는게 아니라 stream 으로 (순차적으로) 데이터가 들어오면 그 즉시 버퍼에 쌓이고
+버퍼에 데이터가 일정량 이상 쌓일 때마다 chunk 단위로 <code class="language-plaintext highlighter-rouge">data</code> 이벤트가 발생한다.</p>
+
+<p>(보통은 버퍼가 넘치기 전에, 혹은 데이터가 전부 다 들어왔을 때 ‘data’ 이벤트가 발생한다.)</p>
+
+<p>다시 말해서 들어오는 데이터가 크다면 데이터가 나누어져서 들어올 수 있다 ( === 한 번의 통신에 여러 번의 <code class="language-plaintext highlighter-rouge">data</code> 이벤트가 발생할 수 있다) 는 이야기이다.</p>
+
+<p>따라서 buffer 의 크기보다 큰 데이터를 클라이언트에서 보냈다면, 여러 번의 <code class="language-plaintext highlighter-rouge">data</code> 이벤트가 발생할 수 있다.</p>
+
+<p>실시간으로 데이터를 처리해야하는(ex. 유튜브 같은 영상 스트림) 경우에는 들어오는 데이터마다 처리를 해주면 된다.</p>
+
+<p>반면에 용량이 매우 큰 이미지/동영상 파일은 모든 chunk 들을 다 합쳐서 하나로 만들어야할 것이다.</p>
+
+<p>이에 대한 처리까지 있으면 좋을 것 같다!</p>
+
+<h2 id="소켓-통신을-http-통신-처럼">소켓 통신을 http 통신 처럼</h2>
+
+<p>http 모듈을 사용한다면 <code class="language-plaintext highlighter-rouge">소켓 통신으로 들어오는 Request</code> 를 <code class="language-plaintext highlighter-rouge">Express 의 Request</code> 처럼 바꿔줄 필요가 있다.</p>
+
+<p>예를 들어 socket 으로 들어온 HTTP Request 는 아래처럼 들어올 것이다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typescript
+GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+Connection: keep-alive
+sec-ch-ua-platform: "macOS"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Chromium";v="129", "Not=A?Brand";v="8"
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: &lt;http://localhost:3000/index.html&gt;
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: sid=1234; coo=11
+
+helloworld this is a body
+
+
+</code></pre></div></div>
+
+<p>이렇게 하나의 거대한 문자열을 잘 파싱해서 우리의 express 에서 쓰기 편하도록 쉽게 만드는 작업이 필요하다.</p>
+
+<p>파싱의 큰 기준은 두 가지 이다.</p>
+
+<ol>
+  <li>Header 와 Body 는 <code class="language-plaintext highlighter-rouge">\\r\\n\\r\\n</code> 으로 구분된다.</li>
+  <li>Header 끼리는 <code class="language-plaintext highlighter-rouge">\\r\\n</code> 으로 구분된다.</li>
+</ol>
+
+<p>맨 윗 줄을 보면, <code class="language-plaintext highlighter-rouge">GET /favicon.ico HTTP/1.1</code> 이라고 나오는데</p>
+
+<p><code class="language-plaintext highlighter-rouge">Method</code>, <code class="language-plaintext highlighter-rouge">url</code>, <code class="language-plaintext highlighter-rouge">Protocol</code>/<code class="language-plaintext highlighter-rouge">Version</code> 으로 구분해주어 아래 처럼 하나의 객체로 만들어주자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = '';
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+}
+
+
+</code></pre></div></div>
+
+<h3 id="-url-의-query-부분이나-params-부분도-처리하자">🤔 url 의 Query 부분이나 Params 부분도 처리하자</h3>
+
+<h3 id="params"><code class="language-plaintext highlighter-rouge">Params</code></h3>
+
+<p>실제로 express 를 써보면 <code class="language-plaintext highlighter-rouge">app.use('/card/:username/:cardId, ...)</code> 와 같이 <code class="language-plaintext highlighter-rouge">:</code> 를 사용하는 것을 볼 수 있다.</p>
+
+<p>사용자가 Request 를 보낼 때는 <code class="language-plaintext highlighter-rouge">/card/hoeh/3?columnId=5&amp;columnName=today</code> 같이 <code class="language-plaintext highlighter-rouge">?</code> 문자 이후에 있는 query 도 있을 수 있다.</p>
+
+<p>그렇다면 위에서 파싱한 <code class="language-plaintext highlighter-rouge">url</code> 부분에서 query, param 부분도 분리해주면 좋을 것 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = '';
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+
+  // 여기까지가 SocketRequest
+
+  // /user/:id 에서 id
+  params: object = {};
+
+  // /search?keyword=naver { keyword : naver }
+  query: object = {};
+
+  // /user?id=123 에서 /user
+  path?: string;
+}
+
+
+</code></pre></div></div>
+
+<p>이런 식으로, url 로 부터 <code class="language-plaintext highlighter-rouge">params</code>, <code class="language-plaintext highlighter-rouge">query</code>, <code class="language-plaintext highlighter-rouge">path</code> 까지 파싱해서 Request 에 넣어주도록 하자.</p>
+
+<p>파싱할 때는 node 의 <a href="https://nodejs.org/api/querystring.html">querystring</a> 모듈과 <a href="https://www.npmjs.com/package/path-to-regexp">path-to-regexp</a> 을 활용해보자.</p>
+
+<h2 id="appuse">app.use()</h2>
+
+<p>app.use 는 무엇을 하는 메소드일까? express 를 사용할 때면 이런식으로 사용했던 것 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typescript
+app.use('/card', (req, res, next) =&gt; {
+  // ...
+  res.send('helloworld');
+});
+
+
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">/card</code> 의 url 로 들어온 요청에 대해서 <code class="language-plaintext highlighter-rouge">(req, res, next) =&gt; {}</code> 에 해당하는 함수를 실행하는 것 같은데 그렇다면
+이 함수는 무슨 함수일까?</p>
+
+<h3 id="middleware-layer-router">Middleware, Layer, Router</h3>
+
+<p>express 에서는 이런 함수를 <code class="language-plaintext highlighter-rouge">middleware</code> 라고 부른다. 미들웨어는 말 그대로 <code class="language-plaintext highlighter-rouge">중간에 끼어있는</code> 함수로 보면 된다.</p>
+
+<p>Request 를 받아서, Response 를 보내기 전의 중간 처리 과정을 하는 함수를 전부 middleware 라고 부른다.</p>
+
+<p>그러면 express 는 <code class="language-plaintext highlighter-rouge">개발자가 middleware 를 등록해서 모든 요청마다 url 을 검사해서, url 조건을 충족하면 등록된 middleware 를 실행한다</code> 의 흐름으로 진행하는구나!</p>
+
+<p>라고 간단하게 생각했는데 여기서 <code class="language-plaintext highlighter-rouge">Layer</code> 와 <code class="language-plaintext highlighter-rouge">Router</code> 의 개념이 또 등장한다.</p>
+
+<p>Layer 가 무엇인지 보니, middleware 를 한 번 감싸주는 계층이다.</p>
+
+<p>엥? Layer 로 굳이 감싸는 이유가 뭐야? 라고 생각이 들었는데 여러가지 이유가 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Method, Url 검사</code></li>
+</ul>
+
+<p>middleware 가 실행되기 전에 사용자가 등록한 <code class="language-plaintext highlighter-rouge">/card</code> url 과 들어온 Request 의 url 을 비교해야 한다.</p>
+
+<p>또한 특정 메소드의 요청에만 미들웨어를 실행되게 등록했다면 Method 비교도 해야할 것이다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">에러 처리</code></li>
+</ul>
+
+<p>사용자가 등록한 <code class="language-plaintext highlighter-rouge">(req, res, next) =&gt; {}</code> 함수에서 에러를 처리하려면, 미들웨어 안에서 try, catch 를 작성해야하는데 그렇다면 모든 미들웨어에 try, catch 가 있어야 한다.</p>
+
+<p>실제 express 에서는 만약 에러가 발생하면 <code class="language-plaintext highlighter-rouge">next(err)</code> 의 방법으로 다음 미들웨어로 <code class="language-plaintext highlighter-rouge">err</code> 를 넘긴다.
+Layer 계층에서는 middleware 를 실행하기 전에 <code class="language-plaintext highlighter-rouge">err</code> 가 넘어왔는지 확인하고, 넘어왔다면 에러가 발생했다고 판단해서 에러를 처리할 수 있다.</p>
+
+<p>즉 Layer 계층에서 전역적으로 에러를 처리해줄 수 있다.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">같은 Url, Method 에 여러 개의 미들웨어 등록</code></li>
+</ul>
+
+<p>말 그대로 여러 개의 미들웨어가 등록된다면 이를 관리하는 계층이 필요할 수 밖에 없다.</p>
+
+<h3 id="-layer-안에서-next">🤔 Layer 안에서 next</h3>
+
+<h3 id="-middleware-가-비동기일-경우에-에러-핸들링">🤔 Middleware 가 비동기일 경우에 에러 핸들링</h3>
+
+<h2 id="response-객체로-socketwrite">Response 객체로 socket.write</h2>
+
+<h3 id="-response-에-header-와-body-를-따로-write-하기">🤔 Response 에 Header 와 Body 를 따로 write 하기</h3>
+
+<h2 id="커스텀-express-를-활용해서-웹-서버-코드-작성">커스텀 express 를 활용해서 웹 서버 코드 작성</h2>
+
+<h3 id="만들어둔-express-를-로컬-모듈로-바꿔보자">만들어둔 express 를 로컬 모듈로 바꿔보자</h3>
+
+<h2 id="타입스크립트-타입을-위한-dts-만들기">타입스크립트 타입을 위한 d.ts 만들기</h2>
+
+<p>만약 자바스크립트로 http, express 코드를 작성하고 실제 app 은 타입스크립트로 작성한다면</p>
+
+<p>http, express 에 타입을 명시해주는 d.ts 가 필요하다.</p>
+
+<h3 id="express-에서는-request-의-dto-를-직접-검사해줘야한다">Express 에서는 Request 의 DTO 를 직접 검사해줘야한다</h3>
+
+<h2 id="zod-를-활용해보자">ZOD 를 활용해보자</h2>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag/javascript/">Javascript</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_Day_01_~_19_%EC%A0%95%EB%A6%AC_">[네부캠 챌린지] Day 01 ~ 19 정리 </a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/Javascript-_%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C_Full_Screen_%EC%A7%84%EC%9E%85">[Javascript] 자바스크립트에서 Full Screen 진입</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/Javascript-_Lexical_This">[Javascript] Lexical This</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag/javascript/">
+                    
+                    See all 5 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Express.js 따라 만들기</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#tsjs-로-express-따라-만들기">ts/js 로 express 따라 만들기</a><ul><li><a href="#http-모듈이-아니라-왜-socket-을-사용해야할까">http 모듈이 아니라 왜 socket 을 사용해야할까?</a></li><li><a href="#socket-으로-listen">Socket 으로 <code class="language-plaintext highlighter-rouge">Listen</code></a><ul><li><a href="#-socket-은-stream-이다">🤔 socket 은 stream 이다!</a></li></ul></li><li><a href="#소켓-통신을-http-통신-처럼">소켓 통신을 http 통신 처럼</a><ul><li><a href="#-url-의-query-부분이나-params-부분도-처리하자">🤔 url 의 Query 부분이나 Params 부분도 처리하자</a></li><li><a href="#params"><code class="language-plaintext highlighter-rouge">Params</code></a></li></ul></li><li><a href="#appuse">app.use()</a><ul><li><a href="#middleware-layer-router">Middleware, Layer, Router</a></li><li><a href="#-layer-안에서-next">🤔 Layer 안에서 next</a></li><li><a href="#-middleware-가-비동기일-경우에-에러-핸들링">🤔 Middleware 가 비동기일 경우에 에러 핸들링</a></li></ul></li><li><a href="#response-객체로-socketwrite">Response 객체로 socket.write</a><ul><li><a href="#-response-에-header-와-body-를-따로-write-하기">🤔 Response 에 Header 와 Body 를 따로 write 하기</a></li></ul></li><li><a href="#커스텀-express-를-활용해서-웹-서버-코드-작성">커스텀 express 를 활용해서 웹 서버 코드 작성</a><ul><li><a href="#만들어둔-express-를-로컬-모듈로-바꿔보자">만들어둔 express 를 로컬 모듈로 바꿔보자</a></li></ul></li><li><a href="#타입스크립트-타입을-위한-dts-만들기">타입스크립트 타입을 위한 d.ts 만들기</a><ul><li><a href="#express-에서는-request-의-dto-를-직접-검사해줘야한다">Express 에서는 Request 의 DTO 를 직접 검사해줘야한다</a></li></ul></li><li><a href="#zod-를-활용해보자">ZOD 를 활용해보자</a></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

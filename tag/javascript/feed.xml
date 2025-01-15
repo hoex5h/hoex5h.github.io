@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
   <link href="https://hoex5h.github.io/tag/javascript/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
-  <updated>2025-01-15T10:07:22+00:00</updated>
+  <updated>2025-01-15T10:14:24+00:00</updated>
   <id>https://hoex5h.github.io/tag/javascript/feed.xml</id>
 
   
@@ -2142,6 +2142,739 @@ JWT는 토큰 자체에 유저를 인증할 수 있는 정보가 있기 때문�
 
       
         <summary type="html">Day01 학습 정리</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Express.js 따라 만들기</title>
+      <link href="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0" rel="alternate" type="text/html" title="Express.js 따라 만들기" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0">&lt;p&gt;ts/js 로 express 따라 만들기&lt;/p&gt;
+
+&lt;h1 id=&quot;tsjs-로-express-따라-만들기&quot;&gt;ts/js 로 express 따라 만들기&lt;/h1&gt;
+
+&lt;p&gt;node 로 웹 서버를 만들때부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;express&lt;/code&gt; 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.use&lt;/code&gt; 를 사용했던 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그래서 이번 기회에 express 를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;socket&lt;/code&gt; 으로 구현해보려고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;http-모듈이-아니라-왜-socket-을-사용해야할까&quot;&gt;http 모듈이 아니라 왜 socket 을 사용해야할까?&lt;/h2&gt;
+
+&lt;p&gt;일단 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;웹 서버&lt;/code&gt; 라는걸 생각해보면 당연히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http&lt;/code&gt; 모듈을 사용하는 것이 편하다.&lt;/p&gt;
+
+&lt;p&gt;소켓으로 구현한다고 해도 클라이언트가 http 프로토콜로 보낸다면 웹 서버에서도 소켓을 http 모듈처럼 사용해야할 것이다.&lt;/p&gt;
+
+&lt;p&gt;그럼에도 socket 으로 구현해보면 좋은 이유는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;결국 http 통신도 소켓 통신&lt;/code&gt; 이라는 것이다.&lt;/p&gt;
+
+&lt;p&gt;node 의 &lt;a href=&quot;https://nodejs.org/api/http.html#class-httpserver&quot;&gt;http 모듈&lt;/a&gt;에서 서버를 생성할 때, 결국 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netserver&quot;&gt;소켓 모듈&lt;/a&gt; 을 상속받아서 사용한다.&lt;/p&gt;
+
+&lt;p&gt;소켓 모듈은 &lt;a href=&quot;https://nodejs.org/api/events.html#class-eventemitter&quot;&gt;EventEmitter&lt;/a&gt; 모듈을 상속받는데, 데이터가 들어오거나 소켓 연결이 생성되거나 끊어졌을 때 등의 이벤트가 발생하게끔 만들어졌기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그래서 소켓을 활용한다는것은 node.js 개발자로서 가장 아래까지 내려가볼 수 있는 기회라고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;추후에는 handshake 과정까지 만들어보고싶다.&lt;/p&gt;
+
+&lt;p&gt;그래도 추후에 꼭 네트워크 공부는 추가로 하자..&lt;/p&gt;
+
+&lt;h2 id=&quot;socket-으로-listen&quot;&gt;Socket 으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Listen&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Socket 으로 Express 를 구현하기로 했으니 당연하게도 socket 을 활용해서 서버를 만들어야한다.&lt;/p&gt;
+
+&lt;p&gt;이는 위에서 언급했던 node 의 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netserver&quot;&gt;net.server&lt;/a&gt; 를 활용하면 된다.&lt;/p&gt;
+
+&lt;p&gt;여기서 우리가 만들 Express 가 net.server 를 상속받을지, 아니면 net.Server 객체를 그냥 사용할지에 대해서 고민을 할 수 있는데
+net.Server 를 상속받는다는 것은 net.Server 의 메소드를 오버라이딩 한다든지, 추가 메소드를 만드는 등의 작업이 있을 경우 유효하다고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;우리의 커스텀 Express 에서는 net.Server 의 메소드들을 사용할 것이지, 추가로 메소드를 생성/변경 등을 하지 않을 것 같아서 상속 받지는 않을 예정이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+import net from &apos;net&apos;;
+
+class Express {
+
+  listen(port: number, callback: () =&amp;gt; void) {
+
+    const server = net.createServer((socket) =&amp;gt; {
+      socket.on(&apos;data&apos;, (data) =&amp;gt; {
+        /*
+            ...
+            TODO: socket 으로 넘어온 Request 를 Express 에서 쓸 수 있도록 파싱
+            ...
+        */
+      });
+    });
+
+    server.listen(port, () =&amp;gt; {
+      callback();
+    });
+
+  }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;net.CreateServer 를 통해서 tcp 연결을 만들고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생했을 때 데이터들을 가지고 우리가 사용하기 편하도록 파싱하는 과정을 거치면 될 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;-socket-은-stream-이다&quot;&gt;🤔 socket 은 stream 이다!&lt;/h3&gt;
+
+&lt;p&gt;여기서 생각해보면 좋을 점은 socket 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stream&lt;/code&gt; 을 활용한다.&lt;/p&gt;
+
+&lt;p&gt;node 의 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netsocket&quot;&gt;net.Socket&lt;/a&gt; 은 &lt;a href=&quot;https://nodejs.org/api/stream.html#class-streamduplex&quot;&gt;stream.Duplex&lt;/a&gt; 를 상속받아서 사용하고 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Stream 에 대한 정리는 여기서 볼 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;즉, 클라이언트가 보낸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;모든 데이터&lt;/code&gt; 가 수신될 때까지 기다리는게 아니라 stream 으로 (순차적으로) 데이터가 들어오면 그 즉시 버퍼에 쌓이고
+버퍼에 데이터가 일정량 이상 쌓일 때마다 chunk 단위로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;(보통은 버퍼가 넘치기 전에, 혹은 데이터가 전부 다 들어왔을 때 ‘data’ 이벤트가 발생한다.)&lt;/p&gt;
+
+&lt;p&gt;다시 말해서 들어오는 데이터가 크다면 데이터가 나누어져서 들어올 수 있다 ( === 한 번의 통신에 여러 번의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생할 수 있다) 는 이야기이다.&lt;/p&gt;
+
+&lt;p&gt;따라서 buffer 의 크기보다 큰 데이터를 클라이언트에서 보냈다면, 여러 번의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;실시간으로 데이터를 처리해야하는(ex. 유튜브 같은 영상 스트림) 경우에는 들어오는 데이터마다 처리를 해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;반면에 용량이 매우 큰 이미지/동영상 파일은 모든 chunk 들을 다 합쳐서 하나로 만들어야할 것이다.&lt;/p&gt;
+
+&lt;p&gt;이에 대한 처리까지 있으면 좋을 것 같다!&lt;/p&gt;
+
+&lt;h2 id=&quot;소켓-통신을-http-통신-처럼&quot;&gt;소켓 통신을 http 통신 처럼&lt;/h2&gt;
+
+&lt;p&gt;http 모듈을 사용한다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;소켓 통신으로 들어오는 Request&lt;/code&gt; 를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Express 의 Request&lt;/code&gt; 처럼 바꿔줄 필요가 있다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어 socket 으로 들어온 HTTP Request 는 아래처럼 들어올 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+Connection: keep-alive
+sec-ch-ua-platform: &quot;macOS&quot;
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: &quot;Chromium&quot;;v=&quot;129&quot;, &quot;Not=A?Brand&quot;;v=&quot;8&quot;
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: &amp;lt;http://localhost:3000/index.html&amp;gt;
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: sid=1234; coo=11
+
+helloworld this is a body
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 하나의 거대한 문자열을 잘 파싱해서 우리의 express 에서 쓰기 편하도록 쉽게 만드는 작업이 필요하다.&lt;/p&gt;
+
+&lt;p&gt;파싱의 큰 기준은 두 가지 이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Header 와 Body 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\r\\n\\r\\n&lt;/code&gt; 으로 구분된다.&lt;/li&gt;
+  &lt;li&gt;Header 끼리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\r\\n&lt;/code&gt; 으로 구분된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;맨 윗 줄을 보면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET /favicon.ico HTTP/1.1&lt;/code&gt; 이라고 나오는데&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Method&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;url&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Protocol&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Version&lt;/code&gt; 으로 구분해주어 아래 처럼 하나의 객체로 만들어주자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = &apos;&apos;;
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;-url-의-query-부분이나-params-부분도-처리하자&quot;&gt;🤔 url 의 Query 부분이나 Params 부분도 처리하자&lt;/h3&gt;
+
+&lt;h3 id=&quot;params&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Params&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;실제로 express 를 써보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.use(&apos;/card/:username/:cardId, ...)&lt;/code&gt; 와 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt; 를 사용하는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;사용자가 Request 를 보낼 때는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card/hoeh/3?columnId=5&amp;amp;columnName=today&lt;/code&gt; 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt; 문자 이후에 있는 query 도 있을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 위에서 파싱한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;url&lt;/code&gt; 부분에서 query, param 부분도 분리해주면 좋을 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = &apos;&apos;;
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+
+  // 여기까지가 SocketRequest
+
+  // /user/:id 에서 id
+  params: object = {};
+
+  // /search?keyword=naver { keyword : naver }
+  query: object = {};
+
+  // /user?id=123 에서 /user
+  path?: string;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이런 식으로, url 로 부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;params&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;query&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;path&lt;/code&gt; 까지 파싱해서 Request 에 넣어주도록 하자.&lt;/p&gt;
+
+&lt;p&gt;파싱할 때는 node 의 &lt;a href=&quot;https://nodejs.org/api/querystring.html&quot;&gt;querystring&lt;/a&gt; 모듈과 &lt;a href=&quot;https://www.npmjs.com/package/path-to-regexp&quot;&gt;path-to-regexp&lt;/a&gt; 을 활용해보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;appuse&quot;&gt;app.use()&lt;/h2&gt;
+
+&lt;p&gt;app.use 는 무엇을 하는 메소드일까? express 를 사용할 때면 이런식으로 사용했던 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+app.use(&apos;/card&apos;, (req, res, next) =&amp;gt; {
+  // ...
+  res.send(&apos;helloworld&apos;);
+});
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card&lt;/code&gt; 의 url 로 들어온 요청에 대해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(req, res, next) =&amp;gt; {}&lt;/code&gt; 에 해당하는 함수를 실행하는 것 같은데 그렇다면
+이 함수는 무슨 함수일까?&lt;/p&gt;
+
+&lt;h3 id=&quot;middleware-layer-router&quot;&gt;Middleware, Layer, Router&lt;/h3&gt;
+
+&lt;p&gt;express 에서는 이런 함수를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;middleware&lt;/code&gt; 라고 부른다. 미들웨어는 말 그대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;중간에 끼어있는&lt;/code&gt; 함수로 보면 된다.&lt;/p&gt;
+
+&lt;p&gt;Request 를 받아서, Response 를 보내기 전의 중간 처리 과정을 하는 함수를 전부 middleware 라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;그러면 express 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;개발자가 middleware 를 등록해서 모든 요청마다 url 을 검사해서, url 조건을 충족하면 등록된 middleware 를 실행한다&lt;/code&gt; 의 흐름으로 진행하는구나!&lt;/p&gt;
+
+&lt;p&gt;라고 간단하게 생각했는데 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Layer&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Router&lt;/code&gt; 의 개념이 또 등장한다.&lt;/p&gt;
+
+&lt;p&gt;Layer 가 무엇인지 보니, middleware 를 한 번 감싸주는 계층이다.&lt;/p&gt;
+
+&lt;p&gt;엥? Layer 로 굳이 감싸는 이유가 뭐야? 라고 생각이 들었는데 여러가지 이유가 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Method, Url 검사&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;middleware 가 실행되기 전에 사용자가 등록한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card&lt;/code&gt; url 과 들어온 Request 의 url 을 비교해야 한다.&lt;/p&gt;
+
+&lt;p&gt;또한 특정 메소드의 요청에만 미들웨어를 실행되게 등록했다면 Method 비교도 해야할 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;에러 처리&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;사용자가 등록한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(req, res, next) =&amp;gt; {}&lt;/code&gt; 함수에서 에러를 처리하려면, 미들웨어 안에서 try, catch 를 작성해야하는데 그렇다면 모든 미들웨어에 try, catch 가 있어야 한다.&lt;/p&gt;
+
+&lt;p&gt;실제 express 에서는 만약 에러가 발생하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;next(err)&lt;/code&gt; 의 방법으로 다음 미들웨어로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;err&lt;/code&gt; 를 넘긴다.
+Layer 계층에서는 middleware 를 실행하기 전에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;err&lt;/code&gt; 가 넘어왔는지 확인하고, 넘어왔다면 에러가 발생했다고 판단해서 에러를 처리할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;즉 Layer 계층에서 전역적으로 에러를 처리해줄 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;같은 Url, Method 에 여러 개의 미들웨어 등록&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;말 그대로 여러 개의 미들웨어가 등록된다면 이를 관리하는 계층이 필요할 수 밖에 없다.&lt;/p&gt;
+
+&lt;h3 id=&quot;-layer-안에서-next&quot;&gt;🤔 Layer 안에서 next&lt;/h3&gt;
+
+&lt;h3 id=&quot;-middleware-가-비동기일-경우에-에러-핸들링&quot;&gt;🤔 Middleware 가 비동기일 경우에 에러 핸들링&lt;/h3&gt;
+
+&lt;h2 id=&quot;response-객체로-socketwrite&quot;&gt;Response 객체로 socket.write&lt;/h2&gt;
+
+&lt;h3 id=&quot;-response-에-header-와-body-를-따로-write-하기&quot;&gt;🤔 Response 에 Header 와 Body 를 따로 write 하기&lt;/h3&gt;
+
+&lt;h2 id=&quot;커스텀-express-를-활용해서-웹-서버-코드-작성&quot;&gt;커스텀 express 를 활용해서 웹 서버 코드 작성&lt;/h2&gt;
+
+&lt;h3 id=&quot;만들어둔-express-를-로컬-모듈로-바꿔보자&quot;&gt;만들어둔 express 를 로컬 모듈로 바꿔보자&lt;/h3&gt;
+
+&lt;h2 id=&quot;타입스크립트-타입을-위한-dts-만들기&quot;&gt;타입스크립트 타입을 위한 d.ts 만들기&lt;/h2&gt;
+
+&lt;p&gt;만약 자바스크립트로 http, express 코드를 작성하고 실제 app 은 타입스크립트로 작성한다면&lt;/p&gt;
+
+&lt;p&gt;http, express 에 타입을 명시해주는 d.ts 가 필요하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;express-에서는-request-의-dto-를-직접-검사해줘야한다&quot;&gt;Express 에서는 Request 의 DTO 를 직접 검사해줘야한다&lt;/h3&gt;
+
+&lt;h2 id=&quot;zod-를-활용해보자&quot;&gt;ZOD 를 활용해보자&lt;/h2&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+        <category term="TypeScript" />
+      
+
+      
+        <summary type="html">ts/js 로 express 따라 만들기</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Javascript] 자바스크립트에서 Full Screen 진입</title>
+      <link href="https://hoex5h.github.io/Javascript-_%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C_Full_Screen_%EC%A7%84%EC%9E%85" rel="alternate" type="text/html" title="[Javascript] 자바스크립트에서 Full Screen 진입" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BJavascript%5D_%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C_Full_Screen_%EC%A7%84%EC%9E%85</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Javascript-_%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C_Full_Screen_%EC%A7%84%EC%9E%85">&lt;h1 id=&quot;javascript-자바스크립트에서-full-screen-진입&quot;&gt;[Javascript] 자바스크립트에서 Full Screen 진입&lt;/h1&gt;
+
+&lt;p&gt;게임에서 처음 시작하면 자동으로 전체화면이 되는걸 구현해보려고&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+document.documentElement.requestFullscreen()
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;전체화면을,&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+$(document).ready()
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;웹페이지가 로딩이 되고 난 후에 자동으로 전체화면이 되도록 코드를 짜봤다.&lt;/p&gt;
+
+&lt;p&gt;결과는 실패였다.&lt;/p&gt;
+
+&lt;p&gt;검색을 해보니 보안 상의 이유로 유저의 트리거가 없는 한, 자동으로 전체화면은 불가능하다고 한다.
+유저의 트리거를 강제로 써야했기 때문에, 유저가 게임 시작 버튼(트리거)를 누르는 순간 전체화면으로 바꾸는 방향으로 노선을 틀었으나 또 하나의 문제가 있었다.&lt;/p&gt;
+
+&lt;p&gt;화면의 크기가 달라지는 순간, 맵의 크기도 달라져야 하기 때문에 전체화면이 된 후에, 맵의 사이즈를 결정할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+document.documentElement.requestFullscreen()
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;requestFullscreen 는&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+Promise
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Promise, 즉 비동기로 실행이 되는데 then 과 catch 를 사용해서 resolve 를 실행해보아도, 이 requestFullScreen 의 로직이 독특한게&lt;/p&gt;
+
+&lt;p&gt;전체화면시키고자 하는 Element을 전체화면으로 만들 수 있는지 여부를 체크해서 resolve 와 reject 로 return 되고,&lt;/p&gt;
+
+&lt;p&gt;그 뒤에 element를 전체화면으로 만드는 것 같았다.&lt;/p&gt;
+
+&lt;p&gt;다시 말해서, 해당 element가 전체화면으로 만들 수 있는 것 까지만 Promise 이고, elment가 전체화면이 되기 전에 then 으로 넘어가버린다..&lt;/p&gt;
+
+&lt;p&gt;나는 window 의 resize 이벤트를 통해서 위 문제를 해결할 수 있었는데, resize가 되는 순간에 맵의 크기도 resize 시키는 방식으로 해결했다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+
+      
+        <summary type="html">[Javascript] 자바스크립트에서 Full Screen 진입</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Javascript] Lexical This</title>
+      <link href="https://hoex5h.github.io/Javascript-_Lexical_This" rel="alternate" type="text/html" title="[Javascript] Lexical This" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BJavascript%5D_Lexical_This</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Javascript-_Lexical_This">&lt;h1 id=&quot;javascript-lexical-this&quot;&gt;[Javascript] Lexical This&lt;/h1&gt;
+
+&lt;p&gt;이전 문서 &lt;a href=&quot;https://www.notion.so/lexical_scope.html&quot;&gt;Lexical_Scope AND Scope Chain&lt;/a&gt; 에서 렉시컬 스코프와 스코프 체인에 대해 알아보았다.&lt;/p&gt;
+
+&lt;p&gt;이번엔 내가 겪었던 문제로 돌아가서 이를 해결해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+var testNum = 100;
+
+var lexicalTest = {
+    testNum : 0,
+
+    thisTest1: function(){
+        console.log(this.testNum);
+    },
+
+    thisTest2 : ()=&amp;gt;{
+        console.log(this.testNum);
+    },
+};
+
+lexicalTest.thisTest1();
+lexicalTest.thisTest2();
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 코드에서 thisTest1 과 thisTest2 는 같은 testNum을 참조할까?&lt;/p&gt;
+
+&lt;p&gt;lexicalTest 라는 객체 리터럴의 testNum을 참조하지 않을까? 설마 혹시나 lexical Scope 처럼 상위 스코프를 참조해서 전역변수 testNum을 참조해버리는 건 아닐까?&lt;/p&gt;
+
+&lt;p&gt;우선 function으로 선언된 thisTest1 을 일반적인 함수, 화살표함수로 선언된 thisTest2를 화살표함수라고 부르기로 하자.&lt;/p&gt;
+
+&lt;p&gt;일반적인 함수와 화살표 함수에서의 this 는 사뭇 다르다. this는 애초에 변수가 아니라 흔히들 &lt;em&gt;&lt;strong&gt;문맥&lt;/strong&gt;&lt;/em&gt; 이라고 표현한다.&lt;/p&gt;
+
+&lt;p&gt;어떤 상황(문맥)에서 쓰였는지에 따라 달라진다는 의미인 듯 하다. 앞으로 this가 바인딩된다는 표현을 할텐데, this를 문맥과 엮는다는 느낌으로 보면 쉬울 것이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;일반적인 함수에서 this와 문맥은 어떻게 엮이는지 살펴보자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;일반적인 함수에서는 두 가지로 나뉘는데,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;[생성자 함수 / 객체 메소드] : 객체에 바인딩&lt;/li&gt;
+  &lt;li&gt;[1을 제외한 모든 함수(내부함수, 콜백함수 …)] : 전역객체(window)에 바인딩&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;lexicalTest 라는 객체 리터럴을 생성할 때 일반적인 함수(thisTest1)는 생성자 함수 안에 있는 함수이므로 객체(lexicalTest)에 바인딩 되어 있고 this.testNum은 lexicalTest.testNum과 동일하다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이번엔 화살표 함수를 살펴보자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이전에 Lexical Scope 와 Lexical this 를 얘기한건 사실 화살표 함수를 얘기하기 위해서 였다.&lt;/p&gt;
+
+&lt;p&gt;화살표 함수의 this 는 Lexical this 라고 불린다.  Lexical Scope가 그랬듯이, 이 this도 &lt;em&gt;&lt;strong&gt;상위 객체를 참조 한다&lt;/strong&gt;&lt;/em&gt; 는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;다만 이번에는 상위 스코프가 아니라 상위 객체 임을 알아둬야 한다. 모든 객체의 최종 상위 객체는 window 객체이고 전역 변수가 있듯이 window 는 전역 객체 이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+function upperInstance(){
+    this.lexical = 0;
+
+    return {
+        lexical : 1,
+
+        normalLog : function(){
+            console.log(this.lexical);
+        },
+
+        arrowLog : ()=&amp;gt;{
+            console.log(this.lexical);
+        }
+    }
+}
+
+upperInstance().normalLog();
+upperInstance().arrowLog();
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 코드에서 normalLog()는 1이, arrowLog()는 0이 나온다는걸 이해하면 Lexical this는 이해된 것이라 생각한다.&lt;/p&gt;
+
+&lt;p&gt;lexical Scope가 상위 스코프를 참조한다는걸 생각해보면, lexical this 도 마찬가지 아닐까?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+
+      
+        <summary type="html">[Javascript] Lexical This</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Javascript] Lexical Scope</title>
+      <link href="https://hoex5h.github.io/Javascript-_Lexical_Scope" rel="alternate" type="text/html" title="[Javascript] Lexical Scope" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BJavascript%5D_Lexical_Scope</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Javascript-_Lexical_Scope">&lt;h1 id=&quot;javascript-lexical-scope&quot;&gt;[Javascript] Lexical Scope&lt;/h1&gt;
+
+&lt;h2 id=&quot;문제의-발단&quot;&gt;문제의 발단&lt;/h2&gt;
+
+&lt;p&gt;자바스크립트로 아이작과 비슷한 게임을 만들던 도중 화살표함수에서 $(this) 사용이 이상하다고 느꼈는데, 아래와 같은 코드를 짜고 실행시켰더니&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+$(`#character`).fadeOut(2000, &quot;swing&quot;, ()=&amp;gt;{
+  console.log($(this)); // 이 부분에서 $(this)를 콘솔에 찍어보았더니
+});
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+  $(window)
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;윈도우 객체가 콘솔에 찍혔다.&lt;/p&gt;
+
+&lt;p&gt;그저 function(){} 을 간단히 쓰는 느낌은 아닌것이었다..&lt;/p&gt;
+
+&lt;p&gt;화살표 함수에 대해 알아보기전에, Lexical Scope 를 먼저 알아야 할 것 같아서 화살표 함수는 이 뒤에 다루기로 하고, 먼저 렉시컬 스코프 (또는 Static Scope)에 대해 먼저 알아보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;결론부터-미리&quot;&gt;결론부터 미리!&lt;/h3&gt;
+
+&lt;p&gt;미리 얘기해두자면, 자바스크립트는 기본적으로 Lexical Scope 를 따른다.&lt;/p&gt;
+
+&lt;h2 id=&quot;lexical-scope-정의&quot;&gt;Lexical Scope 정의&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Lexical Scope(혹은 Static Scope) : 함수를 어디서 선언하였는지에 따라 상위 스코프를 결정한다&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;scope-정의&quot;&gt;Scope 정의&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Scope : 참조 대상 식별자(변수,함수의 이름과 같이 어떤 대상을 다른 대상과 구분하여 식별할 수 있는 유일한 이름)를 찾아내는 규칙.&lt;br /&gt;
+함수가 선언될 때 Scope가 생긴다!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;sample-code&quot;&gt;Sample Code&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+var str = &apos;1&apos;;
+var text = &apos;global&apos;;
+
+function consoleLog1(){
+    console.log(str);
+}
+
+function upperScope(){
+    var str = &apos;2&apos;;
+    consoleLog1();
+
+    function consoleLog2(){
+        console.log(str);
+        console.log(text);
+    }
+
+    consoleLog2();
+}
+
+
+upperScope();
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;코드-설명&quot;&gt;코드 설명&lt;/h3&gt;
+
+&lt;p&gt;위의 코드를 설명해보자면, 전역변수 str 은 ‘1’ 로 선언되어 있다. str을 출력하는 함수는 consoleLog1과 consoleLog2가 있는데, consoleLog2 함수는 upperScope 라는 함수 안에 있다.&lt;/p&gt;
+
+&lt;p&gt;두 번째 전역변수 text를 보면, upperScope 함수 안에 있는 consoleLog2 에서 출력하게 되어 있다.&lt;/p&gt;
+
+&lt;p&gt;우선 위에도 써놨듯이, Scope는 함수가 호출될 때가 아니라 선언될 때 생긴다. 라는 걸 머릿 속에 넣어두고 넘어가자.&lt;/p&gt;
+
+&lt;p&gt;자바스크립트가 Lexical Scope 를 따른다고 말한건, 함수가 선언 되었을 때 우선 탐색하는 스코프는 상위스코프 라는 소리다.&lt;/p&gt;
+
+&lt;p&gt;consoleLog1 함수를 보자.&lt;/p&gt;
+
+&lt;p&gt;선언되는 상황을 보면 상위 스코프에 (전역변수) str(1) 이 존재한다. 따라서 consoleLog1 이 upperScope 에서 실행된다고 한들, 전역변수인 str(1) 을 참조하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;두 번째로 upperScope 안에 있는 consoleLog2 를 보자.&lt;/p&gt;
+
+&lt;p&gt;선언 된 순간을 보면 consoleLog2의 바로 상위 스코프인 upperScope 에 존재한다. 따라서 upperScope의 지역변수로 선언된 str(2)를 참조한다.&lt;/p&gt;
+
+&lt;p&gt;이번엔 두 번째 전역변수 text를 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;consoleLog2에서 text를 출력하려고 보니, 바로 상위스코프인 upperScope 에는 text라는 변수가 없다. 혹시 그럼 undefined를 출력할까?&lt;/p&gt;
+
+&lt;p&gt;아니다. 바로 위 스코프에 없다면, 그 위에 스코프를 탐색하고, 해당 변수를 찾을때까지 위의 위 스코프를 탐색한다. 그럼에도 찾지 못한다면 undefined가 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;text 함수는 전역변수로 선언되어 있기 때문에 upperScope 에서는 찾지 못했어도 전역스코프에서는 찾을 수 있다. 따라서 ‘global’ 이란 텍스트를 출력할 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;scope-chain&quot;&gt;Scope Chain&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이렇게 꼬리를 물며 위 스코프를 탐색하는 방법을 ‘스코프 체인’ 이라고 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이제 다음 문서에 lexical this 를 설명해보려고 한다.&lt;/p&gt;
+
+&lt;p&gt;lexical Scope가 상위 스코프를 참조한다는걸 생각해보면, lexical this 도 마찬가지 아닐까?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+
+      
+        <summary type="html">[Javascript] Lexical Scope</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Javascript] Deep Copy, Swallow Copy</title>
+      <link href="https://hoex5h.github.io/Javascript-_Deep_Copy,_Swallow_Copy" rel="alternate" type="text/html" title="[Javascript] Deep Copy, Swallow Copy" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BJavascript%5D_Deep_Copy,_Swallow_Copy</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Javascript-_Deep_Copy,_Swallow_Copy">&lt;h1 id=&quot;javascript-deep-copy-swallow-copy&quot;&gt;[Javascript] Deep Copy, Swallow Copy&lt;/h1&gt;
+
+&lt;p&gt;자바스크립트로 게임을 만들면서 캐릭터 객체가 들고 있는 방패 너머로 몬스터가 넘어오지 못하게 막는 방법을 구현하고 있었다.&lt;/p&gt;
+
+&lt;p&gt;이전에 방해물(Obstruct)클래스를 따로 만들어두었는데 방패도 몬스터의 방해물에 속하기 때문에, Obstruct 클래스에 방패도 프로퍼티로 넣어주었다.&lt;/p&gt;
+
+&lt;p&gt;이때 방패와 벽과 같은 방해물과의 다른 점이 있었는데, 방패는 캐릭터가 움직이면 같이 움직이는 방해물이고 벽은 움직이지 않는 방해물이었다.&lt;/p&gt;
+
+&lt;p&gt;(후에 움직이는 벽을 만들거지만, 일단은 지금은 맵을 감싸는 벽이기 때문)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+  if( monsterObstacle.getStuck(monster.coordinates) )
+    continue;
+  monster.move();
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;코드를 간략하게 설명하면 이런 식으로, 몬스터의 좌표를 인자르 넘겨 확인해서 방해물에 걸리지 않는다면 움직이도록 구현되었는데&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+monsterObstacle = {
+ this.arr = [Wall, Shield];
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;몬스터의 방해물에는 현재까지 움직이지 않는 벽과 움직이는 방패가 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서 Wall과 Shield의 좌표값이 주어지는데, 방패의 좌표값은 캐릭터가 움직일 때 마다 바뀌어야하는 것이 문제였다.&lt;/p&gt;
+
+&lt;p&gt;처음에는 방패라는 객체를 만들지않고 방패의 좌표값을 업데이트 시키는 방식을 택했었는데, 터무니 없는 방법이란걸 깨닫는데 10분도 걸리지 않았다.&lt;/p&gt;
+
+&lt;p&gt;자바스크립트에서 객체를 변수에 할당하면, 해당 객체의 참조값이 할당되는&lt;/p&gt;
+
+&lt;p&gt;얕은복사(자바스크립트에서는 얕은복사와 깊은복사라는 말을 잘 쓰지 않는다고 들었지만)를 선택하는 것이 더 좋은 판단이라고 생각했고&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+class Shield{
+  this.#coordinates = {
+    x : 0,
+    y : 0,
+  }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이런식으로 방패 객체를 만들어서 Monster Obstacle의 프로퍼티로 넣어주었더니, 캐릭터의 움직임에 따라 방해물인 방패도 움직이는 코드를 짤 수 있었다.&lt;/p&gt;
+
+&lt;p&gt;C나 C++ 처럼 메모리를 직접 건들 수 없다는건 단점처럼 보이기도하고 장점처럼 보이기도 하는 것 같다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+
+      
+        <summary type="html">[Javascript] Deep Copy, Swallow Copy</summary>
       
 
       

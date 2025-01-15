@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/kubernetes/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/kubernetes/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">[Kuploy Project] Kuploy History</title>
+      <link href="https://hoex5h.github.io/Kuploy_Project-_Kuploy_History" rel="alternate" type="text/html" title="[Kuploy Project] Kuploy History" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKuploy_Project%5D_Kuploy_History</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kuploy_Project-_Kuploy_History">&lt;h1 id=&quot;kuploy-kuploy-history&quot;&gt;[Kuploy] Kuploy History&lt;/h1&gt;
+
+&lt;p&gt;CICD 자동화 프로젝트를 만들면서 수정사항이 정말 아주 많이 생기고 있는데,&lt;/p&gt;
+
+&lt;p&gt;History 를 보기 좋게 작성해 두는 것이 추후 프로젝트를 리팩토링할 때 아주 쓸모 있을 것 같다.&lt;/p&gt;
+
+&lt;p&gt;살짝 늦은 감이 없지 않지만,,&lt;/p&gt;
+
+&lt;h2 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h2&gt;
+
+&lt;h3 id=&quot;kompose&quot;&gt;Kompose&lt;/h3&gt;
+
+&lt;p&gt;Docker-compose 파일을 k8s 에 apply 시키기 위한 tool 이다.&lt;/p&gt;
+
+&lt;p&gt;현재 버전은 1.31.0 사용 중이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;kompose-문제점&quot;&gt;Kompose 문제점&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;-controller statefulset&lt;/p&gt;
+
+    &lt;p&gt;statefulset 을 만들기 위해서 flag 를 썼더니 json 마지막 부분에 status: 항목이 생겨있다.&lt;/p&gt;
+
+    &lt;p&gt;status 는 쿠버네티스가 배포/운영 하면서 쓰는 항목이지 apply 하기 전에 쓰는 항목이 아닐텐데 이게 왜 생기지?&lt;/p&gt;
+
+    &lt;p&gt;심지어 status: replica : 0 으로 잡혀있어서, 만들자마자 replica 가 1이 되기 때문에 Live Manifest 와 Desired Manifest 가 달라져서 바로 out of sync 상태가 된다…&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;-namespace={“namespace”}
+모든 항목의 네임스페이스를 지정해주려고 하니 namespace.yaml 파일을 만들어버린다.&lt;/p&gt;
+
+    &lt;p&gt;이대로 배포하면 namespace.yaml 이 apply 되면서 배포한 어플리케이션의 일부가 되어버리는데,&lt;/p&gt;
+
+    &lt;p&gt;어플리케이션을 삭제하면 namespace 도 삭제된다..&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;metrics-server&quot;&gt;Metrics Server&lt;/h3&gt;
+
+&lt;p&gt;K8s 에 배포되어있는 리소스들의 메트릭을 관찰할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;cni-calico&quot;&gt;CNI (Calico)&lt;/h3&gt;
+
+&lt;p&gt;K8s 의 노드들이 통신하는 규약&lt;/p&gt;
+
+&lt;p&gt;여러가지 종류가 있지만 현재 Calico 사용 중&lt;/p&gt;
+
+&lt;h3 id=&quot;storage-class&quot;&gt;Storage Class&lt;/h3&gt;
+
+&lt;p&gt;Persisten Volume Claim 을 만들 때, Storage Class 를 사용하는데&lt;/p&gt;
+
+&lt;p&gt;Storage Class 에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;provisioner&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parameters&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reclaimPolicy&lt;/code&gt; 를 정의할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Storage Class 에 대한 자세한 설명은 &lt;a href=&quot;추후 작성 예정&quot;&gt;여기&lt;/a&gt;를 참고하면 된다.&lt;/p&gt;
+
+&lt;p&gt;Kuploy는 로컬에 저장할 수 있으면서 동시에 동적 프로비저닝을 할 수 있어야 한다.&lt;/p&gt;
+
+&lt;p&gt;이러한 조건을 만족시켜주는 Storage Class 가 &lt;a href=&quot;https://github.com/rancher/local-path-provisioner&quot;&gt;Rancher/local-path-provisioner&lt;/a&gt; 였다.&lt;/p&gt;
+
+&lt;p&gt;현재는 다른 storage class를 사용할 필요가 없기 때문에 default storage class 이다. (따로 storage class 가 지정되지 않으면 자동으로 default storage class 로 지정)&lt;/p&gt;
+
+&lt;h2 id=&quot;docker&quot;&gt;Docker&lt;/h2&gt;
+
+&lt;h3 id=&quot;docker-hub&quot;&gt;Docker hub&lt;/h3&gt;
+
+&lt;p&gt;유저들의 이미지를 저장할 레지스트리를 on-premise 로 만들 여력이,, 안되어서 도커 허브를 쓰기로 했다&lt;/p&gt;
+
+&lt;p&gt;나중에 저장소가 많이 늘어난다면 사설 레지스트리를 써보거나, Harbor 혹은 Nexus 를 써볼 수도?&lt;/p&gt;
+
+&lt;h2 id=&quot;github-action&quot;&gt;Github Action&lt;/h2&gt;
+
+&lt;h2 id=&quot;argocd&quot;&gt;Argocd&lt;/h2&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+
+&lt;h3 id=&quot;argocd-api&quot;&gt;Argocd Api&lt;/h3&gt;
+
+&lt;p&gt;Kuploy 웹에 사용자가 어떤 어플리케이션을 배포중인지 보여주기 위해서 사용했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;argocd-image-updater&quot;&gt;Argocd Image Updater&lt;/h3&gt;
+
+&lt;p&gt;사용자들이 소스코드의 변경 -&amp;gt; image push 하는 과정만 존재할 경우,&lt;/p&gt;
+
+&lt;p&gt;즉 현재 argocd 가 호시탐탐 지켜보고 있는 application 의 status 에 변화를 불러 일으킬만한 변경점이 없다면 sync 되지 않는다.&lt;/p&gt;
+
+&lt;p&gt;우리는 image version 이 바뀌는 것도 sync 를 해야한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;trouble-shooting&quot;&gt;Trouble Shooting&lt;/h3&gt;
+
+&lt;h3 id=&quot;절대-project-name-을-멋대로-짓지-마&quot;&gt;절대 Project Name 을 멋대로 짓지 마.&lt;/h3&gt;
+
+&lt;p&gt;Project Name 을 IDE 에서 프로젝트 생성할 때 짓는 이름 쯤으로 생각하면 무한 오류에 빠진다.&lt;/p&gt;
+
+&lt;p&gt;이거 때문에 교수님 앞에서 눈물의 에러쇼를 했다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;당신이 원하는 프로젝트 네임을 적는 것이 아니라 ArgoCD에 미리 생성한 Project 중에 하나를 고르는 것이다!!!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;기본으로 default 프로젝트가 존재하고, 따로 원하면 만들 수 있다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+        <category term="Ansible" />
+      
+        <category term="ArgoCD" />
+      
+        <category term="Docker" />
+      
+        <category term="Linux" />
+      
+
+      
+        <summary type="html">[Kuploy] Kuploy History</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kuploy Project] Kuploy</title>
+      <link href="https://hoex5h.github.io/Kuploy_Project-_Kuploy_" rel="alternate" type="text/html" title="[Kuploy Project] Kuploy " />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKuploy_Project%5D_Kuploy_</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kuploy_Project-_Kuploy_">&lt;h1 id=&quot;kuploy-kuploy-는-어떤-프로젝트인가&quot;&gt;[Kuploy] Kuploy 는 어떤 프로젝트인가?&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Kuploy 는 Konkuk + Deploy 의 합성어로 건국대학교 학생들의 Deploy 를 도와주기 위한 프로젝트이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;유휴-컴퓨팅-리소스를-활용해서-학생들에게-제공해주자&quot;&gt;유휴 컴퓨팅 리소스를 활용해서 학생들에게 제공해주자!&lt;/h2&gt;
+
+&lt;p&gt;처음 시작은 건국대학교의 유휴 컴퓨팅 리소스들을 활용하여 학생들에게 제공해주자! 라는 취지를 가진 프로젝트였다. 이게 무슨말인가 하면,&lt;/p&gt;
+
+&lt;p&gt;건국대학교에는 수 많은 컴퓨터들이 학생들의 수업, 실습을 위해 존재한다. 하지만 실제로 이 컴퓨터들은 수업 시간 외에는 잘 사용되지 않는다.&lt;/p&gt;
+
+&lt;p&gt;실습용 컴퓨터도 마찬가지인데, 요새는 대부분 노트북을 하나씩 소유하고 있다보니 모여서 프로젝트를 하는 팀플의 경우를 제외하고는 잘 사용되지 않는다. 이런 상황이다보니 많은 컴퓨터들이 사용되지도 않은 채 관리 미흡으로 먼지가 쌓여가고 있었다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 잘 사용되지 않는, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;유휴 컴퓨팅 리소스들을 잘 합쳐서 학생들에게 사용할 수 있게끔 제공&lt;/code&gt;한다면 학교와 학생 모두가 좋은 일이 아닐까? 라는 긍정적인 사고의 결과물이 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Kuploy&lt;/code&gt; 프로젝트이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;학교의-컴퓨터들-그냥-원격으로-쓰면-안돼&quot;&gt;학교의 컴퓨터들 그냥 원격으로 쓰면 안돼?&lt;/h2&gt;
+
+&lt;p&gt;우리의 목적은 단순히 유휴 컴퓨터들 하나하나에 Teamviewer 를 깔아서 학생들에게 GUI 원격으로 사용할 수 있게 하거나, 아니면 그냥 ssh 를 열어서 사용할 수 있게끔 하는 것이 아니다. 만약 이런 것이 목적이였다면 프로젝트 이름은 Kuploy 가 아니라 Kumote(Kuploy + Remote) 가 되지 않았을까?&lt;/p&gt;
+
+&lt;p&gt;우리는 학교의 유휴 컴퓨팅 리소스 뿐만 아니라 개발 프로세스 자동화에도 관심이 많이 있었다.&lt;/p&gt;
+
+&lt;p&gt;학생들은 주로 AWS 를 이용해서 자신들의 프로젝트를 테스트하고 서비싱한다. 이렇게 서비싱하는 과정은 크게 아래의 3가지 절차를 밟는다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;AWS Free tier(신규 회원은 1년간 공짜니까!) ec2 생성&lt;/li&gt;
+  &lt;li&gt;Inbound, Outbound 규칙 생성(일단 ssh 부터 뚫어놔야 나도 접근할 수 있으니까)&lt;/li&gt;
+  &lt;li&gt;프로젝트 build 파일들을 ec2 에 옮겨서 run 하거나, docker를 활용하여 run&lt;/li&gt;
+  &lt;li&gt;변경사항이 생긴다면 github 에 commit push 후, 3번과정을 다시 수행&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이러한 과정은 복잡하지는 않지만 새로운 프로젝트를 할 떄마다 매번 해줘야하는 번거로움이 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;게다가 Free tier 는 성능이 썩 좋은 편은 아니다. 실제로 프로젝트를 진행하던 도중 ec2 의 메모리 부족으로 제대로 실행시킬 수 없는 경우도 있었다. 메모리 스왑을 통해 임시 방편을 마련해놨었지만 말 그대로 임시방편일 뿐이다.&lt;/p&gt;
+
+&lt;p&gt;이러다보니 매번 할 때마다 귀찮은 반복 작업이 필요하며, 성능에도 제한이 있어서 제대로 활용하기 힘든 AWS 를 대체하고 싶었다.&lt;/p&gt;
+
+&lt;p&gt;Kuploy 에서는 건국대학교 학생 한정으로, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Free tier 보다 높은 성능(물론, 상한선은 있다)을 제공하면서 동시에 배포 과정을 최적화&lt;/code&gt;시킬 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;kuploy-프로젝트의-진행-과정&quot;&gt;Kuploy 프로젝트의 진행 과정&lt;/h1&gt;
+
+&lt;h2 id=&quot;cluster-구축&quot;&gt;Cluster 구축&lt;/h2&gt;
+
+&lt;p&gt;우리는 우선 교수님으로부터 총 4대의 학교 컴퓨터를 대여 받았다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;1대의 Master Node&lt;/li&gt;
+  &lt;li&gt;2대의 Worker Node&lt;/li&gt;
+  &lt;li&gt;1대의 Ansible Control Node&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;4대의 컴퓨터들은 이렇게 구성해서 클러스터를 구축하기로 결정하였고, 그 전에 4대의 컴퓨터들을 초기화해서 셋팅할 것이 많이 있었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;master-node-worker-node-공통-설정&quot;&gt;Master Node, Worker Node 공통 설정&lt;/h3&gt;
+
+&lt;h3 id=&quot;ubuntu-2204-server-lts-설치&quot;&gt;Ubuntu 22.04 Server LTS 설치&lt;/h3&gt;
+
+&lt;p&gt;일단 &lt;a href=&quot;https://releases.ubuntu.com/jammy/&quot;&gt;Ubuntu 22.04&lt;/a&gt; 에서 설치할 OS 환경을 잘 골라서 Ubuntu 22.04 live server 의 iso 파일을 다운받자.&lt;/p&gt;
+
+&lt;p&gt;이제 부팅 디스크로 USB를 만들어야하는데, 집에 USB가 다 어딘가로 사라지고 없어서 SanDisk 사의 USB 2개를 구매하였다.&lt;/p&gt;
+
+&lt;p&gt;USB를 간단한 방법으로 설치 디스크로 만드는 툴은 크게 2개가 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Rufus&lt;/li&gt;
+  &lt;li&gt;Ventoy&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이 중에 우리는 Ventoy 를 활용했다. 이유는 Rufus 보다 훨씬 쉽고 간단하다!
+우선 &lt;a href=&quot;https://www.ventoy.net/en/download.html&quot;&gt;Ventoy&lt;/a&gt; 링크를 통해 본인의 OS에 맞는 Ventoy 툴을 다운받자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kuploy_Project]_Kuploy_.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이후에 Ventoy2Disk 를 실행하고 부팅 디스크로 만들 USB 를 선택한 후, Install 을 누르면 준비 끝이다.&lt;/p&gt;
+
+&lt;p&gt;이후에 iso 파일을 USB에 넣어주기만 하면 자동으로 부팅디스크가 된다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 만든 부팅 디스크를 꽂고 설치하면 된다!
+만약 위에서 만든 USB로 부팅되지 않는다면 BIOS 에서 부팅 순서를 바꿔보도록 하자.&lt;/p&gt;
+
+&lt;h3 id=&quot;스왑-메모리-끄기&quot;&gt;스왑 메모리 끄기&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+$ sudo swapoff -a
+
+# 재부팅 후에 스왑 메모리가 자동으로 켜지는 것 방지
+$ sudo vim /etc/fstab
+
+# 스왑 파티션(아래 줄) 주석 처리
+# /swap.img     none    swap    sw      0       0
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;쿠버네티스가 메모리를 할당할 때, 스왑메모리가 있으면 문제를 초래할 수 있다.
+애초에 쿠버네티스가 리소스 관리를 하기 때문에 필요 하지도 않다. 스왑 메모리가 꺼졌는지 확인해보려면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;free&lt;/code&gt; 커맨드를 사용해보면 된다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;swapoff -a 는 일시적으로 스왑 메모리를 끄는 것이다. 만약 /etc/fstab 에서 스왑 메모리를 영구적으로 끄지 않는다면 컴퓨터를 재부팅했을 때 자동으로 스왑 메모리가 켜지게 된다. 이 경우에 쿠버네티스가 정상적으로 작동하지 않는다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;스왑 메모리가 켜진 상태로 kubectl get nodes 명령어를 입력해보면 Ready여야 하는 노드가 NotReady 상태로 변경되고, 해당 노드에서 실행중인 Pod 들은 Terminating 상태나 Pending 상태에 무한히 빠진다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;방화벽ufw-포트-allow&quot;&gt;방화벽(ufw) 포트 allow&lt;/h3&gt;
+
+&lt;p&gt;쿠버네티스 apiserver 가 6443 포트를 사용하기 때문에, 6443 포트를 뚫어주어야 api-server 와 통신할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+$ sudo ufw allow {port}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;kubectl-kubelet-kubeadm-docker-설치&quot;&gt;kubectl, kubelet, kubeadm, docker 설치&lt;/h3&gt;
+
+&lt;p&gt;최신 버전을 사용하면서 충돌 날 것을 우려하여 1.23.6-00 버전으로 명시하여 설치하였다.&lt;/p&gt;
+
+&lt;p&gt;설치 이전에 epel, net-tools 를 설치한다.&lt;/p&gt;
+
+&lt;details&gt;
+&lt;summary&gt;EPEL, net tools 는 뭘까?&lt;/summary&gt;
+&lt;code&gt;
+&lt;pre&gt;
+
+
+`EPEL` == Extra Packages for Enterprise Linux
+말 그대로 엔터프라이즈 리눅스를 위한 추가 패키지이다. 기본 레포에 없는 오픈 소스들을 사용할 수 있다.
+
+
+`net-tools` 는 리눅스의 네트워킹 관련 커맨드라인 도구 모음이다.
+
+
+&amp;gt; A collection of programs that form the base set of the NET-3 networking distribution for the Linux operating system.  
+&amp;gt; Includes: arp, hostname, ifconfig, netstat, rarp, route, plipconfig, slattach, mii-tool and iptunnel and ipmaddr.  
+&amp;gt; A mirror of the sourcecode is available on https://github.com/ecki/net-tools
+
+
+&lt;/pre&gt;&lt;/code&gt;
+&lt;/details&gt;
+
+&lt;details&gt;
+&lt;summary&gt; 쿠버네티스 1.24 미만 버전 &lt;/summary&gt;
+&lt;code&gt;
+&lt;pre&gt;
+
+
+
+```
+shell
+# install Extra Packages for Enterpries Linux System, Docker
+sudo apt-get install epel-release -y
+sudo apt-get install net-tools -y
+sudo apt-get update &amp;amp;&amp;amp; sudo apt-get -y upgrade
+
+# Install Kubernetes Package
+# Add Google Cloud Public GPG Key to apt
+sudo curl -s &amp;lt;https://packages.cloud.google.com/apt/doc/apt-key.gpg&amp;gt; | sudo apt-key add -
+
+# Create new APT source list
+cat &amp;lt;&amp;lt;EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb &amp;lt;https://apt.kubernetes.io/&amp;gt; kubernetes-xenial main
+EOF
+
+# Update APT Package and upgrade all package
+# flag -y means all yes
+sudo apt-get update &amp;amp;&amp;amp; sudo apt-get -y upgrade
+
+# Install Kubernetes - kubectl, kubelet, kubeadm
+sudo apt-get install -y kubelet=1.23.6-00 kubeadm=1.23.6-00 kubectl=1.23.6-00
+
+# hold kubelet, kubeadm, kubectl version
+sudo apt-mark hold kubelet kubeadm kubectl
+
+echo &quot;sleep 3 sec&quot;
+sleep 3
+
+sudo apt-get update &amp;amp;&amp;amp; sudo apt-get upgrade
+
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+echo &quot;Installing Docker&quot;
+sudo curl -sSL &amp;lt;https://get.docker.com/&amp;gt; | sh
+
+echo &quot;sleep 1 sec&quot;
+sleep 1
+
+echo &quot;sleep 3 sec&quot;
+sleep 3
+
+
+```
+
+
+
+&lt;/pre&gt;&lt;/code&gt;
+&lt;/details&gt;
+
+&lt;p&gt;쿠버네티스 버전을 1.24 이상 버전을 사용하면서, docker 에서 containerd 로 옮겨가게 되었다. 쿠버네티스와 containerd 의 설치 방법은 &lt;a href=&quot;https://hoex5h.github.io/kubernetes/2024/04/06/kubernetes_containerd.html&quot;&gt;k8s-docker-containerd&lt;/a&gt; 에 적어두었다.&lt;/p&gt;
+
+&lt;h3 id=&quot;containerd-설정&quot;&gt;containerd 설정&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;systemd-를-cgroup-driver-로-설정하기&quot;&gt;systemd 를 cgroup driver 로 설정하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/containerd/config.toml&lt;/code&gt; 에 아래 항목 추가&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc]
+  ...
+  [plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+sudo systemctl restart containerd
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;containerd 재시작.&lt;/p&gt;
+
+&lt;h3 id=&quot;ipv4-포워딩-bridge-iptable-규칙-수정&quot;&gt;IPv4 포워딩, bridge iptable 규칙 수정&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd&quot;&gt;Container Runtime&lt;/a&gt; 쿠버네티스 공식 문서를 참조해서 진행했다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+cat &amp;lt;&amp;lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# sysctl params required by setup, params persist across reboots
+cat &amp;lt;&amp;lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;아래 커맨드로 br_netfilter 와 overlay 모듈이 load 되어 있는지 확인해보라고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+lsmod | grep br_netfilter
+lsmod | grep overlay
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 sysctl에 저 3가지 항목의 값이 1로 설정되어 있는지 확인해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cgroup&quot;&gt;cgroup&lt;/h3&gt;
+
+&lt;p&gt;리눅스는 cgroup가 프로세스의 리소스를 제한하는 역할을 한다.&lt;/p&gt;
+
+&lt;p&gt;kubelet과 containerd 도 pod의 리소스를 제한하는데 cgroup driver 를 사용해야 하는데, 반드시 kubelet 과 containerd 는 같은 구성의, 같은 cgroup driver 를 사용해야 한다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;cgroup driver 에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgroupfs&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd&lt;/code&gt; 가 존재하는데 만약 init 프로세스가 systemd 인 경우에는 kubelet 과 containerd 의 cgroup driver 또한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd&lt;/code&gt; 를 사용하도록 권장하고 있다. 이유는 systemd 가 cgroup 관리자는 하나라고 인식하기 때문이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;추가로 cgroup v2 를 사용할 경우에도 systemd 를 사용하라고 한다. cgroup v2 가 무엇인지 문서를 읽어보니 cgroup 의 업그레이드 버젼인듯 하다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;kubelet-의-cgroup-driver-를-systemd-로-수정하기&quot;&gt;kubelet 의 cgroup driver 를 systemd 로 수정하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/ko/docs/tasks/administer-cluster/kubelet-config-file/&quot;&gt;kubelet-config-file&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;kubeadm 을 통해 init 을 하고 난 후에, kubelet 의 config 파일을 아래처럼 수정해주면 된다. 아직 kubeadm init 후에 적용하면 되기 때문에 지금 당장 config 파일을 만들 필요는 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kuploy_Project]_Kuploy_.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;master-node-설정&quot;&gt;Master Node 설정&lt;/h2&gt;
+
+&lt;h3 id=&quot;kubeadm-init&quot;&gt;kubeadm init&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+$ sudo kubeadm init --apiserver-advertise-address=[마스터 노드 IP] --pod-network-cidr=[CNI 네트워크 라우팅 대역]
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;마스터노드에서 kubeadm 을 init 하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;네트워크 라우팅 대역&lt;/code&gt; 을 입력해야하는데, Calico 를 사용한다면 192.168.0.0/16 를 입력해 주면 된다.&lt;/p&gt;
+
+&lt;p&gt;cidr 에 관해서는 &lt;a href=&quot;https://hoex5h.github.io/network/2024/03/22/cidr.html&quot;&gt;Gateway,사설망,CIDR&lt;/a&gt; 을 참조하자!&lt;/p&gt;
+
+&lt;p&gt;해당 커맨드를 입력하면 아래와 같은 결과값이 반환되는데 이를 어딘가에 적어두거나 기억해두자. 추후 Worker Node 설정에 필요하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+# 딱히 건들지 않았다면 api-server 의 포트가 6443 으로 설정되어 있을 것이라서 마스터 노드의 6443 포트를 입력한다.
+sudo kubeadm join {마스터 노드 IP}:6443 --token {토큰값~}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후에 config 에 권한을 부여해줘야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+sudo mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+systemctl restart kubelet
+systemctl restart docker
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cnicontainer-network-interface&quot;&gt;CNI(Container Network Interface)&lt;/h3&gt;
+
+&lt;p&gt;CNI에 대한 자세한 내용은 따로 작성해둔 &lt;a href=&quot;https://hoex5h.github.io/kubernetes/2024/03/21/kubernetes_cni.html&quot;&gt;Kubernetes-CNI&lt;/a&gt; 문서를 참조하자.&lt;/p&gt;
+
+&lt;p&gt;우리는 CNI 로 calico 를 선택했다. 사실 이렇게 소규모 프로젝트에서 어떤 CNI를 쓰든 큰 차이가 나지는 않을 것이다. 가장 대중적으로 사용하는 Calico, Flannel, Weave Net 정도의 차이점만 알아보았는데 대규모 트래픽 연산(성능) 측면에서는 L3를 활용하는, 즉 모든 Container 마다 ip를 부여해서 통신하는 Calico의 성능이 제일 좋았고, 간편성만 따졌을 때는 Flannel 이 제일 좋았다. WeaveNet은 Mesh 네트워크 구조라서 성능이 나머지 두 플러그인에 비해 조금 떨어진다.&lt;/p&gt;
+
+&lt;p&gt;대규모 트래픽 연산에 성능이 좋은 Calico와, 소규모 프로젝트에 어울리는 Flannel 중에서 선택을 고민했고 Calico 가 조금 더 대중적인 이유를 고려해서 Calico를 선택했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;calico-설치&quot;&gt;Calico 설치&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+# 2024-03-22 기준!
+$ kubectl create -f &amp;lt;https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/tigera-operator.yaml&amp;gt;
+$ kubectl create -f &amp;lt;https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/custom-resources.yaml&amp;gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;더 자세한 것은 &lt;a href=&quot;https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart&quot;&gt;Calico 공식 홈페이지&lt;/a&gt; 를 참조하자!&lt;/p&gt;
+
+&lt;p&gt;calico 가 예전의 프로젝트에서 분리되어 나온건지 예전과 달라진 적이 있으므로 공식 홈페이지에서 안내해주는대로 설치하는 것을 권장한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+$ watch kubectl get pods -n calico-system
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후에 위의 커맨드로 모든 calico pod 들의 Status 가 Running 으로 바뀌는지 확인한다. 대략 5~6분 정도 소요되는 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;마지막으로 control plane 의 taint 를 제거함으로써 pod 스케쥴링을 할 수 있도록 바꿔준다.&lt;/p&gt;
+
+&lt;h3 id=&quot;helm-설치&quot;&gt;Helm 설치&lt;/h3&gt;
+
+&lt;p&gt;Helm 은 쿠버네티스의 Package managing tool 이다. Linux 의 APT 나 YUM, 맥에서는 homebrew 와 비슷하다고 보면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+curl -fsSL -o get_helm.sh &amp;lt;https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3&amp;gt;
+chmod +x get_helm.sh
+
+helm version
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;worker-node-설정&quot;&gt;Worker Node 설정&lt;/h2&gt;
+
+&lt;p&gt;Master Node 에서 kubeadm init 하면서 얻었던 join 커맨드를 입력해주자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+# 딱히 건들지 않았다면 api-server 의 포트가 6443 으로 설정되어 있을 것이라서 마스터 노드의 6443 포트를 입력한다.
+sudo kubeadm join {마스터 노드 IP}:6443 --token {토큰값~}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;join 이 정상적으로 되었다면 master node 에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl get nodes&lt;/code&gt; 를 입력 했을 때, worker node 들의 상태가 NotReady 가 아닌 Ready 상태여야 한다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+        <category term="Ansible" />
+      
+        <category term="ArgoCD" />
+      
+        <category term="Docker" />
+      
+        <category term="Linux" />
+      
+
+      
+        <summary type="html">[Kuploy] Kuploy 는 어떤 프로젝트인가?</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] kubelet is not running</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_kubelet_is_not_running" rel="alternate" type="text/html" title="[Kubernetes] kubelet is not running" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_kubelet_is_not_running</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_kubelet_is_not_running">&lt;h1 id=&quot;kubernetes-kubelet-is-not-running&quot;&gt;[Kubernetes] kubelet is not running&lt;/h1&gt;
+
+&lt;p&gt;쿠버네티스를 1.29 버전으로 업그레이드 하면서 새롭게 kubeadm init 을 했는데, 아래 사진처럼 에러가 났다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_kubelet_is_not_running.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;원인을 알아보려고 우선 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemctl status kubelet&lt;/code&gt; 과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;journalctl -xeu kubelet&lt;/code&gt; 을 실행해봤는데,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_kubelet_is_not_running.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;아무래도 runc 의 문제인 것 같았다.&lt;/p&gt;
+
+&lt;h2 id=&quot;containerd-runc-설치에-문제가-있었나&quot;&gt;containerd, runc 설치에 문제가 있었나?&lt;/h2&gt;
+
+&lt;p&gt;우선 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;which containerd&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;which runc&lt;/code&gt; 를 실행해봤더니, containerd 는 문제없이 잘 찾았는데 runc 를 찾지 못했다.
+일단은 빠르게 해결하려고 심볼릭 링크를 걸어서 runc 를 찾을 수 있도록 했는데 이유가 뭔가 하고 봤더니..
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usr/local/bin&lt;/code&gt; 에 runc 바이너리 파일이 아니라 runc 폴더 안에 runc 바이너리 파일이 있던 것이었다.&lt;/p&gt;
+
+&lt;p&gt;맨날 apt 같은 패키지 매니저를 사용하다가 이번에 처음으로 바이너리 파일로 다운받다보니 많이 헤매고 있다..&lt;/p&gt;
+
+&lt;p&gt;runc를 정상적으로 설치한 후에는 systemctl status kubelet 으로 kubelet 상태가 정상인 것도 확인할 수 있고, kubeadm init 도 정상적으로 동작하는 걸 확인할 수 있다!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] kubelet is not running</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] Metrics Server</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_Metrics_Server" rel="alternate" type="text/html" title="[Kubernetes] Metrics Server" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_Metrics_Server</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_Metrics_Server">&lt;h1 id=&quot;kubernetes-metrics-server&quot;&gt;[Kubernetes] Metrics Server&lt;/h1&gt;
+
+&lt;p&gt;쿠버네티스에서는 Metric 이라는 것을 활용해서 Pod 들을 오토스케일링 할 수 있다고 한다. 그렇다면 metric 은 무엇일까?&lt;/p&gt;
+
+&lt;h2 id=&quot;metric-이-뭘까&quot;&gt;Metric 이 뭘까&lt;/h2&gt;
+
+&lt;p&gt;metric 은 쿠버네티스에서 “어떤 시스템의 성능이나 상태” 정도로 생각하면 될 것 같다. 예를 들어 CPU 사용량, 메모리 사용량, 네트워크/디스크 입출력 등등이 있겠다.&lt;/p&gt;
+
+&lt;h2 id=&quot;스케일링&quot;&gt;스케일링&lt;/h2&gt;
+
+&lt;p&gt;스케일링에는 수직 스케일링과 수평 스케일링, 2가지 스케일링이 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;수직-스케일링vertical-scaling&quot;&gt;수직 스케일링(Vertical Scaling)&lt;/h3&gt;
+
+&lt;p&gt;수직 스케일링은 어떤 시스템의 성능(CPU, RAM 등)을 조금 더 많이 배치해서 그 시스템의 성능을 끌어 올리는 것이다.&lt;/p&gt;
+
+&lt;p&gt;내가 사용하던 컴퓨터의 램을 16GB 에서 32GB 로 업그레이드하는 것을 수직 스케일링의 예로 들 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;수평-스케일링horizontal-scaling&quot;&gt;수평 스케일링(Horizontal Scaling)&lt;/h3&gt;
+
+&lt;p&gt;수평 스케일링은 시스템을 복제해서 여러 시스템을 배치하는 것이다. 내가 사용하던 16GB 의 컴퓨터와 동일한 사양으로 하나 더 준비해서, 컴퓨터를 총 2대 가용하는 것을 수평 스케일링의 예로 들 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;hpahorizontal-pod-autoscale&quot;&gt;HPA(Horizontal Pod Autoscale)&lt;/h2&gt;
+
+&lt;p&gt;Metric 을 이용해서 오토스케일링 한다는 것은 무엇일까? &lt;a href=&quot;https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/&quot;&gt;공식 문서는 여기!(kubernetes_HPA)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;쿠버네티스에서는 필요시에 Pod 를 복제하여 수평적으로 스케일링을 할 수 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;쿠버네티스는 Horizontal Pod Autoscaling을 간헐적으로(intermittently) 실행되는 컨트롤 루프 형태로 구현했다(지속적인 프로세스가 아니다). 실행 주기는 kube-controller-manager의 –horizontal-pod-autoscaler-sync-period 파라미터에 의해 설정된다(기본 주기는 15초이다). 각 주기마다, 컨트롤러 매니저는 각 HorizontalPodAutoscaler 정의에 지정된 메트릭에 대해 리소스 사용률을 질의한다. 컨트롤러 매니저는 scaleTargetRef에 의해 정의된 타겟 리소스를 찾고 나서, 타겟 리소스의 .spec.selector 레이블을 보고 파드를 선택하며, 리소스 메트릭 API(파드 단위 리소스 메트릭 용) 또는 커스텀 메트릭 API(그 외 모든 메트릭 용)로부터 메트릭을 수집한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;쿠버네티스의 컨트롤러는 일정 주기(기본 15초) 마다 타겟의 파드를 선택해서 HorizontalPodAutoscaler 정의에 지정된 메트릭을 수집한다. 만약 내가 CPU 를 지정해두었다면, 15초마다 너 지금 CPU 얼마나 쓰고 있는지 볼게~ 하고 확인하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;파드를 지정할 때, 컨테이너에 필요한 각 리소스(CPU와 메모리 등등)의 양을 선택적으로 지정할 수 있다. 예를 들어 특정 Pod에서 각각의 컨테이너가 최소 CPU 100m 은 써야하고(request), 200m 아래로 썼으면 좋겠어(limit) 라고 지정할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;또한 HorizontalPodAutoscaler 에는 최소, 최대 레플리카의 개수를 지정할 수 있다. 예를 들어 아래와 같이 오토스케일러를 지정했다고 하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-application-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-application
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;wen-application 이라는 Deployment는 Pod가 최소 2개 있어야 하며, 최대 10개까지 복제가 가능하다.&lt;/p&gt;
+
+&lt;p&gt;만약 존재하는 Pod 들의 평균 CPU 사용률이 50퍼센트가 넘어간다면, HPA 는 scale up 을 하게 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 생성된 Deployment 는 Pod 2개를 미리 생성해놓고 대기하고 있을 것이다. 이때 갑자기 많은 양의 사용자가 몰렸다고 하자.
+첫 번째 Pod 의 CPU 사용률은 40퍼센트, 두 번째 Pod 의 CPU 사용률은 70퍼센트가 되었다.
+15초마다 HPA는 정기적으로 CPU 사용률을 체크하다가,
+“`! CPU의 평균 사용률이 (40+70)/2 = 55% 네!, 50퍼센트를 넘었잖아!” 라고 확인하게 되면
+아래의 공식으로 레플리카 수를 측정해서 늘린다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;원하는 레플리카 수 = ceil[현재 레플리카 수 * ( 현재 메트릭 값 / 원하는 메트릭 값 )]&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;원하는 레플리카 수 = ceil[2 * (55 / 50)] = ceil(2.xx) = 3&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ceil 은 소숫점 올림 함수
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;현재 레플리카가 2개 존재 하기 때문에, 1개를 추가 생성해서 3개로 맞추게 된다. HPA는 이렇게 수평적으로 확장(Scale up)만 하는 것이 아니라 부하량이 줄어들고, 파드의 수가 최소 설정값 이상인 경우, HorizontalPodAutoscaler는 워크로드 리소스(디플로이먼트, 스테이트풀셋, 또는 다른 비슷한 리소스)에게 축소(Scale down)을 지시하기도 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;metrics-server&quot;&gt;Metrics Server&lt;/h2&gt;
+
+&lt;p&gt;그렇다면 이 Metric 은 어떻게 수집할 수 있을까? 이 역할을 바로 Metrics Server 가 담당한다. 이제 Metrics Server 를 설치해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+kubectl apply -f &amp;lt;https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml&amp;gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;사실 Metrics Server 를 설치하고 CA 인증 절차를 거쳐야 하는데 지금은 간단하게 살펴만 보고 추후에 CA 인증을 하도록 하자..&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+kubectl edit deployment metrics-server -n kube-system
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후 spec -&amp;gt; container -&amp;gt; args 항목에서&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;-kubelet-insecure-tls=true
+를 추가한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;참고&quot;&gt;참고!&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/ko/docs/concepts/configuration/manage-resources-containers/&quot;&gt;파드 및 컨테이너 리소스 관리&lt;/a&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] Metrics Server</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] Kubernetes Lens</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_Kubernetes_Lens" rel="alternate" type="text/html" title="[Kubernetes] Kubernetes Lens" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_Kubernetes_Lens</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_Kubernetes_Lens">&lt;h1 id=&quot;kubernetes-kubernetes-lens&quot;&gt;[Kubernetes] Kubernetes Lens&lt;/h1&gt;
+
+&lt;h2 id=&quot;lens-란-무엇인가&quot;&gt;Lens 란 무엇인가&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Kubernetes Lens 는 클러스터 관리 GUI 툴이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;쿠버네티스로 프로젝트를 할 때, 클러스터를 관리하는 것은 무조건 kubectl 만을 사용해야 하는 줄 알았다.&lt;/p&gt;
+
+&lt;p&gt;근데 우연히 어떤 분께서 작성하신 쿠버네티스 포스트를 읽다가 Kubernetes Lens 라는걸 알게 되었는데,&lt;/p&gt;
+
+&lt;p&gt;완전 편해보이는것이 아닌가.. 물론 CLI 도 장점이 있지만 역시 GUI가 깔끔하긴하니까..&lt;/p&gt;
+
+&lt;h2 id=&quot;lens-설치&quot;&gt;Lens 설치&lt;/h2&gt;
+
+&lt;p&gt;Lens 설치는 크게 어려울 것이 없다. 아래의 링크에서 운영체제에 맞게 다운로드 받으면 끝이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://k8slens.dev/&quot;&gt;Lens 공식 홈페이지&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lens-에-add-cluster&quot;&gt;Lens 에 Add Cluster&lt;/h2&gt;
+
+&lt;h3 id=&quot;vpn-&quot;&gt;VPN ?&lt;/h3&gt;
+
+&lt;p&gt;이 부분이 사실 조금 고민거리였는데, 애초에 쿠버네티스 클러스터는 대부분 private ip 로 구성되어 있을거고&lt;/p&gt;
+
+&lt;p&gt;내가 하고 싶은 것은 클러스터 외부에 있는 컴퓨터(내 맥북)에서 클러스터를 관리하고 싶은 것이다.&lt;/p&gt;
+
+&lt;p&gt;그러기 위해선 내 맥북이 클러스터와 같은 네트워크로 들어가거나, 아니면 apiserver 를 외부로 노출시켜야 했다.&lt;/p&gt;
+
+&lt;p&gt;아무래도 보안상 apiserver 를 외부로 노출시키는것 보단, vpn 을 쓰는게 좋지 않을까? 라는 생각이 들어서 iptime 공유기 vpn 설정을 따라해보려던 찰나,&lt;/p&gt;
+
+&lt;p&gt;내가 구매했던 iptime 공유기 버전이 N104E 였는데 이건 저가형이라서 vpn 기능이 없다고 한다. vpn 해보고 싶었는데..&lt;/p&gt;
+
+&lt;p&gt;아무튼 그러해서 apiserver 를 외부로 노출시키는 방법을 선택했다.&lt;/p&gt;
+
+&lt;h3 id=&quot;apiserver-에-certsans-추가&quot;&gt;apiserver 에 certSANs 추가&lt;/h3&gt;
+
+&lt;p&gt;그래서 어떤 것을 해야 하느냐?&lt;/p&gt;
+
+&lt;p&gt;apiserver 의 CA(Certificate Authority) 에 외부 ip를 추가하는 것인데,&lt;/p&gt;
+
+&lt;p&gt;쉽게 말해서 private 하게 구성된 apiserver 에 외부 도메인 혹은 ip 를 허용해줘야 한다.&lt;/p&gt;
+
+&lt;p&gt;certSAN 를 추가하는 방법은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. kubeadm init 과 동시에 flag 로 추가하는 방법&lt;/code&gt; 이 있고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. 이미 init 이 끝났다면 configMap 을 수정하는 방법&lt;/code&gt; 이 있다.&lt;/p&gt;
+
+&lt;p&gt;kubeadm 과 동시에 flag 로 추가하려면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--apiserver-cert-extra-sans&lt;/code&gt; flag 와 함께 init 하면 된다.&lt;/p&gt;
+
+&lt;p&gt;그러나 대부분 Lens 를 사용하려는 사람들은 나처럼 이미 kubeadm init 을 통해서 클러스터를 구성하고 여러 작업을 진행한 사람들일 것이다.&lt;/p&gt;
+
+&lt;p&gt;이런 경우에는 init 을 다시하기엔 여태 해왔던 작업들이 너무 아까우니까, configmap 을 수정하고, apiserver 의 CA를 다시 발급하는 과정을 수행하면 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;configmap-수정&quot;&gt;Configmap 수정&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1. 현재 configmap 을 가져온다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+$ kubectl get configmap kubeadm-config -n kube-system -o jsonpath=&apos;{.data.ClusterConfiguration}&apos; &amp;gt; kubeadm-conf.yaml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2. certSANs 를 추가한다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_Kubernetes_Lens.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 이미지에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;your.domain.or.ip&lt;/code&gt; 부분에 추가하고 싶은 도메인이나 ip 를 입력하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3. apiserver CA 다시 발급받기&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Cert 를 다시 발급받기 전에, 우선 기존의 Key 가 있으면 재발급이 되지 않기 때문에 기존의 key 들을 다른 곳으로 옮기거나 삭제해야한다. 혹시 잘못될 수 있으니 다른 곳으로 백업해두는 것을 권장.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+$ cd /etc/kubernetes/pki
+$ mkdir temp
+$ mv apiserver.* temp
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후, 재발급 받으면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+$ kubeadm init phase certs apiserver --config ~/work/kubeadm-conf.yaml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;재발급 받은 뒤에는 1번에서 만들어두었던 configmap 에 변경사항을 적용한다.&lt;/p&gt;
+
+&lt;p&gt;{your_directory}에는 1번에서 만들어둔 configmap 의 경로.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubeadm init phase upload-config kubelet --config /{your_diretory}/kubeadm-conf.yaml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;lens-에서-cluster-추가&quot;&gt;LENS 에서 cluster 추가&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_Kubernetes_Lens.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;공식 홈페이지에서 다운받은 뒤에, 사진처럼 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Add Cluster&lt;/code&gt; 를 눌러주면 되는데, 단순히 ~/.kube/config 파일을 불러오는게 아니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.k8slens.dev/getting-started/add-cluster/&quot;&gt;“Add_Cluster&lt;/a&gt; 이 문서를 참조하라고 하는데, 확인해보면 아래의 커맨드로 현재의 config 를 불러오면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl config view --minify --raw
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후에, 사진에서 보이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server: https://{your.ip.or.domain}:{api-server-port}&lt;/code&gt; 를 위에서 certSANs 에 추가한 도메인이나 ip로 바꿔주면 된다!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_Kubernetes_Lens.md/2.png&quot; alt=&quot;2&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;잘 완료되었다면 아래와 같이 클러스터의 상황을 볼 수 있다!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_Kubernetes_Lens.md/3.png&quot; alt=&quot;3&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] Kubernetes Lens</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] Kubernetes CNI</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI" rel="alternate" type="text/html" title="[Kubernetes] Kubernetes CNI" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_Kubernetes_CNI</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI">&lt;h1 id=&quot;kubernetes-kubernetes-cni&quot;&gt;[Kubernetes] Kubernetes CNI&lt;/h1&gt;
+
+&lt;h2 id=&quot;쿠버네티스-클러스터-네트워킹의-두-가지-원칙&quot;&gt;쿠버네티스 클러스터 네트워킹의 두 가지 원칙&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/&quot;&gt;쿠버네티스의 공식 문서&lt;/a&gt;를 참조해서 CNI 가 무엇인지, 어떠한 역할을 하는지 알아보자. 참고로 한국어로 번역된 페이지도 생각보다 많으니 공식 문서에서 한국어가 지원되는 페이지인지 확인해보는 것도 좋다.&lt;/p&gt;
+
+&lt;p&gt;쿠버네티스 클러스터의 네트워킹에서는 반드시 지켜야 하는 두 가지 원칙이 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;임의의 노드에 있는 파드와, 다른 모든 노드에 있는 모든 파드들과 물리적으로 통신할 수 있어야 한다.&lt;/li&gt;
+  &lt;li&gt;임의의 노드에 있는 파드와, 같은 노드에 있는 모든 파드들과 물리적으로 통신할 수 있어야 한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;2번의 경우, 같은 노드에 있는 파드들은 같은 네임스페이스를 공유하기 때문에 로컬 호스트로 각각 컨테이너에 할당된 포트로 통신이 가능하다.&lt;/p&gt;
+
+&lt;p&gt;같은 노드에 있는 A pod(8080) 와 B pod(7070) 은 서로 로컬호스트 포트로 통신이 가능하다는 뜻이다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 1번 원칙은 어떻게 될까?&lt;/p&gt;
+
+&lt;p&gt;뜬금없지만 사실 쿠버네티스 내부에는 네트워크가 구현되어 있지 않다. 위에서 언급했던 원칙처럼 어떻게 통신이 이루어져야 하는지에 대한 사양만 있고, 직접 구현되어 있지는 않다.&lt;/p&gt;
+
+&lt;p&gt;사용자가 자신의 환경을 고려해서 적절한 네트워크 플러그인을 가져다 써야하는데, 이때 사용하는 네트워크 스펙 인터페이스가 CNI 이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;cni가-뭘까&quot;&gt;CNI가 뭘까?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/containernetworking/cni&quot;&gt;CNI Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;CNI 공식 깃허브 문서에 따르면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CNI(Container Network Interface)는 리눅스 컨테이너에서 네트워크 인터페이스를 구성하기 위한 플러그인을 작성하는 사양(specification)과 라이브러리로 구성된 프로젝트이다. CNI는 오직 컨테이너간 네트워크 연결과 컨테이너가 삭제될 때, 할당된 리소스들을 지우는 것에만 관여한다. 이러한 점들 때문에, CNI는 넓은 범위의 지원을 받으며 구현하기 간단한 사양을 가지고 있다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;CNI는 리눅스 컨테이너의 네트워크 인터페이스를 관리할 수 있는 사양(specification)에 대한 프로젝트다. 컨테이너가 생성되고 삭제될 때, 네트워크 인터페이스가 생성되고 삭제되는 것을 어떻게 처리할 것인지에 대한 내용을 포함하고 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;cni는-그럼-왜-필요할까&quot;&gt;CNI는 그럼 왜 필요할까?&lt;/h2&gt;
+
+&lt;p&gt;네트워크에 대한 구성은 인프라 환경에 따라서 구성이 매우 복잡하고 다양하다. 이렇게 다양한 네트워크 환경에서 수 많은 문제점들이 발생할 수 있는데, 이 수많은 문제점들에 대한 해결 방법도 천차만별이다. 결국 환경에 따라 네트워크 구성이 점점 복잡해지고 획일화되기는 쉽지 않게 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;CNI는 이렇게 네트워크 구성과 문제점이 복잡해지는 것을 막기 위해서 등장했다. 컨테이너 네트워크와 관련된 표준 스펙을 정의하고 있는 CNI를 통해서 네트워크를 구성하게 된다면 복잡했던 네트워크 구성과 문제점들을 어느정도 일축시킬 수 있을 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;kubernetes-cni&quot;&gt;Kubernetes CNI&lt;/h2&gt;
+
+&lt;p&gt;그 중에서 쿠버네티스를 위한 대표적인 플러그인들에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Calico, Flannel, Cilium ...&lt;/code&gt; 등이 있다. 더 자세한 내용은 &lt;a href=&quot;https://kubernetes.io/ko/docs/concepts/cluster-administration/addons/#network-and-networking-policy&quot;&gt;쿠버네티스 네트워킹 애드온&lt;/a&gt; 을 참고하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;calico&quot;&gt;Calico&lt;/h2&gt;
+
+&lt;p&gt;우리는 이번 기회에 Calico CNI 를 사용해볼 예정이기 때문에, Calico 에 대해 조금 자세히 알아보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.tigera.io/calico/latest/about/&quot;&gt;What is Calico?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;버전이 올라가면서 Calico 공식문서 및 깃허브 링크가 바뀌는 경우가 있다. 기존의 프로젝트에서 떼어져 나온다든지, 이러한 이유들이 있는걸로 보인다.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-calico&quot;&gt;What is Calico&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;쿠버네티스에서는 기본적으로 파드 간 통신에 대한 기본 설정은 모두 허용(default-allow)이다. 네트워크 정책을 이용해서 이를 제한하지 않는다면, 모든 파드들은 다른 파드들과 제약없이 통신할 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Calico 는 네트워크 통신을 보호하는 네트워킹과 cloud-native 의 마이크로서비스/애플리케이션을 보호하기 위한 고급 네트워크 정책으로 구성되어 있다.&lt;/p&gt;
+
+&lt;p&gt;Calico CNI는 containers, Kubernetes clusters, virtual machines, and native host-based workloads 를 보호하는 L3/L4 네트워킹 솔루션으로,  여러 데이터플레인을 프로그래밍하는 컨트롤 플레인이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;데이터 플레인 : 데이터 패킷이 이동하는 부분으로 실제로 사용자 또는 시스템 간에 데이터를 전송하는 역할을 담당하는 플레인. 데이터 패킷을 처리하고, 패킷의 다음 목적지로 전달하는 실질적인 처리와 전송을 담당하는 플레인 (근육)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;컨트롤 플레인 : 네트워크 경로를 결정하고, 정책을 설정하는 등의 네트워크 운영을 총괄하는 플레인. 네트워킹 장비에게 어떤 경로로 데이터 패킷을 전달해야 하는지 라우팅을 생성하고 관리하는 기능을 담당하는 플레인 (손,발)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_Kubernetes_CNI.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] Kubernetes CNI</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] Install Metallb</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_Install_Metallb" rel="alternate" type="text/html" title="[Kubernetes] Install Metallb" />
+      <published>2025-01-14T02:39:00+00:00</published>
+      <updated>2025-01-14T02:39:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_Install_Metallb</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_Install_Metallb">&lt;h1 id=&quot;kubernetes-install-metallb&quot;&gt;[Kubernetes] Install Metallb&lt;/h1&gt;
+
+&lt;p&gt;Metallb 를 설치하기 전에, k8s 버전에 따라 kube-proxy 버전을 확인하는 것이 좋다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl get configmap kube-proxy -n kube-system -o yaml | grep mode&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 커맨드의 결과가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ipvs&lt;/code&gt; 라면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictARP&lt;/code&gt; 옵션을 True 로 설정해야한다고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl get configmap kube-proxy -n kube-system -o yaml | \\
+sed -e &quot;s/strictARP: false/strictARP: true/&quot; | \\
+kubectl apply -f - -n kube-system
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후, Metallb 를 설치하자&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl apply -f &amp;lt;https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml&amp;gt;
+kubectl apply -f &amp;lt;https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml&amp;gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후 Metallb 에서 사용할 ip 대역을 설정해줘야하는데, 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layer 2&lt;/code&gt; 모드와, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BGP&lt;/code&gt; 모드를 사용할 수 있다고 한다.&lt;/p&gt;
+
+&lt;p&gt;calico 가 BGP 를 이용하여 트래픽을 라우팅한다고 언뜻 들었던 것 같은데, 우선은 layer 2 모드를 사용해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;metallb_config.yaml&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - ${IP 대역폭}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl apply -f metallb_config.yaml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이제 service 의 type 을 LoadBalancer 로 만들었을 때, external-ip 가 설정했던 대역폭으로 잘 설정된다면,&lt;/p&gt;
+
+&lt;p&gt;Metallb 설치가 정상적으로 완료된 것이다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] Install Metallb</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] 무중단 배포</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_%EB%AC%B4%EC%A4%91%EB%8B%A8_%EB%B0%B0%ED%8F%AC" rel="alternate" type="text/html" title="[Kubernetes] 무중단 배포" />
+      <published>2025-01-14T02:23:00+00:00</published>
+      <updated>2025-01-14T02:23:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_%EB%AC%B4%EC%A4%91%EB%8B%A8_%EB%B0%B0%ED%8F%AC</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_%EB%AC%B4%EC%A4%91%EB%8B%A8_%EB%B0%B0%ED%8F%AC">&lt;h1 id=&quot;kubernetes-무중단-배포&quot;&gt;[Kubernetes] 무중단 배포&lt;/h1&gt;
+
+&lt;h2 id=&quot;무중단-배포&quot;&gt;무중단 배포&lt;/h2&gt;
+
+&lt;p&gt;서비스를 사용자에게 배포할 때 변경사항이 생겨서, 중단 -&amp;gt; 수정 -&amp;gt; 배포 과정을 거치게 된다면 다시 배포되기 전까지 사용자는 서비스를 사용할 수 없다.&lt;/p&gt;
+
+&lt;p&gt;하지만 당연하게도 중단 -&amp;gt; 수정 -&amp;gt; 배포보다는 수정 -&amp;gt; 배포 과정만 반복하고, 중단 과정이 없는 “무중단 배포”가 서비스 사용자들 입장에선 훨씬 좋지 않을까?&lt;/p&gt;
+
+&lt;p&gt;쿠버네티스는 이러한 무중단 배포 아키텍처를 여러가지 제공한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;롤링-배포rolling-deployment&quot;&gt;롤링 배포(Rolling Deployment)&lt;/h3&gt;
+
+&lt;p&gt;롤링 배포는 전체 서버에서&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;일부분을 “ 라우팅 중단 -&amp;gt; 새로운 버전으로 업데이트 -&amp;gt; 배포 “&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;하여 일부분을 새로운 버전으로 업데이트 한다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 되면 Version 1 과 Version 2 서버가 공존하게 되고, 새로 업데이트 한 Version2 가 문제 없이 잘 작동한다면
+또 다시 일부분의 라우팅을 중단하고, 새로운 버전으로 업데이트하고, 배포하는 과정을 반복해서&lt;/p&gt;
+
+&lt;p&gt;전체 서버를 Version 2 로 업데이트 하는 것이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;그리고 이 롤링 배포는 쿠버네티스에서 Default 배포 방식이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;블루-그린-배포blue-green-deployment&quot;&gt;블루-그린 배포(Blue-Green Deployment)&lt;/h3&gt;
+
+&lt;p&gt;블루-그린 배포는 블루를 구 버전, 그린을 신 버전으로 생각해서 만들어진 이름이다.&lt;/p&gt;
+
+&lt;p&gt;정상적으로 잘 작동하고 있던 Version 1(블루) 서버에 더해서 새로운 Version 2(그린) 서버를 준비한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이후 그린 서버를 테스트 해보고 그린 서버로 라우팅을 바꿔버리면 끝이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;대신 블루 서버와 그린 서버, 두 서버를 감당해야 하므로 cost 가 많이 들어가는것은 당연하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;카나리-배포canary-deployment&quot;&gt;카나리 배포(Canary Deployment)&lt;/h3&gt;
+
+&lt;p&gt;카나리 배포는 롤링 배포와 상당히 유사하다.&lt;/p&gt;
+
+&lt;p&gt;처음 설명을 읽을 때 카나리 배포와 롤링 배포의 차이점을 구분하지 못해서 여기저기 찾아서 읽어보았다.&lt;/p&gt;
+
+&lt;p&gt;“아니 이거 롤링 배포 천천히하면 그게 카나리 배포 아닌가?” 라는 생각이 계속 들었는데 대부분의 포스트에서는 카나리 배포가 블루-그린 배포랑 유사하다는 말이 많아서 더욱 헷갈렸다.&lt;/p&gt;
+
+&lt;p&gt;나처럼 헷갈리는 사람들을 위해 조금 더 설명해보자면, 롤링 배포는 그냥 임의의 서버들을 Version2 로 올리는거라면 카나리 배포는 소수의 특정 집단 “유저” 를 타게팅해서 바꾸는 것이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;서버가 아니라 유저를 타게팅한다는 점이 중요하다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;예를 들어서, 내가 만든 어플리케이션이 한국, 일본, 미국, 그 외 나라에 서비싱 중이라고 가정해보자.
+이번에 어플리케이션의 작동 속도를 대폭 상승 시킨 버전을 업데이트 하려고 한다.
+아무래도 빨리빨리 문화가 우세한 한국에서는 다른 나라에 비해 이번 업데이트에 더 tolerant 하지 않을까?&lt;/p&gt;
+
+&lt;p&gt;그러므로 한국에 먼저 업데이트를 올려보고 한국 사용자들의 comment 를 면밀히 살펴보는 것이다.&lt;/p&gt;
+
+&lt;p&gt;임의의 서버에 배포하는 롤링 배포보다, 내가 배포한 유저들에 대한 control 이 훨씬 좋고 이슈나 버그들도 훨씬 잘 찾아주리라 기대 된다.&lt;/p&gt;
+
+&lt;p&gt;참고한 포스트에서 든 또다른 예시로는, 실 유저에게 배포하기 전에 회사 내부에 먼저 배포하는 것을 예시로 들었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;출처&quot;&gt;출처&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kubernetes.io/ko/docs/concepts/overview/&quot;&gt;쿠버네티스 공식 문서&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codefresh.io/learn/software-deployment/kubernetes-rolloing-deployment-a-practical-guide/&quot;&gt;Codefresh&lt;/a&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">[Kubernetes] 무중단 배포</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] 도커의 쿠버네티스 사용해보기</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_%EB%8F%84%EC%BB%A4%EC%9D%98_%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4_%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0" rel="alternate" type="text/html" title="[Kubernetes] 도커의 쿠버네티스 사용해보기" />
+      <published>2025-01-14T02:23:00+00:00</published>
+      <updated>2025-01-14T02:23:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_%EB%8F%84%EC%BB%A4%EC%9D%98_%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4_%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_%EB%8F%84%EC%BB%A4%EC%9D%98_%EC%BF%A0%EB%B2%84%EB%84%A4%ED%8B%B0%EC%8A%A4_%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0">&lt;h1 id=&quot;도커의-쿠버네티스를-사용해보자&quot;&gt;도커의 쿠버네티스를 사용해보자&lt;/h1&gt;
+
+&lt;p&gt;먼저, 실습 환경은 M1 pro 맥북 프로임을 알립니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;도커-쿠버네티스&quot;&gt;도커, 쿠버네티스&lt;/h2&gt;
+
+&lt;p&gt;도커에는 자체적으로 쿠버네티스를 지원한다. 아래 사진 처럼 도커에서&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Setting -&amp;gt; Kubernetes -&amp;gt; Enable Kubernetes 를 활성화해주자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;node-확인&quot;&gt;Node 확인&lt;/h3&gt;
+
+&lt;p&gt;이후, 터미널에&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl get nodes
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 입력해보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;처럼 현재 실행중인 노드를 확인할 수 있는데, 여기서 기존에 GKE 나 Minikube 를 사용한 적이 있다면 Context 가 Docker 가 아니라, GKE 나 Minikube 로 잡혀있을 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;만약 kubectl get nodes 명령어가 정상적으로 실행되지 않는다면, 우선은 kubectl version 으로 kubectl 이 설치되어 있는지 확인해보고 잘 깔려있다면&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl config get-contexts
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 입력해서 결과를 보자.&lt;/p&gt;
+
+&lt;p&gt;나의 경우에는 쿠버네티스 해보겠다고 GKE도 써보고 Minikube 도 써보고 했는데, 그 덕에 여러가지 Context 가 존재했다.&lt;/p&gt;
+
+&lt;p&gt;만약 Current 의 “*” 표시가 Docker-desktop 에 붙어있지 않다면, 지금 이 문서에서는 Docker-desktop 을 사용할 것이기 때문에 context 를 바꿔주자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl config use-context { NAME }
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“kubectl config use-context docker-for-desktop” 으로 context 를 변경하고, “kubectl get nodes” 를 다시 입력해보면 정상적으로 node 가 출력될 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;deployment&quot;&gt;deployment&lt;/h3&gt;
+
+&lt;p&gt;다음으로는 간단한 application 을 실행해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl create deployment hellok8s --image=k8s.gcr.io/echoserver-arm:1.8 --port=8080
+kubectl expose deployment hellok8s --type=NodePort
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;M1 맥에서는 echoserver-arm 을 사용해야 이미지를 정상적으로 가져올 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이제 expose 된 서비스를 확인하기 위해&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl get services
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;deployment-result&quot;&gt;deployment result&lt;/h3&gt;
+
+&lt;p&gt;를 입력해보면, 아까 배포한 hellok8s 의 포트가 8080:3{XXXX} 로 되어 있을텐데, localhost:3XXXX 로 접속해보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/2.png&quot; alt=&quot;2&quot; /&gt;&lt;em&gt;expose_result&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;와 같은 결과를 얻을 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;layout-post&quot;&gt;layout: post&lt;/h2&gt;
+&lt;p&gt;title: “[Kubernetes] 도커의 쿠버네티스를 사용해보자”
+author: hoeh
+categories: [ kubernetes ]
+image: assets/images/kubernetes.png
+toc: true&lt;/p&gt;
+
+&lt;h1 id=&quot;도커의-쿠버네티스를-사용해보자-1&quot;&gt;도커의 쿠버네티스를 사용해보자&lt;/h1&gt;
+
+&lt;p&gt;먼저, 실습 환경은 M1 pro 맥북 프로임을 알립니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;도커-쿠버네티스-1&quot;&gt;도커, 쿠버네티스&lt;/h2&gt;
+
+&lt;p&gt;도커에는 자체적으로 쿠버네티스를 지원한다. 아래 사진 처럼 도커에서&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Setting -&amp;gt; Kubernetes -&amp;gt; Enable Kubernetes 를 활성화해주자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/3.png&quot; alt=&quot;3&quot; /&gt;&lt;em&gt;k8s_in_docker&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;node-확인-1&quot;&gt;Node 확인&lt;/h3&gt;
+
+&lt;p&gt;이후, 터미널에&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl get nodes
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 입력해보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/4.png&quot; alt=&quot;4&quot; /&gt;&lt;em&gt;kubectl_get_nodes&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;처럼 현재 실행중인 노드를 확인할 수 있는데, 여기서 기존에 GKE 나 Minikube 를 사용한 적이 있다면 Context 가 Docker 가 아니라, GKE 나 Minikube 로 잡혀있을 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;만약 kubectl get nodes 명령어가 정상적으로 실행되지 않는다면, 우선은 kubectl version 으로 kubectl 이 설치되어 있는지 확인해보고 잘 깔려있다면&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl config get-contexts
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 입력해서 결과를 보자.&lt;/p&gt;
+
+&lt;p&gt;나의 경우에는 쿠버네티스 해보겠다고 GKE도 써보고 Minikube 도 써보고 했는데, 그 덕에 여러가지 Context 가 존재했다.&lt;/p&gt;
+
+&lt;p&gt;만약 Current 의 “*” 표시가 Docker-desktop 에 붙어있지 않다면, 지금 이 문서에서는 Docker-desktop 을 사용할 것이기 때문에 context 를 바꿔주자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl config use-context { NAME }
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“kubectl config use-context docker-for-desktop” 으로 context 를 변경하고, “kubectl get nodes” 를 다시 입력해보면 정상적으로 node 가 출력될 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;deployment-1&quot;&gt;deployment&lt;/h3&gt;
+
+&lt;p&gt;다음으로는 간단한 application 을 실행해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl create deployment hellok8s --image=k8s.gcr.io/echoserver-arm:1.8 --port=8080
+kubectl expose deployment hellok8s --type=NodePort
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;M1 맥에서는 echoserver-arm 을 사용해야 이미지를 정상적으로 가져올 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이제 expose 된 서비스를 확인하기 위해&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kubectl get services
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;deployment-result-1&quot;&gt;deployment result&lt;/h3&gt;
+
+&lt;p&gt;를 입력해보면, 아까 배포한 hellok8s 의 포트가 8080:3{XXXX} 로 되어 있을텐데, localhost:3XXXX 로 접속해보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커의_쿠버네티스_사용해보기.md/5.png&quot; alt=&quot;5&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;와 같은 결과를 얻을 수 있다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">도커의 쿠버네티스를 사용해보자</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Kubernetes] 도커를 기반으로 멀티노드 클러스터를 구축해보자</title>
+      <link href="https://hoex5h.github.io/Kubernetes-_%EB%8F%84%EC%BB%A4%EB%A5%BC_%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C_%EB%A9%80%ED%8B%B0%EB%85%B8%EB%93%9C_%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A5%BC_%EA%B5%AC%EC%B6%95%ED%95%B4%EB%B3%B4%EC%9E%90" rel="alternate" type="text/html" title="[Kubernetes] 도커를 기반으로 멀티노드 클러스터를 구축해보자" />
+      <published>2025-01-14T02:23:00+00:00</published>
+      <updated>2025-01-14T02:23:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKubernetes%5D_%EB%8F%84%EC%BB%A4%EB%A5%BC_%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C_%EB%A9%80%ED%8B%B0%EB%85%B8%EB%93%9C_%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A5%BC_%EA%B5%AC%EC%B6%95%ED%95%B4%EB%B3%B4%EC%9E%90</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kubernetes-_%EB%8F%84%EC%BB%A4%EB%A5%BC_%EA%B8%B0%EB%B0%98%EC%9C%BC%EB%A1%9C_%EB%A9%80%ED%8B%B0%EB%85%B8%EB%93%9C_%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A5%BC_%EA%B5%AC%EC%B6%95%ED%95%B4%EB%B3%B4%EC%9E%90">&lt;h1 id=&quot;note&quot;&gt;NOTE!&lt;/h1&gt;
+
+&lt;p&gt;먼저, 실습 환경은 M1 pro 맥북 프로임을 알립니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;kind-설치&quot;&gt;kind 설치&lt;/h2&gt;
+
+&lt;p&gt;지난번에는 Docker Desktop 에서 쿠버네티스를 사용해봤는데, 그냥 Docker Desktop 를 이용하면 로컬에서는 싱글 노드로 밖에 클러스터를 구성할 수 없다고 한다.&lt;/p&gt;
+
+&lt;p&gt;로컬에서 여러 노드를 클러스터로 구성하려면, “kind” 를 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;m1 맥에서는 간단하게 brew 를 통해서 설치할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+brew install kind
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;cluster-생성&quot;&gt;cluster 생성&lt;/h2&gt;
+
+&lt;p&gt;kind 에서는 간단하게&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kind create cluster
+kind delete cluster --name { $NAME }
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;으로 단일 노드 클러스터를 생성 및 삭제할 수 있다고 한다.&lt;/p&gt;
+
+&lt;p&gt;그러나 우리가 사용할 목적은 multiple node 로 구성된 클러스터이기 때문에, config yaml 파일을 하나 만들어야한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;cluster-config-file&quot;&gt;cluster config file&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yaml
+kind-make-own-cluster-config.yaml
+
+# four node (three workers) cluster config
+# &quot;extraPortMappings&quot; maps literally container to the host machine
+# On Mac, port 5000 is used by &quot;ControlCE&quot; which related to &quot;AirPlay&quot;
+# If you want to use port 5000, turn off the &quot;AirPlay Receive Mode&quot; in mac os Setting
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: kluster
+nodes:
+- role: control-plane
+  labels:
+    roles: master
+  extraPortMappings:
+  - containerPort: 5001
+    hostPort: 5001
+- role: worker
+  labels:
+    roles: worker
+  extraPortMappings:
+  - containerPort: 5002
+    hostPort: 5002
+- role: worker
+  labels:
+    roles: worker
+  extraPortMappings:
+  - containerPort: 5003
+    hostPort: 5003
+- role: worker
+  labels:
+    roles: worker
+  extraPortMappings:
+  - containerPort: 5004
+    hostPort: 5004
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;맥에서 5000번 포트는 Airplay 와 연관된 ControlCE 라는 놈이 이미 차지하고 있으므로, 5001번 포트부터 열었다.&lt;/p&gt;
+
+&lt;p&gt;만약 5000번 포트로 열고 싶으면 맥 설정에서 “공유 &amp;gt; 시스템 환경설정 &amp;gt; AirPlay 수신 모드 끄기” 를 하면 된다고 한다. (직접 해보지는 않았으니 반드시 확인해보고 할 것!)&lt;/p&gt;
+
+&lt;p&gt;나는 굳이 AirPlay 기능을 건들이고 싶지 않기 때문에 5001번 포트부터 열었다.&lt;/p&gt;
+
+&lt;p&gt;이후, 터미널에&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+kind create cluster --config kind-make-own-cluster-config.yaml
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;로, 위의 yaml 파일대로 클러스터룰 구성하면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;result&quot;&gt;Result&lt;/h2&gt;
+
+&lt;p&gt;아래의 사진처럼 도커에 컨테이너가 생기고, 이 컨테이너들을 클러스터로 묶은 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커를_기반으로_멀티노드_클러스터를_구축해보자.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커를_기반으로_멀티노드_클러스터를_구축해보자.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[Kubernetes]_도커를_기반으로_멀티노드_클러스터를_구축해보자.md/2.png&quot; alt=&quot;2&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Docker" />
+      
+        <category term="Kubernetes" />
+      
+
+      
+        <summary type="html">NOTE!</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

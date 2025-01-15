@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>11문자 살인사건 - 히가시노 게이고</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/11%EB%AC%B8%EC%9E%90_%EC%82%B4%EC%9D%B8%EC%82%AC%EA%B1%B4_-_%ED%9E%88%EA%B0%80%EC%8B%9C%EB%85%B8_%EA%B2%8C%EC%9D%B4%EA%B3%A0" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="11문자 살인사건 - 히가시노 게이고" />
+    <meta property="og:description" content="11문자 살인사건 - 히가시노 게이고 친구 ‘하기오 후유코’ 의 제안으로 만나게 된 ‘가와즈 다카유키’ 와 연인 사이로 발전한 나, 좋은 사이로 발전해가려고 하던 찰나에 그에게 이상한 말을 듣는다. ‘누구에게 노려지고 있는 것 같아.’ 위협하는 상대가 누구인지도 대충 짐작을 하는 눈치였지만 나에게는 얘기해주지 않았고 결국 이틀 뒤 살해당한다. 조사해보니 수상한 일이" />
+    <meta property="og:url" content="https://hoex5h.github.io/11%EB%AC%B8%EC%9E%90_%EC%82%B4%EC%9D%B8%EC%82%AC%EA%B1%B4_-_%ED%9E%88%EA%B0%80%EC%8B%9C%EB%85%B8_%EA%B2%8C%EC%9D%B4%EA%B3%A0" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:09:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:09:00+00:00" />
+    <meta property="article:tag" content="추리" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="11문자 살인사건 - 히가시노 게이고" />
+    <meta name="twitter:description" content="11문자 살인사건 - 히가시노 게이고 친구 ‘하기오 후유코’ 의 제안으로 만나게 된 ‘가와즈 다카유키’ 와 연인 사이로 발전한 나, 좋은 사이로 발전해가려고 하던 찰나에 그에게 이상한 말을 듣는다. ‘누구에게 노려지고 있는 것 같아.’ 위협하는 상대가 누구인지도 대충 짐작을 하는 눈치였지만 나에게는 얘기해주지 않았고 결국 이틀 뒤 살해당한다. 조사해보니 수상한 일이" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/book.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="추리" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/11%EB%AC%B8%EC%9E%90_%EC%82%B4%EC%9D%B8%EC%82%AC%EA%B1%B4_-_%ED%9E%88%EA%B0%80%EC%8B%9C%EB%85%B8_%EA%B2%8C%EC%9D%B4%EA%B3%A0",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/book.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/11%EB%AC%B8%EC%9E%90_%EC%82%B4%EC%9D%B8%EC%82%AC%EA%B1%B4_-_%ED%9E%88%EA%B0%80%EC%8B%9C%EB%85%B8_%EA%B2%8C%EC%9D%B4%EA%B3%A0"
+    },
+    "description": "11문자 살인사건 - 히가시노 게이고 친구 ‘하기오 후유코’ 의 제안으로 만나게 된 ‘가와즈 다카유키’ 와 연인 사이로 발전한 나, 좋은 사이로 발전해가려고 하던 찰나에 그에게 이상한 말을 듣는다. ‘누구에게 노려지고 있는 것 같아.’ 위협하는 상대가 누구인지도 대충 짐작을 하는 눈치였지만 나에게는 얘기해주지 않았고 결국 이틀 뒤 살해당한다. 조사해보니 수상한 일이"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="11문자 살인사건 - 히가시노 게이고" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag- post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag//'>추리</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">11문자 살인사건 - 히가시노 게이고</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/book.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <h1 id="11문자-살인사건---히가시노-게이고">11문자 살인사건 - 히가시노 게이고</h1>
+
+<p>친구 ‘하기오 후유코’ 의 제안으로 만나게 된 ‘가와즈 다카유키’ 와 연인 사이로 발전한 나,</p>
+
+<p>좋은 사이로 발전해가려고 하던 찰나에 그에게 이상한 말을 듣는다.</p>
+
+<p>‘누구에게 노려지고 있는 것 같아.’ 위협하는 상대가 누구인지도 대충 짐작을 하는 눈치였지만 나에게는 얘기해주지 않았고</p>
+
+<p>결국 이틀 뒤 살해당한다.</p>
+
+<p>조사해보니 수상한 일이 하나 있었는데, 바로 ‘야마모리 다쿠야’ 라는 사람을 포함해 총 9명의 인원과 함께 작년에 요트 여행을 다녀온 것이다.</p>
+
+<p>작년 요트 여행에 참여한 인원은</p>
+
+<ul>
+  <li>가와즈 다카유키 (‘나’ 의 연인)</li>
+  <li>니자토 미유키 (가와즈 다카유키와 전 동업자였던 사진기자)</li>
+  <li>야마모리 다쿠야</li>
+  <li>야마모리 마사에</li>
+  <li>야마모리 유미	(야마모리 일가족)</li>
+  <li>이시쿠라 유스케 (야마모리 다쿠야의 동생)</li>
+  <li>가네이 사부로</li>
+  <li>사카가미 유타카</li>
+</ul>
+
+<p>(야마모리 플라자에 근무하는 사람들)</p>
+
+<ul>
+  <li>다케모토 유키히로 (요트 여행에서 죽은 사람)</li>
+  <li>후루사와 야스코	(???)</li>
+</ul>
+
+<p>요트 여행에서 거대한 파도를 만나 배가 난파당했고, 이 과정에서 다케모토 유키히로라는 사람이 죽었다고 한다.</p>
+
+<p>나머지는 모두 무인도로 표류되어 구조되었다고 한다.</p>
+
+<p>이 일과 자신의 연인인 가와즈 다카유키의 죽음은 분명히 연관되어있다고 생각한 나는 요트 여행의 참가자들을 만나 당시 있었던 일들에 대해 얘기해달라고 부탁하지만 아무도 얘기해주지 않고 모른다는 답변만 듣게 되었다.</p>
+
+<p>사건을 파헤치는 과정에서 나는 누군가의 습격을 여러 차례 당했는데,</p>
+
+<ol>
+  <li>한 밤중에 누군가 창문을 깨고 들어와 나의 컴퓨터를 켜, 메모장에 ‘더 이상 알려고 하지 마라’ 라는 글을 남김</li>
+  <li>야마모리 플라자에서 가벼운 벤치 프레스를 하던 도중, 누군가가 나의 얼굴에 젖은 수건을 덮고 덤벨을 눌러 목을 조름</li>
+  <li>가와즈 다카유키가 남긴 유품을 뜯지 않고 집에 잠시 보관해뒀더니, 누군가 그의 유품 중 요트 여행에 단서가 될만한 무언가를 훔쳐감</li>
+</ol>
+
+<p>(무엇인지는 알 수 없음, 다만 두 박스 중에 한 박스만 물건이 이리저리 파헤쳐진 정황으로 추측함)</p>
+
+<p>나는 이러한 역경에도 계속 요트 여행 참가자들을 만나 진실을 파헤치려고 하는데,</p>
+
+<p>친구 ‘하기오 후유코’ 의 도움을 받아 ‘니자토 미유키’ 에게 진실을 들으려고 했더니, 만나기로 한 당일에 그는 살해당한다.</p>
+
+<p>마찬가지로 ‘사카가미 유타카’도 만남을 약속했으나 누군가에게 살해당한다.</p>
+
+<p>요트 여행에 분명 켕기는 것이 있다고 생각한 나와 친구 후유코는 야마모리 다쿠야의 딸, 야마모리 유미를 납치(!)한다.</p>
+
+<p>야마모리 유미는 시각 장애를 앓고 있는 어린 아이였는데 1년 전 요트 여행의 전말을 조금은 알고 있는듯 했다.</p>
+
+<p>중간에 기절을 해 기억이 온전치 않지만 유미에게 들은 내용은 다음과 같다.</p>
+
+<p>거대한 파도를 만나 요트가 뒤집혔고, 자신은 아빠인 야마모리 다쿠야가 구조해주었다. 정신을 차려보니 어떤 무인도에 있었고 다른 사람의 생사를 확인하려는 찰나, 어떤 여자가 ‘그 이를 살려주세요!’ 라고 외치는 소리를 들었다고 한다. 그러나 누구도 선뜻 나서지 못했고 이 후의 일은 기절을 해서 알 수 없다.</p>
+
+<p>요트 여행에서 죽은 ‘다케모토 유키히로’ 가 아마 ‘그 이’가 아닐까 싶었고 ‘그 이를 살려주세요!’ 라고 외치는 여자는 정체를 알 수 없던 ‘후루사와 야스코’가 아닐까 하고 ‘나’는 추측해본다. 아무도 도움의 손길을 내밀지 않아 연인인 다케모토 유키히로가 죽었고 깊은 상실감에 빠진 후루사와 야스코의 복수극이 지금의 상황을 만들고 있는게 아닐까? 하는 그런 추측이였다.</p>
+
+<p>요트 여행의 주최자이자 이 사건의 전말을 알고 있을 것이라고 추정되는 ‘야마모리 다쿠야’ 에게 찾아간 나는 여전히 이 일에서 손 떼라는 말을 듣게 되고, 이런 협박에도 절대 발을 빼지 않을 것 같자 1년 전에 있던 요트 여행을 이번에 또 갈 예정인데 같이 가자는 권유를 받는다.</p>
+
+<p>혼자가 무서우면 친구 ‘하기오 후유코’와 같이 와도 좋다고 했고 ‘나’는 친구와 함께 요트 여행에 올라선다.</p>
+
+<p>올해 요트 여행 참가자 목록 :</p>
+
+<p>야마모리 다쿠야 , 야마모리 마사에, 야마모리 유미, 이시쿠라 유스케 (야마모리 일가족)</p>
+
+<p>야마모리 다쿠야의 비서</p>
+
+<p>가네이 사부로 , 하루무라 시즈코(가네이 사부로의 연인)</p>
+
+<p>나, 하기오 후유코 (나의 친구)</p>
+
+<p>요트 여행에서 ‘하기오 후유코’는 ‘나’와 같이 한 방을 썼는데. 후유코는 로비에 있던 게임기에 푹 빠져 ‘나’ 만 먼저 방에 올라오게 된다.</p>
+
+<p>후유코를 기다릴 겸 씻고 나오니 후유코는 방에 돌아와 있었고 왜 벌써 돌아왔냐는 물음에 친구는 ‘잔 돈이 없어서’ 라고 대답한다.</p>
+
+<p>평소 시계를 들고 다니지 않던 나는 원래 호텔 방에 있던 시계를 보니 9시 40분 이었고 내가 직접 보지는 못했지만, 후유코가 창 밖을 바라보며 ‘하루무라 시즈코’ 가 호텔 밖으로 나가고 있다는 이야기를 한다.</p>
+
+<p>10시에 후유코와 함께 잠이 들었으나 악몽을 꿔 한 시간 후인 11시에 일어난 나는, 옆 침대에 있어야 할 후유코가 없다는 사실을 깨닫고 로비로 내려간다.</p>
+
+<p>로비에 있던 모든 이들은 누구도 나가는걸 보지 못했다고 했고 호텔의 바로 앞은 절벽이라 위험하다는 얘기와 함께 다음 날 아침까지 기다린다. 다음 날 아침 절벽에 가서 확인해봤더니, 후유코는 절벽에서 떨어져 죽어있었다.</p>
+
+<p>후유코는 절대 자살이 아니다. 그러할 이유도 없다. 그렇다면 어째서 죽었을까?</p>
+
+<p>호텔에서 있던 일을 정리하면 아래와 같다</p>
+
+<ol>
+  <li>방에 들어와 호텔 방의 시계를 보니 ‘9시 40분’ 이었다.</li>
+  <li>후유코와 호텔 방의 시계가 ‘10시’ 가리킬 때, 잠에 들었다.</li>
+  <li>‘11시’ 에 일어나보니 후유코가 없었다</li>
+  <li>‘나’의 방에 들어온 사람은 나와 후유코를 제외하고 없다.</li>
+  <li>9시 40분에 호텔을 나가던 사람은 ‘시즈코’ 가 맞았다.</li>
+  <li>시즈코를 포함한 모든 사람은 ‘10시부터 11시까지’ 알리바이가 있다.</li>
+  <li>다른 사람들은 자기가 할 일을 하느라 못봤다고 했지만, 유미가 증언하기로는 후유코가 나간 뒤에 2명의 사람이 더 나갔고, 한 명은 담배를 피지 않고 다른 한 명은 담배를 피는 것 같다.</li>
+</ol>
+
+<p>즉, 호텔 밖을 나간 순서는</p>
+
+<p>후유코 - 담배를 피지 않는 누군가(여자) - 담배를 피는 누군가(남자)</p>
+
+<p>요약하자면 후유코가 살해되었을 거라 추정되는 10시 ~ 11시에는 모두의 알리바이가 있다.</p>
+
+<p>호텔 방의 시계가 10시를 가리킬 때까지 후유코와 나는 같이 있었다.</p>
+
+<p>직접 보지는 못했지만 9시 40분에 시즈코가 나간것은 사실이다.</p>
+
+<p>후유코는 살해당한것이 맞다고 가정한다면, 언제 죽었을까?</p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag//">추리</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%A5%98_-_%ED%9E%88%EA%B0%80%EC%8B%9C%EC%95%BC%EB%A7%88_%EC%95%84%ED%82%A4%EB%9D%BC">류 - 히가시야마 아키라</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag//">
+                    
+                    See all 1 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">11문자 살인사건 - 히가시노 게이고</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#11문자-살인사건---히가시노-게이고">11문자 살인사건 - 히가시노 게이고</a></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

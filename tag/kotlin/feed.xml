@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/kotlin/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/kotlin/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">[Kotlin] notifyItemRemoved(position)</title>
+      <link href="https://hoex5h.github.io/Kotlin-_notifyItemRemoved(position)" rel="alternate" type="text/html" title="[Kotlin] notifyItemRemoved(position)" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BKotlin%5D_notifyItemRemoved(position)</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Kotlin-_notifyItemRemoved(position)">&lt;h1 id=&quot;notifyitemremovedposition&quot;&gt;notifyItemRemoved(position)&lt;/h1&gt;
+
+&lt;p&gt;RecyclerView 에서 특정 position 에 해당하는 item 만 제거할 때,&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kotlin
+notifyItemRemoved(position)
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 사용하는데, 만약 여러 개의 리스트에서 해당 함수를 사용할 때마다 position 값이 변경되어야 한다면 문제가 발생할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kotlin
+notifyItemRemoved(0)
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 했다면 position 이 0 인 item 은 RecyclerView 에서 삭제될 것이지만 그렇다고 position 이 1이였던 item의 position 이 0이 되지 않는다.
+만약 position 의 수정까지 해야한다면&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kotlin
+notifyItemRangeChanged(position, getItemCount() - position);
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 통해 position 값을 변경해줄 수 있다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Kotlin" />
+      
+        <category term="Android" />
+      
+
+      
+        <summary type="html">notifyItemRemoved(position)</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

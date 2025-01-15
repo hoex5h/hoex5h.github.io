@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/typescript/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/typescript/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">Express.js 따라 만들기</title>
+      <link href="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0" rel="alternate" type="text/html" title="Express.js 따라 만들기" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Express.js_%EB%94%B0%EB%9D%BC_%EB%A7%8C%EB%93%A4%EA%B8%B0">&lt;p&gt;ts/js 로 express 따라 만들기&lt;/p&gt;
+
+&lt;h1 id=&quot;tsjs-로-express-따라-만들기&quot;&gt;ts/js 로 express 따라 만들기&lt;/h1&gt;
+
+&lt;p&gt;node 로 웹 서버를 만들때부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;express&lt;/code&gt; 를 자주 사용했었는데 express 의 내부 동작은 잘 알지 못한채로 그저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.use&lt;/code&gt; 를 사용했던 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그래서 이번 기회에 express 를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;socket&lt;/code&gt; 으로 구현해보려고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;http-모듈이-아니라-왜-socket-을-사용해야할까&quot;&gt;http 모듈이 아니라 왜 socket 을 사용해야할까?&lt;/h2&gt;
+
+&lt;p&gt;일단 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;웹 서버&lt;/code&gt; 라는걸 생각해보면 당연히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http&lt;/code&gt; 모듈을 사용하는 것이 편하다.&lt;/p&gt;
+
+&lt;p&gt;소켓으로 구현한다고 해도 클라이언트가 http 프로토콜로 보낸다면 웹 서버에서도 소켓을 http 모듈처럼 사용해야할 것이다.&lt;/p&gt;
+
+&lt;p&gt;그럼에도 socket 으로 구현해보면 좋은 이유는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;결국 http 통신도 소켓 통신&lt;/code&gt; 이라는 것이다.&lt;/p&gt;
+
+&lt;p&gt;node 의 &lt;a href=&quot;https://nodejs.org/api/http.html#class-httpserver&quot;&gt;http 모듈&lt;/a&gt;에서 서버를 생성할 때, 결국 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netserver&quot;&gt;소켓 모듈&lt;/a&gt; 을 상속받아서 사용한다.&lt;/p&gt;
+
+&lt;p&gt;소켓 모듈은 &lt;a href=&quot;https://nodejs.org/api/events.html#class-eventemitter&quot;&gt;EventEmitter&lt;/a&gt; 모듈을 상속받는데, 데이터가 들어오거나 소켓 연결이 생성되거나 끊어졌을 때 등의 이벤트가 발생하게끔 만들어졌기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그래서 소켓을 활용한다는것은 node.js 개발자로서 가장 아래까지 내려가볼 수 있는 기회라고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;추후에는 handshake 과정까지 만들어보고싶다.&lt;/p&gt;
+
+&lt;p&gt;그래도 추후에 꼭 네트워크 공부는 추가로 하자..&lt;/p&gt;
+
+&lt;h2 id=&quot;socket-으로-listen&quot;&gt;Socket 으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Listen&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Socket 으로 Express 를 구현하기로 했으니 당연하게도 socket 을 활용해서 서버를 만들어야한다.&lt;/p&gt;
+
+&lt;p&gt;이는 위에서 언급했던 node 의 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netserver&quot;&gt;net.server&lt;/a&gt; 를 활용하면 된다.&lt;/p&gt;
+
+&lt;p&gt;여기서 우리가 만들 Express 가 net.server 를 상속받을지, 아니면 net.Server 객체를 그냥 사용할지에 대해서 고민을 할 수 있는데
+net.Server 를 상속받는다는 것은 net.Server 의 메소드를 오버라이딩 한다든지, 추가 메소드를 만드는 등의 작업이 있을 경우 유효하다고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;우리의 커스텀 Express 에서는 net.Server 의 메소드들을 사용할 것이지, 추가로 메소드를 생성/변경 등을 하지 않을 것 같아서 상속 받지는 않을 예정이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+import net from &apos;net&apos;;
+
+class Express {
+
+  listen(port: number, callback: () =&amp;gt; void) {
+
+    const server = net.createServer((socket) =&amp;gt; {
+      socket.on(&apos;data&apos;, (data) =&amp;gt; {
+        /*
+            ...
+            TODO: socket 으로 넘어온 Request 를 Express 에서 쓸 수 있도록 파싱
+            ...
+        */
+      });
+    });
+
+    server.listen(port, () =&amp;gt; {
+      callback();
+    });
+
+  }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;net.CreateServer 를 통해서 tcp 연결을 만들고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생했을 때 데이터들을 가지고 우리가 사용하기 편하도록 파싱하는 과정을 거치면 될 것 같다.&lt;/p&gt;
+
+&lt;h3 id=&quot;-socket-은-stream-이다&quot;&gt;🤔 socket 은 stream 이다!&lt;/h3&gt;
+
+&lt;p&gt;여기서 생각해보면 좋을 점은 socket 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stream&lt;/code&gt; 을 활용한다.&lt;/p&gt;
+
+&lt;p&gt;node 의 &lt;a href=&quot;https://nodejs.org/api/net.html#class-netsocket&quot;&gt;net.Socket&lt;/a&gt; 은 &lt;a href=&quot;https://nodejs.org/api/stream.html#class-streamduplex&quot;&gt;stream.Duplex&lt;/a&gt; 를 상속받아서 사용하고 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Stream 에 대한 정리는 여기서 볼 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;즉, 클라이언트가 보낸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;모든 데이터&lt;/code&gt; 가 수신될 때까지 기다리는게 아니라 stream 으로 (순차적으로) 데이터가 들어오면 그 즉시 버퍼에 쌓이고
+버퍼에 데이터가 일정량 이상 쌓일 때마다 chunk 단위로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;(보통은 버퍼가 넘치기 전에, 혹은 데이터가 전부 다 들어왔을 때 ‘data’ 이벤트가 발생한다.)&lt;/p&gt;
+
+&lt;p&gt;다시 말해서 들어오는 데이터가 크다면 데이터가 나누어져서 들어올 수 있다 ( === 한 번의 통신에 여러 번의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생할 수 있다) 는 이야기이다.&lt;/p&gt;
+
+&lt;p&gt;따라서 buffer 의 크기보다 큰 데이터를 클라이언트에서 보냈다면, 여러 번의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 이벤트가 발생할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;실시간으로 데이터를 처리해야하는(ex. 유튜브 같은 영상 스트림) 경우에는 들어오는 데이터마다 처리를 해주면 된다.&lt;/p&gt;
+
+&lt;p&gt;반면에 용량이 매우 큰 이미지/동영상 파일은 모든 chunk 들을 다 합쳐서 하나로 만들어야할 것이다.&lt;/p&gt;
+
+&lt;p&gt;이에 대한 처리까지 있으면 좋을 것 같다!&lt;/p&gt;
+
+&lt;h2 id=&quot;소켓-통신을-http-통신-처럼&quot;&gt;소켓 통신을 http 통신 처럼&lt;/h2&gt;
+
+&lt;p&gt;http 모듈을 사용한다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;소켓 통신으로 들어오는 Request&lt;/code&gt; 를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Express 의 Request&lt;/code&gt; 처럼 바꿔줄 필요가 있다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어 socket 으로 들어온 HTTP Request 는 아래처럼 들어올 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+GET /favicon.ico HTTP/1.1
+Host: localhost:3000
+Connection: keep-alive
+sec-ch-ua-platform: &quot;macOS&quot;
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: &quot;Chromium&quot;;v=&quot;129&quot;, &quot;Not=A?Brand&quot;;v=&quot;8&quot;
+DNT: 1
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: &amp;lt;http://localhost:3000/index.html&amp;gt;
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: sid=1234; coo=11
+
+helloworld this is a body
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 하나의 거대한 문자열을 잘 파싱해서 우리의 express 에서 쓰기 편하도록 쉽게 만드는 작업이 필요하다.&lt;/p&gt;
+
+&lt;p&gt;파싱의 큰 기준은 두 가지 이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Header 와 Body 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\r\\n\\r\\n&lt;/code&gt; 으로 구분된다.&lt;/li&gt;
+  &lt;li&gt;Header 끼리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\r\\n&lt;/code&gt; 으로 구분된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;맨 윗 줄을 보면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET /favicon.ico HTTP/1.1&lt;/code&gt; 이라고 나오는데&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Method&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;url&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Protocol&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Version&lt;/code&gt; 으로 구분해주어 아래 처럼 하나의 객체로 만들어주자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = &apos;&apos;;
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;-url-의-query-부분이나-params-부분도-처리하자&quot;&gt;🤔 url 의 Query 부분이나 Params 부분도 처리하자&lt;/h3&gt;
+
+&lt;h3 id=&quot;params&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Params&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;실제로 express 를 써보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.use(&apos;/card/:username/:cardId, ...)&lt;/code&gt; 와 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt; 를 사용하는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;사용자가 Request 를 보낼 때는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card/hoeh/3?columnId=5&amp;amp;columnName=today&lt;/code&gt; 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt; 문자 이후에 있는 query 도 있을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 위에서 파싱한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;url&lt;/code&gt; 부분에서 query, param 부분도 분리해주면 좋을 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+class ExpressRequest {
+  headers?: Header;
+
+  body: string | object = &apos;&apos;;
+
+  method?: string;
+
+  // 전체 url
+  url?: string;
+
+  protocol?: string;
+
+  version?: string;
+
+  // 여기까지가 SocketRequest
+
+  // /user/:id 에서 id
+  params: object = {};
+
+  // /search?keyword=naver { keyword : naver }
+  query: object = {};
+
+  // /user?id=123 에서 /user
+  path?: string;
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이런 식으로, url 로 부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;params&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;query&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;path&lt;/code&gt; 까지 파싱해서 Request 에 넣어주도록 하자.&lt;/p&gt;
+
+&lt;p&gt;파싱할 때는 node 의 &lt;a href=&quot;https://nodejs.org/api/querystring.html&quot;&gt;querystring&lt;/a&gt; 모듈과 &lt;a href=&quot;https://www.npmjs.com/package/path-to-regexp&quot;&gt;path-to-regexp&lt;/a&gt; 을 활용해보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;appuse&quot;&gt;app.use()&lt;/h2&gt;
+
+&lt;p&gt;app.use 는 무엇을 하는 메소드일까? express 를 사용할 때면 이런식으로 사용했던 것 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+app.use(&apos;/card&apos;, (req, res, next) =&amp;gt; {
+  // ...
+  res.send(&apos;helloworld&apos;);
+});
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card&lt;/code&gt; 의 url 로 들어온 요청에 대해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(req, res, next) =&amp;gt; {}&lt;/code&gt; 에 해당하는 함수를 실행하는 것 같은데 그렇다면
+이 함수는 무슨 함수일까?&lt;/p&gt;
+
+&lt;h3 id=&quot;middleware-layer-router&quot;&gt;Middleware, Layer, Router&lt;/h3&gt;
+
+&lt;p&gt;express 에서는 이런 함수를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;middleware&lt;/code&gt; 라고 부른다. 미들웨어는 말 그대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;중간에 끼어있는&lt;/code&gt; 함수로 보면 된다.&lt;/p&gt;
+
+&lt;p&gt;Request 를 받아서, Response 를 보내기 전의 중간 처리 과정을 하는 함수를 전부 middleware 라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;그러면 express 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;개발자가 middleware 를 등록해서 모든 요청마다 url 을 검사해서, url 조건을 충족하면 등록된 middleware 를 실행한다&lt;/code&gt; 의 흐름으로 진행하는구나!&lt;/p&gt;
+
+&lt;p&gt;라고 간단하게 생각했는데 여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Layer&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Router&lt;/code&gt; 의 개념이 또 등장한다.&lt;/p&gt;
+
+&lt;p&gt;Layer 가 무엇인지 보니, middleware 를 한 번 감싸주는 계층이다.&lt;/p&gt;
+
+&lt;p&gt;엥? Layer 로 굳이 감싸는 이유가 뭐야? 라고 생각이 들었는데 여러가지 이유가 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Method, Url 검사&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;middleware 가 실행되기 전에 사용자가 등록한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/card&lt;/code&gt; url 과 들어온 Request 의 url 을 비교해야 한다.&lt;/p&gt;
+
+&lt;p&gt;또한 특정 메소드의 요청에만 미들웨어를 실행되게 등록했다면 Method 비교도 해야할 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;에러 처리&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;사용자가 등록한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(req, res, next) =&amp;gt; {}&lt;/code&gt; 함수에서 에러를 처리하려면, 미들웨어 안에서 try, catch 를 작성해야하는데 그렇다면 모든 미들웨어에 try, catch 가 있어야 한다.&lt;/p&gt;
+
+&lt;p&gt;실제 express 에서는 만약 에러가 발생하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;next(err)&lt;/code&gt; 의 방법으로 다음 미들웨어로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;err&lt;/code&gt; 를 넘긴다.
+Layer 계층에서는 middleware 를 실행하기 전에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;err&lt;/code&gt; 가 넘어왔는지 확인하고, 넘어왔다면 에러가 발생했다고 판단해서 에러를 처리할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;즉 Layer 계층에서 전역적으로 에러를 처리해줄 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;같은 Url, Method 에 여러 개의 미들웨어 등록&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;말 그대로 여러 개의 미들웨어가 등록된다면 이를 관리하는 계층이 필요할 수 밖에 없다.&lt;/p&gt;
+
+&lt;h3 id=&quot;-layer-안에서-next&quot;&gt;🤔 Layer 안에서 next&lt;/h3&gt;
+
+&lt;h3 id=&quot;-middleware-가-비동기일-경우에-에러-핸들링&quot;&gt;🤔 Middleware 가 비동기일 경우에 에러 핸들링&lt;/h3&gt;
+
+&lt;h2 id=&quot;response-객체로-socketwrite&quot;&gt;Response 객체로 socket.write&lt;/h2&gt;
+
+&lt;h3 id=&quot;-response-에-header-와-body-를-따로-write-하기&quot;&gt;🤔 Response 에 Header 와 Body 를 따로 write 하기&lt;/h3&gt;
+
+&lt;h2 id=&quot;커스텀-express-를-활용해서-웹-서버-코드-작성&quot;&gt;커스텀 express 를 활용해서 웹 서버 코드 작성&lt;/h2&gt;
+
+&lt;h3 id=&quot;만들어둔-express-를-로컬-모듈로-바꿔보자&quot;&gt;만들어둔 express 를 로컬 모듈로 바꿔보자&lt;/h3&gt;
+
+&lt;h2 id=&quot;타입스크립트-타입을-위한-dts-만들기&quot;&gt;타입스크립트 타입을 위한 d.ts 만들기&lt;/h2&gt;
+
+&lt;p&gt;만약 자바스크립트로 http, express 코드를 작성하고 실제 app 은 타입스크립트로 작성한다면&lt;/p&gt;
+
+&lt;p&gt;http, express 에 타입을 명시해주는 d.ts 가 필요하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;express-에서는-request-의-dto-를-직접-검사해줘야한다&quot;&gt;Express 에서는 Request 의 DTO 를 직접 검사해줘야한다&lt;/h3&gt;
+
+&lt;h2 id=&quot;zod-를-활용해보자&quot;&gt;ZOD 를 활용해보자&lt;/h2&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="JavaScript" />
+      
+        <category term="TypeScript" />
+      
+
+      
+        <summary type="html">ts/js 로 express 따라 만들기</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Dependency Injection</title>
+      <link href="https://hoex5h.github.io/Dependency_Injection" rel="alternate" type="text/html" title="Dependency Injection" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/Dependency_Injection</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Dependency_Injection">&lt;p&gt;Dependency Injection ( Angular 공식 문서 )&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.nestjs.com/providers&quot;&gt;nest.js 공식문서&lt;/a&gt;를 읽어보는 도중 DI 관련한 문서에 대한 링크로 &lt;a href=&quot;https://www.angular.kr/guide/dependency-injection&quot;&gt;Angular 의 공식 문서&lt;/a&gt;를 걸려있었다.&lt;/p&gt;
+
+&lt;p&gt;자세하게, 한국어로도 적혀있는 것 같아서 nestjs 를 쓰기 전에 꼼꼼히 읽어보려고 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;의존성-주입은-왜-사용할까&quot;&gt;의존성 주입은 왜 사용할까?&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Dependency Injection, or DI, is a design pattern and mechanism for creating and delivering some parts of an application to other parts of an application that require them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;의존성 주입은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;애플리케이션의 일부(A)&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;또 다른 곳(B)&lt;/code&gt;에서 필요로 할 때, A 를 만들고 전달하는 역할을 한다.&lt;/p&gt;
+
+&lt;p&gt;즉 다른 클래스에 있는 기능을 사용하고 싶을 때 의존성을 주입해주는 것이라고 생각하면 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;의존성을-사용하는-쪽-제공하는-쪽&quot;&gt;의존성을 사용하는 쪽, 제공하는 쪽&lt;/h1&gt;
+
+&lt;p&gt;단순하게 의존성을 주입 하는 것은 어떤 방식으로든 하나의 객체에 다른 클래스의 객체를 넘기기만 해도 의존성 주입이라고 부를 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+class Foo {
+    constructor(){
+        // ...
+    }
+}
+
+class UsingDI {
+    constructor(private injectClass)
+}
+
+class DoNotUseDI {
+    constructor(){
+        this.injectClass = new Foo();
+    }
+}
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예시대로라면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoNotUseDI&lt;/code&gt; 객체는 직접 Foo 객체를 생성해서 사용한다.&lt;/p&gt;
+
+&lt;p&gt;따라서 아주 강한 결합을 가지게 되는데, 만약 나중에 Foo 가 아니라 Bar 라는 클래스로 바꾸고 싶다고 하면
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoNotUseDI&lt;/code&gt; 클래스의 코드도 수정해야하고 테스트할 때도 꼭 Foo 객체를 넣어줘야 하기 때문에 복잡해지게 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;반면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UsingDI&lt;/code&gt; 클래스는 생성자로 어떤 객체를 넘기느냐에 따라, 그 객체에 결합이 생긴다. 위의 예시에 비해 더 동적으로 의존성이 생긴다고 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;따라서 Foo 의존성을 주입했다가, 나중에는 Bar 객체를 주입할 수도 있고, 또 나중에는 어떤 객체라도 덕타이핑에 문제가 없다면 (일단은) 주입할 수 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;또한 테스트할 때도 굳이 실제 객체를 넣어줄 필요 없이 간단한 모킹 객체를 넣어줄 수도 있을 것이다.&lt;/p&gt;
+
+&lt;p&gt;다만 여기서 기억해두어야 할 점은 의존성은 사용하는 쪽(주입 당하는 쪽) 과 제공하는 쪽(주입하는 쪽) 이 있다는 것이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;의존성-주입&quot;&gt;의존성 주입&lt;/h1&gt;
+
+&lt;h2 id=&quot;injector&quot;&gt;Injector&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;injector&lt;/code&gt; 객체는, 미리 생성된 프로바이더(의존성을 제공당할 수 있는 클래스) 대로 의존성 객체를 생성하고 캐싱해둔다.&lt;/p&gt;
+
+&lt;p&gt;또한 인젝터는 (기본적으로) 의존성 객체들을 싱글톤 인스턴스로 관리한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;모듈에-따라&quot;&gt;모듈에 따라?&lt;/h2&gt;
+
+&lt;p&gt;NestJS 의 컴포넌트는 크게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;모듈&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;프로바이더&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;컨트롤러&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;서비스&lt;/code&gt; 등으로 계층을 나눌 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+@Module({
+  providers: [CatsService],
+  exports: [CatsService],
+})
+export class CatsModule {}
+
+@Module({
+  imports: [CatsModule],
+  controllers: [DogsController],
+})
+export class DogsModule {}
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예시처럼 NestJS 모듈 별로 프로바이더, 서비스, 컨트롤러 등등을 주입받는데 모듈별로 injector 가 생성되고 해당 인젝터가 의존성 객체들을 캐싱하고 있다.&lt;/p&gt;
+
+&lt;p&gt;또한 CatsModule 에 주입된 CatsService 를 export 함으로써 DogsModule 에서 CatsModule 의 프로바이더를 가져와서 사용할 수 있게 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;injectable--의존성-주입-가능&quot;&gt;@Injectable : 의존성 주입 가능&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javascript
+@Injectable
+class CatService {}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;클래스를 의존성으로 주입하려면 가장 먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Injectable&lt;/code&gt; 데코레이터를 사용해야한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;module--의존성-등록&quot;&gt;@Module : 의존성 등록&lt;/h2&gt;
+
+&lt;p&gt;NestJs 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Module&lt;/code&gt; 로 의존성을 등록해줄 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;프로바이더-scope&quot;&gt;프로바이더 Scope&lt;/h2&gt;
+
+&lt;p&gt;의존성 객체가 되는 프로바이더의 생명 주기는 애플리케이션의 생명 주기와 같다. 애플리케이션이 부트스트랩 될 때, 모든 의존성은 해결(사용 가능)이 되어야 한다.
+그렇기 때문에 애플리케이션이 부트스트랩 될 때, 모든 프로바이더들이 인스턴트화 되어야 하고 애플리케이션이 종료될 때 모든 프로바이더들은 제거된다.&lt;/p&gt;
+
+&lt;p&gt;만약 프로바이더의 Scope 를 직접 정하고 싶다면, &lt;a href=&quot;https://docs.nestjs.com/fundamentals/injection-scopes&quot;&gt;request-scoped&lt;/a&gt; 의 방법을 사용할 수 있다고도 한다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="TypeScript" />
+      
+        <category term="NestJS" />
+      
+
+      
+        <summary type="html">Dependency Injection ( Angular 공식 문서 )</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

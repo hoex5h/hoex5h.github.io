@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/flutter/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/flutter/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">[Flutter] VerifyReleaseResources Error</title>
+      <link href="https://hoex5h.github.io/Flutter-_VerifyReleaseResources_Error" rel="alternate" type="text/html" title="[Flutter] VerifyReleaseResources Error" />
+      <published>2025-01-14T02:14:00+00:00</published>
+      <updated>2025-01-14T02:14:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BFlutter%5D_VerifyReleaseResources_Error</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Flutter-_VerifyReleaseResources_Error">&lt;h1 id=&quot;flutter-verifyreleaseresources-error&quot;&gt;[Flutter] VerifyReleaseResources Error&lt;/h1&gt;
+
+&lt;p&gt;Flutter 를 활용한 채팅(상담) 어플을 만들고 있었는데, APK 빌드를 하려고 하니까 아래와 같은 오류가 발생했다.&lt;/p&gt;
+
+&lt;p&gt;($ flutter build apk –release)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+FAILURE: Build completed with 2 failures.
+
+1: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task &apos;:keyboard_visibility:verifyReleaseResources&apos;.
+&amp;gt; A failure occurred while executing com.android.build.gradle.internal.tasks.Workers$ActionFacade
+   &amp;gt; Android resource linking failed
+     /Users/hoeeeeeh/.gradle/caches/transforms-2/files-2.1/c82bf40584b9a53c31dba07a8a48f301/core-1.1.0/res/values/values.xml:142:5-173:25: AAPT: error: resource android:attr/fontVariationSettings not found.
+
+     /Users/hoeeeeeh/.gradle/caches/transforms-2/files-2.1/c82bf40584b9a53c31dba07a8a48f301/core-1.1.0/res/values/values.xml:142:5-173:25: AAPT: error: resource android:attr/ttcIndex not found.
+
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+==============================================================================
+
+2: Task failed with an exception.
+-----------
+* What went wrong:
+Execution failed for task &apos;:safe_area_height:verifyReleaseResources&apos;.
+&amp;gt; A failure occurred while executing com.android.build.gradle.internal.tasks.Workers$ActionFacade
+   &amp;gt; Android resource linking failed
+     /Users/hoeeeeeh/.gradle/caches/transforms-2/files-2.1/c82bf40584b9a53c31dba07a8a48f301/core-1.1.0/res/values/values.xml:142:5-173:25: AAPT: error: resource android:attr/fontVariationSettings not found.
+
+     /Users/hoeeeeeh/.gradle/caches/transforms-2/files-2.1/c82bf40584b9a53c31dba07a8a48f301/core-1.1.0/res/values/values.xml:142:5-173:25: AAPT: error: resource android:attr/ttcIndex not found.
+
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+==============================================================================
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;keyboard_visibility 패키지와 safe_area_height 패키지에서 verifyReleaseResources 를 실패했다고 하는데, android/build.gradle 에 아래와 같은 코드를 넣어서 해결했다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;android/build.gradle&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;dart
+subprojects {
+    afterEvaluate { project -&amp;gt;
+        if (project.name == &quot;keyboard_visibility&quot; || project.name == &quot;safe_area_height&quot;) {
+            android {
+                compileSdkVersion 28
+            }
+        }
+    }
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;gradle build lifecycle 중에 afterEvaluate 에서 사용할 버전을 맞추는 것이라고 한다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Flutter" />
+      
+
+      
+        <summary type="html">[Flutter] VerifyReleaseResources Error</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

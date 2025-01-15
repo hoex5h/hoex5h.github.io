@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/aws/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T10:14:24+00:00</updated>
+  <id>https://hoex5h.github.io/tag/aws/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">Memory Swap</title>
+      <link href="https://hoex5h.github.io/Memory_Swap" rel="alternate" type="text/html" title="Memory Swap" />
+      <published>2025-01-14T02:11:00+00:00</published>
+      <updated>2025-01-14T02:11:00+00:00</updated>
+      <id>https://hoex5h.github.io/Memory_Swap</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Memory_Swap">&lt;h1 id=&quot;swap-memory&quot;&gt;Swap Memory&lt;/h1&gt;
+
+&lt;p&gt;t2.micro 를 사용하면서, npm run build 혹은 npm run start 가 특정 커맨드 라인에서 멈추는 현상이 있었다.&lt;/p&gt;
+
+&lt;p&gt;열심히 검색해보니 메모리 부족이라는 얘기가 있었는데, 실제로 고사양의 컴퓨터에 해보았을때 문제없이 돌아갔다.
+해결방법을 총 2가지를 찾았는데,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;메모리 스왑&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+sudo dd if=/dev/zero of=/mnt/swapfile bs=1M count=2048
+sudo mkswap /mnt/swapfile
+sudo swapon /mnt/swapfile
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;디스크를 메모리처럼 사용하여 임시방편을 메모리를 늘리는 방법이다. 하지만 디스크는 메모리에 비해 속도가 매우 느리므로 성능이 저하될 수 밖에 없다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;다른 사양에서 build 후 가져오기.
+이 방법은 사용을 해보진 않았지만, 고사양의 서버가 있다면 사용해볼 수 있겠다. 그렇지만 굳이 이렇게 할 이유가 있나?&lt;/li&gt;
+&lt;/ol&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>[&quot;hoeeeeeh&quot;]</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="AWS" />
+      
+
+      
+        <summary type="html">Swap Memory</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>우선순위 큐</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="우선순위 큐" />
+    <meta property="og:description" content="이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다. 다만 파이썬에는 여러가지 자료구조와 함수들이 잘 구현되어 있는데 자바스크립트를 써보니까 우선순위 큐가 내장 라이브러리에 없었다! 이번 기회에 자바스크립트 공부 겸 힙과 우선순위 큐에 대해 다시 복습하고 직접 구현해보려고 한다. Heap 우선" />
+    <meta property="og:url" content="https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/algorithm.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:11:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:11:00+00:00" />
+    <meta property="article:tag" content="Algorithm" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="우선순위 큐" />
+    <meta name="twitter:description" content="이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다. 다만 파이썬에는 여러가지 자료구조와 함수들이 잘 구현되어 있는데 자바스크립트를 써보니까 우선순위 큐가 내장 라이브러리에 없었다! 이번 기회에 자바스크립트 공부 겸 힙과 우선순위 큐에 대해 다시 복습하고 직접 구현해보려고 한다. Heap 우선" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/algorithm.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Algorithm" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/algorithm.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84_%ED%81%90"
+    },
+    "description": "이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다. 다만 파이썬에는 여러가지 자료구조와 함수들이 잘 구현되어 있는데 자바스크립트를 써보니까 우선순위 큐가 내장 라이브러리에 없었다! 이번 기회에 자바스크립트 공부 겸 힙과 우선순위 큐에 대해 다시 복습하고 직접 구현해보려고 한다. Heap 우선"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="우선순위 큐" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-algorithm post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag/algorithm/'>ALGORITHM</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">우선순위 큐</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/algorithm.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <p>이번에 네이버 부스트 캠프 베이직 과정을 진행하면서 자바스크립트를 쓰게 되었는데, 평소에는 파이썬을 자주 사용했었기 때문에 자바스크립트로 파이썬을 대체해보려고 노력했다.</p>
+
+<p>다만 파이썬에는 여러가지 자료구조와 함수들이 잘 구현되어 있는데 자바스크립트를 써보니까 우선순위 큐가 내장 라이브러리에 없었다!</p>
+
+<p>이번 기회에 자바스크립트 공부 겸 힙과 우선순위 큐에 대해 다시 복습하고 직접 구현해보려고 한다.</p>
+
+<h1 id="heap">Heap</h1>
+
+<p>우선 순위 큐는 힙 자료구조를 사용하기 때문에 힙이 무엇인지 알고 있어야 한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">힙(Heap)</code> 는 <code class="language-plaintext highlighter-rouge">최댓값 혹은 최솟값을 빠르게 찾아내는 연산을 위해</code> 설계된 <code class="language-plaintext highlighter-rouge">완전 이진 트리</code> 자료구조이다.</p>
+
+<p>최댓값을 빠르게 찾고 부모노드의 키 값이 자식 노드의 키 값보다 항상 큰 힙을 최대 힙, 최솟값을 빠르게 찾고 부모노드의 키 값이 자식 노드의 키 값보다 항상 작은 힙을 최소 힙이라고 부른다.</p>
+
+<p>우선 순위 큐에서도 작을 수록 우선순위가 높은지, 클 수록 우선순위가 높은지에 따라 최대 힙, 최소 힙을 적절히 사용해야 한다.</p>
+
+<p>보통 최소 힙 라이브러리가 내장되어 있기 때문에, 만약 클 수록 우선순위가 높다면 데이터 전체에 -1 을 곱하는 등의 처리를 통해 최소 힙을 최대 힙처럼 사용할 수도 있다.</p>
+
+<h1 id="우선-순위-큐">우선 순위 큐</h1>
+
+<p>그렇다면 우선 순위 큐는 어떤 식으로 구현되어 있을까?</p>
+
+<p>최소 힙과 최대 힙은 거의 유사하기도 하고, 위에서 말한 것처럼 활용할 수도 있기 때문에 최소 힙 우선순위 큐를 한 번 살펴보려고 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript
+class PriorityQueue {
+  constructor() {
+    this.heap = []; // 데이터를 담을 배열
+  }
+
+  enqueue(value) {
+    // 1. 힙 자료구조에 value 를 넣고
+    // 2. value 가 알맞은 자리를 찾아갈 수 있도록 한다. -&gt; 아래의 bubbleUp 함수를 사용할 예정
+  }
+
+  dequeue() {
+    // 1. 힙 자료구조의 루트 노드에 해당하는 값을 임시로 저장해두고
+    // (pop 이 아님! pop(0)은 O(n) 의 시간복잡도를 가지기 떄문에 힙 자료구조를 사용하는 의미가 없어짐
+    // 2. 맨 마지막 리프 노드에 해당하는 값을 루트 노드에 저장하고,
+    // 3. 해당 루트 노드의 값이 알맞은 자리를 찾아갈 수 있도록 한다. -&gt; 아래의 bubbleDown 함수를 사용할 예정
+  }
+
+  peek() {
+    // 루트 노드를 pop 하는 것이 목적이 아닌, 그저 루트 노드를 참조하고자 할 때
+    return this.heap.length &gt; 0 ? this.heap[0] : null;
+  }
+
+  bubbleUp(index) {
+    // index 번 째에 해당하는 노드의 값보다 작은 값이 있다면, index 노드를 위로 올려보내야 한다.
+  }
+
+  bubbleDown(index) {
+    // index 번 째에 해당하는 노드의 값보다 큰 값이 있다면, index 노드를 아래로 내려보내야 한다.
+  }
+
+  swap(i, j) {
+    // i, j 값 스왑
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+  }
+}
+
+
+</code></pre></div></div>
+
+<p>함수를 구현하기 전에 간략한 설명과 함께 하나씩 구현해보자.</p>
+
+<h2 id="bubbleup">bubbleUp</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript
+bubbleUp(index) {
+  // index 번 째에 해당하는 노드의 값보다 작은 값이 있다면, index 노드를 위로 올려보내야 한다.
+    while (index &gt; 0) {
+    const parentIndex = Math.floor((index - 1) / 2); // index 노드의 부모 노드 구하기.
+    if (this.heap[parentIndex] &lt;= this.heap[index]) break; // 최소 힙이므로 부모노드는 항상 자식 노드보다 작거나 같다!
+
+    this.swap(index, parentIndex); // index 랑 부모노드랑 스왑
+    index = parentIndex; // 부모노드로 올라간 index 부터 반복
+  }
+}
+
+
+</code></pre></div></div>
+
+<p>자식노드(index) 와 부모노드를 비교하는 bubbleUp 함수.</p>
+
+<p>bubbleUp 함수는 우리가 버블정렬을 하는 것 처럼, 두 값을 비교해서 위치를 바꾸는 함수이다.
+최소 힙을 구현하려고 하므로 부모노드는 항상 자식 노드보다 작거나 같아야 한다.</p>
+
+<p>부모노드의 값을 구하는 방법은 <code class="language-plaintext highlighter-rouge">Math.floor((index - 1) / 2)</code> 인데</p>
+
+<blockquote>
+  <p>부모노드(0) -&gt; 자식 노드(1, 2)</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>부모노드(1) -&gt; 자식 노드(3, 4)
+
+
+부모노드(n) -&gt; 자식 노드(2n + 1, 2n + 2) 임을 알 수 있다.
+
+
+따라서 자식 노드가 +1, +2(왼쪽, 오른쪽) 중에 어떤 쪽인지에 상관없이 부모노드를 구하는 방법이 위의 방법인 것이다.
+</code></pre></div></div>
+
+<h2 id="bubbledown">bubbleDown</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript
+  bubbleDown(index) {
+    // index 번 째에 해당하는 노드의 값보다 큰 값이 있다면, index 노드를 아래로 내려보내야 한다.
+    while (true) {
+      const leftChildIndex = 2 * index + 1; // 왼쪽 자식 노드
+      const rightChildIndex = 2 * index + 2; // 오른쪽 자식 노드
+      let smallestIndex = index; // 부모노드, 왼쪽 자식노드, 오른쪽 자식 노드 중에 가장 작은 값을 저장할 변수
+
+      if (leftChildIndex &lt; this.heap.length &amp;&amp; this.heap[leftChildIndex] &lt; this.heap[smallestIndex]) {
+        // 만약 부모노드보다 왼쪽 자식 노드가 작다면 smallestIndex 를 왼쪽 자식 노드로 변경
+        smallestIndex = leftChildIndex;
+      }
+
+      if (rightChildIndex &lt; this.heap.length &amp;&amp; this.heap[rightChildIndex] &lt; this.heap[smallestIndex]) {
+        // 만약 위의 if 문에서 왼쪽 자식 노드가 작았다면 smallestIndex 는 왼쪽 자식 노드,
+        // 아니라면 부모 노드
+        // 똑같이 오른쪽 자식 노드랑 비교
+        smallestIndex = rightChildIndex;
+      }
+      // 만약 가장 작은 노드가 부모 노드라면 최소 힙의 조건을 만족하므로 break
+      if (smallestIndex === index) break;
+
+      // 자식 노드 중에 더 작은 노드(smallestIndex) 와 부모노드를 스왑
+      this.swap(index, smallestIndex);
+
+      //더 작은 노드의 위치에 index 노드를 두고 반복
+      index = smallestIndex;
+    }
+  }
+
+
+</code></pre></div></div>
+
+<p>bubbleDown 도 bubbleUp 와는 반대로 내려오는 것이기 때문에,</p>
+
+<p>index에 해당하는 노드가 제자리를 찾을 때까지 자식 노드와의 비교를 반복한다.</p>
+
+<h2 id="enqueue-dequeue">enqueue, dequeue</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javascript
+  enqueue(value) {
+    // 1. 힙 자료구조에 value 를 넣고
+    this.heap.push(value);
+    // 2. value 가 알맞은 자리를 찾아갈 수 있도록 한다. -&gt; 아래의 bubbleUp 함수를 사용할 예정
+    this.bubbleUp(this.heap.length - 1);
+  }
+
+  dequeue() {
+    if (this.heap.length === 0) return null;
+
+    // 1. 힙 자료구조의 루트 노드(0번째 Index)에 해당하는 값을 임시로 저장해두고
+    // (pop 이 아님! pop(0)은 O(n) 의 시간복잡도를 가지기 떄문에 힙 자료구조를 사용하는 의미가 없어짐
+    const min = this.heap[0];
+    // 2. 맨 마지막 리프 노드에 해당하는 값을 루트 노드에 저장하고,
+    const last = this.heap.pop();
+    if (this.heap.length &gt; 0) {
+      this.heap[0] = last;
+
+      // 3. 해당 루트 노드의 값이 알맞은 자리를 찾아갈 수 있도록 한다. -&gt; bubbleDown
+      this.bubbleDown(0);
+    }
+
+    return min;
+  }
+
+
+</code></pre></div></div>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag/algorithm/">Algorithm</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EC%9D%B4%EB%B6%84_%ED%83%90%EC%83%89">이분 탐색</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag/algorithm/">
+                    
+                    See all 1 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">우선순위 큐</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#heap">Heap</a></li><li><a href="#우선-순위-큐">우선 순위 큐</a><ul><li><a href="#bubbleup">bubbleUp</a></li><li><a href="#bubbledown">bubbleDown</a></li><li><a href="#enqueue-dequeue">enqueue, dequeue</a></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>[Kubernetes] Kubernetes CNI</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="[Kubernetes] Kubernetes CNI" />
+    <meta property="og:description" content="[Kubernetes] Kubernetes CNI 쿠버네티스 클러스터 네트워킹의 두 가지 원칙 쿠버네티스의 공식 문서를 참조해서 CNI 가 무엇인지, 어떠한 역할을 하는지 알아보자. 참고로 한국어로 번역된 페이지도 생각보다 많으니 공식 문서에서 한국어가 지원되는 페이지인지 확인해보는 것도 좋다. 쿠버네티스 클러스터의 네트워킹에서는 반드시 지켜야 하는 두 가지 원칙이 있다. 임의의 노드에 있는 파드와, 다른 모든" />
+    <meta property="og:url" content="https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/kubernetes.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:tag" content="Kubernetes" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Kubernetes] Kubernetes CNI" />
+    <meta name="twitter:description" content="[Kubernetes] Kubernetes CNI 쿠버네티스 클러스터 네트워킹의 두 가지 원칙 쿠버네티스의 공식 문서를 참조해서 CNI 가 무엇인지, 어떠한 역할을 하는지 알아보자. 참고로 한국어로 번역된 페이지도 생각보다 많으니 공식 문서에서 한국어가 지원되는 페이지인지 확인해보는 것도 좋다. 쿠버네티스 클러스터의 네트워킹에서는 반드시 지켜야 하는 두 가지 원칙이 있다. 임의의 노드에 있는 파드와, 다른 모든" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/kubernetes.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Kubernetes" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/kubernetes.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI"
+    },
+    "description": "[Kubernetes] Kubernetes CNI 쿠버네티스 클러스터 네트워킹의 두 가지 원칙 쿠버네티스의 공식 문서를 참조해서 CNI 가 무엇인지, 어떠한 역할을 하는지 알아보자. 참고로 한국어로 번역된 페이지도 생각보다 많으니 공식 문서에서 한국어가 지원되는 페이지인지 확인해보는 것도 좋다. 쿠버네티스 클러스터의 네트워킹에서는 반드시 지켜야 하는 두 가지 원칙이 있다. 임의의 노드에 있는 파드와, 다른 모든"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="[Kubernetes] Kubernetes CNI" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/boostcampwm-2024/web22-LiBoo/blob/dev/README.md">About</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-kubernetes post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag/kubernetes/'>KUBERNETES</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">[Kubernetes] Kubernetes CNI</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/kubernetes.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <h1 id="kubernetes-kubernetes-cni">[Kubernetes] Kubernetes CNI</h1>
+
+<h2 id="쿠버네티스-클러스터-네트워킹의-두-가지-원칙">쿠버네티스 클러스터 네트워킹의 두 가지 원칙</h2>
+
+<p><a href="https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/">쿠버네티스의 공식 문서</a>를 참조해서 CNI 가 무엇인지, 어떠한 역할을 하는지 알아보자. 참고로 한국어로 번역된 페이지도 생각보다 많으니 공식 문서에서 한국어가 지원되는 페이지인지 확인해보는 것도 좋다.</p>
+
+<p>쿠버네티스 클러스터의 네트워킹에서는 반드시 지켜야 하는 두 가지 원칙이 있다.</p>
+
+<ol>
+  <li>임의의 노드에 있는 파드와, 다른 모든 노드에 있는 모든 파드들과 물리적으로 통신할 수 있어야 한다.</li>
+  <li>임의의 노드에 있는 파드와, 같은 노드에 있는 모든 파드들과 물리적으로 통신할 수 있어야 한다.</li>
+</ol>
+
+<p>2번의 경우, 같은 노드에 있는 파드들은 같은 네임스페이스를 공유하기 때문에 로컬 호스트로 각각 컨테이너에 할당된 포트로 통신이 가능하다.</p>
+
+<p>같은 노드에 있는 A pod(8080) 와 B pod(7070) 은 서로 로컬호스트 포트로 통신이 가능하다는 뜻이다.</p>
+
+<p>그렇다면 1번 원칙은 어떻게 될까?</p>
+
+<p>뜬금없지만 사실 쿠버네티스 내부에는 네트워크가 구현되어 있지 않다. 위에서 언급했던 원칙처럼 어떻게 통신이 이루어져야 하는지에 대한 사양만 있고, 직접 구현되어 있지는 않다.</p>
+
+<p>사용자가 자신의 환경을 고려해서 적절한 네트워크 플러그인을 가져다 써야하는데, 이때 사용하는 네트워크 스펙 인터페이스가 CNI 이다.</p>
+
+<h2 id="cni가-뭘까">CNI가 뭘까?</h2>
+
+<p><a href="https://github.com/containernetworking/cni">CNI Github</a></p>
+
+<p>CNI 공식 깃허브 문서에 따르면, <code class="language-plaintext highlighter-rouge">CNI(Container Network Interface)는 리눅스 컨테이너에서 네트워크 인터페이스를 구성하기 위한 플러그인을 작성하는 사양(specification)과 라이브러리로 구성된 프로젝트이다. CNI는 오직 컨테이너간 네트워크 연결과 컨테이너가 삭제될 때, 할당된 리소스들을 지우는 것에만 관여한다. 이러한 점들 때문에, CNI는 넓은 범위의 지원을 받으며 구현하기 간단한 사양을 가지고 있다.</code></p>
+
+<p>CNI는 리눅스 컨테이너의 네트워크 인터페이스를 관리할 수 있는 사양(specification)에 대한 프로젝트다. 컨테이너가 생성되고 삭제될 때, 네트워크 인터페이스가 생성되고 삭제되는 것을 어떻게 처리할 것인지에 대한 내용을 포함하고 있다.</p>
+
+<h2 id="cni는-그럼-왜-필요할까">CNI는 그럼 왜 필요할까?</h2>
+
+<p>네트워크에 대한 구성은 인프라 환경에 따라서 구성이 매우 복잡하고 다양하다. 이렇게 다양한 네트워크 환경에서 수 많은 문제점들이 발생할 수 있는데, 이 수많은 문제점들에 대한 해결 방법도 천차만별이다. 결국 환경에 따라 네트워크 구성이 점점 복잡해지고 획일화되기는 쉽지 않게 될 것이다.</p>
+
+<p>CNI는 이렇게 네트워크 구성과 문제점이 복잡해지는 것을 막기 위해서 등장했다. 컨테이너 네트워크와 관련된 표준 스펙을 정의하고 있는 CNI를 통해서 네트워크를 구성하게 된다면 복잡했던 네트워크 구성과 문제점들을 어느정도 일축시킬 수 있을 것이다.</p>
+
+<h2 id="kubernetes-cni">Kubernetes CNI</h2>
+
+<p>그 중에서 쿠버네티스를 위한 대표적인 플러그인들에는 <code class="language-plaintext highlighter-rouge">Calico, Flannel, Cilium ...</code> 등이 있다. 더 자세한 내용은 <a href="https://kubernetes.io/ko/docs/concepts/cluster-administration/addons/#network-and-networking-policy">쿠버네티스 네트워킹 애드온</a> 을 참고하자.</p>
+
+<h2 id="calico">Calico</h2>
+
+<p>우리는 이번 기회에 Calico CNI 를 사용해볼 예정이기 때문에, Calico 에 대해 조금 자세히 알아보자.</p>
+
+<p><a href="https://docs.tigera.io/calico/latest/about/">What is Calico?</a></p>
+
+<p>버전이 올라가면서 Calico 공식문서 및 깃허브 링크가 바뀌는 경우가 있다. 기존의 프로젝트에서 떼어져 나온다든지, 이러한 이유들이 있는걸로 보인다.</p>
+
+<h3 id="what-is-calico">What is Calico</h3>
+
+<blockquote>
+  <p>쿠버네티스에서는 기본적으로 파드 간 통신에 대한 기본 설정은 모두 허용(default-allow)이다. 네트워크 정책을 이용해서 이를 제한하지 않는다면, 모든 파드들은 다른 파드들과 제약없이 통신할 수 있다.</p>
+</blockquote>
+
+<p>Calico 는 네트워크 통신을 보호하는 네트워킹과 cloud-native 의 마이크로서비스/애플리케이션을 보호하기 위한 고급 네트워크 정책으로 구성되어 있다.</p>
+
+<p>Calico CNI는 containers, Kubernetes clusters, virtual machines, and native host-based workloads 를 보호하는 L3/L4 네트워킹 솔루션으로,  여러 데이터플레인을 프로그래밍하는 컨트롤 플레인이다.</p>
+
+<blockquote>
+  <p>데이터 플레인 : 데이터 패킷이 이동하는 부분으로 실제로 사용자 또는 시스템 간에 데이터를 전송하는 역할을 담당하는 플레인. 데이터 패킷을 처리하고, 패킷의 다음 목적지로 전달하는 실질적인 처리와 전송을 담당하는 플레인 (근육)</p>
+</blockquote>
+
+<blockquote>
+  <p>컨트롤 플레인 : 네트워크 경로를 결정하고, 정책을 설정하는 등의 네트워크 운영을 총괄하는 플레인. 네트워킹 장비에게 어떤 경로로 데이터 패킷을 전달해야 하는지 라우팅을 생성하고 관리하는 기능을 담당하는 플레인 (손,발)</p>
+</blockquote>
+
+<p><img src="/upload/2025-01-14-[Kubernetes]_Kubernetes_CNI.md/0.png" alt="0" /><em>image.png</em></p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag/kubernetes/">Kubernetes</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/Kuploy_Project-_Kuploy_History">[Kuploy Project] Kuploy History</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/Kuploy_Project-_Kuploy_">[Kuploy Project] Kuploy </a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/Kubernetes-_kubelet_is_not_running">[Kubernetes] kubelet is not running</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag/kubernetes/">
+                    
+                    See all 11 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">[Kubernetes] Kubernetes CNI</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#kubernetes-kubernetes-cni">[Kubernetes] Kubernetes CNI</a><ul><li><a href="#쿠버네티스-클러스터-네트워킹의-두-가지-원칙">쿠버네티스 클러스터 네트워킹의 두 가지 원칙</a></li><li><a href="#cni가-뭘까">CNI가 뭘까?</a></li><li><a href="#cni는-그럼-왜-필요할까">CNI는 그럼 왜 필요할까?</a></li><li><a href="#kubernetes-cni">Kubernetes CNI</a></li><li><a href="#calico">Calico</a><ul><li><a href="#what-is-calico">What is Calico</a></li></ul></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
