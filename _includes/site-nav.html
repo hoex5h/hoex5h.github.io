@@ -12,8 +12,8 @@
         {% endif %}
     </div>
     <div class="site-nav-right">
-        {% if site.subscribers %}
-            <a class="subscribe-button" href="#subscribe">Subscribe</a>
-        {% endif %}
+        <li>
+            {% include search-lunr.html %}
+        </li>
     </div>
 </nav>
