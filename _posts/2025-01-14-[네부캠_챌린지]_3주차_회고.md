@@ -10,7 +10,7 @@ tags:
 class: post-template
 subclass: 'post'
 author: 
-
+  - "hoeeeeeh"
 categories:
     - [NaverBoostcamp, ]
 ---
