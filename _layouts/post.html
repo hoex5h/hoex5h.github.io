@@ -29,20 +29,45 @@ into the {body} of the default.hbs template -->
         });
 
         const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
-        const links = document.querySelectorAll('.toc a');
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
         const sections = Array.from(links).map(link =>
             document.querySelector(link.getAttribute('href'))
         );
 
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY + 60;
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
 
             sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
                 const sectionBottom = sectionTop + section.offsetHeight;
 
                 if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
                     links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
                     const activeLink = links[index];
                     activeLink.classList.add('active');
 
@@ -53,7 +78,15 @@ into the {body} of the default.hbs template -->
                     });
                 }
             });
-        });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 200); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
 
     });
 
@@ -86,7 +119,7 @@ into the {body} of the default.hbs template -->
     }
 
     .toc a.active {
-        color: #5555ba; /* 활성화된 목차 색깔 */
+        color: #e6369b; /* 활성화된 목차 색깔 */
         font-weight: bold;
     }
 
