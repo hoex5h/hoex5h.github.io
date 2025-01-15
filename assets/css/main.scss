@@ -1,4 +1,6 @@
-// _sass/bootstrap/_variables.scss
-@import "../../_sass/bootstrap/variables";
-@import "../../_sass/bootstrap/mixins";
-@import "../../_sass/bootstrap/bootstrap";  // Bootstrap SCSS 전체 포함
+---
+---
+
+@import "variables";
+@import "mixins";
+@import "bootstrap";  // Bootstrap SCSS 전체 포함
