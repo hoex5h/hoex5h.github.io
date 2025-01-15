@@ -39,9 +39,6 @@ var documents = [
 {% endfor %}
 ];
 
-console.log(site.pages);
-
-
 var idx = lunr(function () {
     this.ref('id')
     this.field('title')
