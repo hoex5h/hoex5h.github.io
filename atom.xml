@@ -8,6 +8,87 @@
     
       
       <item>
+        <title>Effective TypeScript - 2</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;이펙티브 타입스크립트 책과&lt;br /&gt;
+이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 03:54:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Effective_TypeScript_-_2</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Effective_TypeScript_-_2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[Swift] Cocoa Pod install Error</title>
+        
+          <description>&lt;h1 id=&quot;cocoa-pod-install-error&quot;&gt;Cocoa Pod install Error&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 03:52:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Swift-_Cocoa_Pod_install_Error</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Swift-_Cocoa_Pod_install_Error</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[Swift] @AppStorage</title>
+        
+          <description>&lt;h1 id=&quot;appstorage&quot;&gt;@AppStorage&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 03:52:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Swift-_@AppStorage</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Swift-_@AppStorage</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Effective TypeScript - 1</title>
+        
+          <description>&lt;blockquote&gt;
+  &lt;p&gt;이펙티브 타입스크립트 책과&lt;br /&gt;
+이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 03:52:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Effective_TypeScript_-_1</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Effective_TypeScript_-_1</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[네부캠 챌린지] 챌린지 최종 회고</title>
+        
+          <description>&lt;p&gt;베이직부터 시작해서 벌써 챌린지까지 마무리가 되었다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>[네부캠 챌린지] Day 01 ~ 19 정리 </title>
         
           <description>&lt;h1 id=&quot;day01-학습-정리&quot;&gt;Day01 학습 정리&lt;/h1&gt;
@@ -18,6 +99,21 @@
         <link>
         https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_Day_01_~_19_%EC%A0%95%EB%A6%AC_</link>
         <guid isPermaLink="true">https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_Day_01_~_19_%EC%A0%95%EB%A6%AC_</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[네부캠 챌린지] 3주차 회고</title>
+        
+          <description>&lt;h1 id=&quot;3주차-회고&quot;&gt;3주차 회고&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0</guid>
       </item>
       
     
@@ -68,6 +164,51 @@
     
       
       <item>
+        <title>[Swift] Undefined symbol: </title>
+        
+          <description>&lt;h1 id=&quot;undefined-symbol-objc_class_--&quot;&gt;Undefined symbol: &lt;em&gt;OBJC_CLASS&lt;/em&gt;$_ [ ]&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Swift-_Undefined_symbol-_</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Swift-_Undefined_symbol-_</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[Svelte] Deploy Sveltekit</title>
+        
+          <description>&lt;h1 id=&quot;svelte-deploy-sveltekit&quot;&gt;[Svelte] Deploy Sveltekit&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Svelte-_Deploy_Sveltekit</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Svelte-_Deploy_Sveltekit</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[Python] Requirements</title>
+        
+          <description>&lt;h1 id=&quot;requirements&quot;&gt;Requirements&lt;/h1&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Python-_Requirements</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Python-_Requirements</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>[Linux] Ubuntu unexpected operator</title>
         
           <description>&lt;h1 id=&quot;linux-ubuntu-unexpected-operator&quot;&gt;[Linux] Ubuntu unexpected operator&lt;/h1&gt;
@@ -93,6 +234,21 @@
         <link>
         https://hoex5h.github.io/Linux-_CS_%EC%A7%80%EC%8B%9D</link>
         <guid isPermaLink="true">https://hoex5h.github.io/Linux-_CS_%EC%A7%80%EC%8B%9D</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>[LiBoo Project] Green Developer 후기</title>
+        
+          <description>&lt;p&gt;[Green Developers] Liboo 프로젝트 후기 작성&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0</guid>
       </item>
       
     
@@ -183,6 +339,21 @@
         <link>
         https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI</link>
         <guid isPermaLink="true">https://hoex5h.github.io/Kubernetes-_Kubernetes_CNI</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Gateway, 사설망, CIDR</title>
+        
+          <description>&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kYiQGpPVnyI&quot;&gt;IP 주소를 묶는 방법, CIDR란?&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 14 Jan 2025 02:40:00 +0000</pubDate>
+        <link>
+        https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR</link>
+        <guid isPermaLink="true">https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR</guid>
       </item>
       
     

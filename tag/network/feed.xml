@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/network/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T11:18:34+00:00</updated>
+  <id>https://hoex5h.github.io/tag/network/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">Gateway, 사설망, CIDR</title>
+      <link href="https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR" rel="alternate" type="text/html" title="Gateway, 사설망, CIDR" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=kYiQGpPVnyI&quot;&gt;IP 주소를 묶는 방법, CIDR란?&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;network-gateway-사설망-cidr&quot;&gt;[Network] Gateway, 사설망, CIDR&lt;/h1&gt;
+
+&lt;h2 id=&quot;ipv4&quot;&gt;IPv4&lt;/h2&gt;
+
+&lt;p&gt;우선 IPv4 는 총 32 비트의 숫자로 구성 되어 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;XXX.XXX.XXX.XXX 각각 8비트씩 -&amp;gt; 2^32개!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 중에서 일부 ip가 특수한 목적으로 선점되어 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;사설 ip, 루프백 ip, 멀티캐스트 ip, 0.0.0.0(현 주소), 브로드캐스트 ip…&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;실제로 사용할 수 있는 ip 는 2^32 보다 적다
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;예전에는 모든 기기에 하나씩 ip 를 할당해도 여유로웠겠지만, 기기들이 늘어난 요새는 매우 힘들다.&lt;/p&gt;
+
+&lt;p&gt;따라서 사설망(private network)이 필요로 해졌다.&lt;/p&gt;
+
+&lt;h2 id=&quot;사설망private-network&quot;&gt;사설망(private network)&lt;/h2&gt;
+
+&lt;p&gt;여러대의 기기를 하나의 사설망으로 묶고, 중복되지 않도록 사설 ip를 할당해준다.&lt;/p&gt;
+
+&lt;p&gt;이때 외부와 통신하기 위해서는 public ip 를 가지고 있는 장비가 필요한데, 이것이 Gateway 이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;gateway&quot;&gt;Gateway&lt;/h2&gt;
+
+&lt;p&gt;게이트웨이는 다른 대역으로 라우팅을 해줄 수 있는, 주로 L3 스위치급 이상의 장비이다.&lt;/p&gt;
+
+&lt;p&gt;가장 많이 보이는 것은 역시 어느 집에서나 볼 수 있는 공유기다. 사설망에 있는 장비들이 외부와 통신하려고 할 때, Gateway 를 거쳐서 통신하게 되는데 Gateway 는 public ip 를 하나 할당받고, NAT(Network Address Translation) 기능을 사용하여 내부 네트워크에서 오는 여러 요청을 public IP 주소를 사용하여 외부로 전송하고, 외부에서 돌아오는 응답을 올바른 내부 장치로 전달한다. 만약 사설망의 여러 장비가 같은 목적지의 같은 포트로 통신을 하려고 한다면 게이트웨이는 NAT 테이블을 활용하여 각각의 내부 소스 IP 주소와 포트 번호를 기반으로 이 요청들을 기억하고 구분한다. 외부로 나갈 때는 일반적으로 변형된 소스 포트를 사용하여, 응답이 돌아올 때 원래의 내부 IP 주소와 포트로 정확히 매핑한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;예를 들어 A 컴퓨터(192.168.0.2)가 (168.126.63.1, 443포트)에, B 컴퓨터(192.168.0.3)가 다음(168.126.63.1, 80포트)에 동시에 접근한다고 하자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;A와 B의 목적지 ip는 동일하지만 포트가 다르기 때문에 443포트와 80포트로 A/B 의 요청을 구분할 수 있다.
+
+
+하지만 만약 A와 B 모두 443포트와 통신하려고 한다면 어떻게 될까?
+
+
+443포트에서 오는 응답을 A에게 전달해야할지, B에게 전달해야할지 구분해야 하기 때문에 Gateway는 A가 보낸 요청을 4430, B가 보낸 요청을 4431 포트로 변경해서 NAT 테이블에 저장한다. 이제 게이트웨이는 4430 포트로 응답이 돌아오는지, 4431 포트로 응답이 돌아오는지에 따라 A,B 컴퓨터에 알맞게 응답을 돌려줄 수 있다.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;cidrclassless-inter-domain-routing&quot;&gt;CIDR(Classless Inter Domain Routing)&lt;/h2&gt;
+
+&lt;p&gt;CIDR는 여러 개의 사설망을 구축하기 위해 망을 나누는 방법이다. 여기서 왜 Classless 라는 단어가 사용되었냐 하면, 옛날에는 A/B/C/D 클래스를 이용해서 망을 나눴기 때문이다. CIDR 을 쓰면 ABCD 클래스를 포함해서 더 다양하게 망을 나눌 수 있기 때문에 굳이 클래스라는 단어로 표기하기 않아도 되기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;CIDR의 기본적인 표기법은 192.168.0.0/24 처럼, A.B.C.D/E 와 형식이다. 그렇다면 이런 형식은 어떻게 해석할 수 있을까?&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.0.0/24&lt;/code&gt; 라는 예시로 살펴보면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/24&lt;/code&gt; 의 뜻은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;앞에서부터 24비트 이후에 오는 비트들을 사용할 수 있다&lt;/code&gt; 라는 뜻이다. 조금 더 풀어서 설명하자면&lt;/p&gt;
+
+&lt;p&gt;우선 A.B.C.D 를 각각 옥텟(=8비트, 1바이트)이라고 부르며 192.168.0.0을 8비트로 변환해서 써보면,&lt;/p&gt;
+
+&lt;p&gt;11000000.10101000.00000000.00000000 일것이다. 맨 왼쪽부터 24비트 이후에 오는 비트들을 사용할 수 있다 라는 의미는, 3번째 옥텟 이후 4번째 옥텟부터 전부 사용할 수 있다는 의미이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;1번옥텟(8비트).2번옥텟(8비트).3번옥텟(8비트) «여기서부터 24비트 이후!» .4번옥텟(8비트)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;즉 4번째 옥텟을 전부 이용하면 2^8을 전부 다 사용할 수 있다는 의미고 0~255 까지 전부 사용할 수 있다.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.0.0/24 =&amp;gt; 192.168.0.0 ~ 192.168.0.255&lt;/code&gt; 까지를 나타낸 것이다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Network" />
+      
+
+      
+        <summary type="html">IP 주소를 묶는 방법, CIDR란?</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
   <link href="https://hoex5h.github.io/tag/typescript/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
-  <updated>2025-01-15T10:55:50+00:00</updated>
+  <updated>2025-01-15T11:18:34+00:00</updated>
   <id>https://hoex5h.github.io/tag/typescript/feed.xml</id>
 
   
@@ -30,6 +30,210 @@
   
   
 
+  
+    <entry>
+      <title type="html">Effective TypeScript - 2</title>
+      <link href="https://hoex5h.github.io/Effective_TypeScript_-_2" rel="alternate" type="text/html" title="Effective TypeScript - 2" />
+      <published>2025-01-14T03:54:00+00:00</published>
+      <updated>2025-01-14T03:54:00+00:00</updated>
+      <id>https://hoex5h.github.io/Effective_TypeScript_-_2</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Effective_TypeScript_-_2">&lt;blockquote&gt;
+  &lt;p&gt;이펙티브 타입스크립트 책과&lt;br /&gt;
+이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;타입스크립트-컴파일러-역할&quot;&gt;타입스크립트 컴파일러 역할&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;구 버전 브라우저를 위한 트랜스파일 -&amp;gt; Babel 의 역할이었던거 같은데?&lt;/li&gt;
+  &lt;li&gt;코드의 타입 오류 체크&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;두 역할은 서로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;독립적&lt;/code&gt;이다. 서로의 작업에 영향을 주지 않는다.&lt;/p&gt;
+
+&lt;h2 id=&quot;타입-오류가-있어도-컴파일이-가능&quot;&gt;타입 오류가 있어도 컴파일이 가능&lt;/h2&gt;
+
+&lt;p&gt;컴파일은 타입 체크와 독립적으로 동작하므로 오류 있어도 컴파일은 가능&lt;/p&gt;
+
+&lt;p&gt;만약 오류가 있을 때 컴파일 하고 싶지 않으면 tsconfig.json 에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noEmitError&lt;/code&gt; 옵션을 true 로 주면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;런타임에는-타입-체크-불가능&quot;&gt;런타임에는 타입 체크 불가능&lt;/h2&gt;
+
+&lt;p&gt;타입스크립트에서 자바스크립트로 컴파일되면서 타입이나 인터페이스 같은 경우 전부 제거된다.
+즉, 런타임 시점에서 타입과 인터페이스는 아무런 역할을 하지 못한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;함수-오버로딩-불가능&quot;&gt;함수 오버로딩 불가능&lt;/h2&gt;
+
+&lt;p&gt;선언문은 타입 별로 여러개 선언은 가능하다. 하지만 구현체는 오직 하나다.&lt;/p&gt;
+
+&lt;h2 id=&quot;덕타이핑&quot;&gt;덕타이핑&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://hoeeeeeh.github.io/javascript/2024/07/29/day1112.html#%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%97%90%EC%84%9C-interface-duck-typing&quot;&gt;interface 와 duck-typing&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;any-타입-꼭-써야겠어&quot;&gt;Any 타입, 꼭 써야겠어?&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;any 타입 쓰면 타입에 안전성이 없다. 쓰면 number 타입에 string 이 할당될 수도 있어&lt;/li&gt;
+  &lt;li&gt;any 타입 쓰면 함수의 시그니처(약속/의도 정도로 해석?)가 무시된다.&lt;/li&gt;
+  &lt;li&gt;any 타입 쓰면 자동완성 기능, 코드 리팩토링 도구 쓰기 힘들어져 -&amp;gt; 생산성 떨어진다!&lt;/li&gt;
+  &lt;li&gt;any 타입 쓰면 코드 리팩토링할 때 버그를 찾기 힘들어&lt;/li&gt;
+  &lt;li&gt;any 타입 쓰면 타입 설계의 의도, 상태 등이 감춰져서 설계를 해석하기 힘들어&lt;/li&gt;
+  &lt;li&gt;any 타입 쓰면 실수가 빈번해져&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이래도 any 타입, 꼭 사용하셔야겠습니까?&lt;/p&gt;
+
+&lt;p&gt;근데 불가피하게 any 타입을 꼭 써야할 때가 있다. 이는 5장에서 다룬다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="TypeScript" />
+      
+
+      
+        <summary type="html">이펙티브 타입스크립트 책과 이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Effective TypeScript - 1</title>
+      <link href="https://hoex5h.github.io/Effective_TypeScript_-_1" rel="alternate" type="text/html" title="Effective TypeScript - 1" />
+      <published>2025-01-14T03:52:00+00:00</published>
+      <updated>2025-01-14T03:52:00+00:00</updated>
+      <id>https://hoex5h.github.io/Effective_TypeScript_-_1</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Effective_TypeScript_-_1">&lt;blockquote&gt;
+  &lt;p&gt;이펙티브 타입스크립트 책과&lt;br /&gt;
+이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;ts-js&quot;&gt;TS, JS&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;타입스크립트는 자바스크립트의 상위 집합&lt;/code&gt; 이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;타입스크립트는 타입이 정의된 자바스크립트의 상위 집합이다.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;모든 JS 프로그램이 TS 라는 명제는 참, 반대는 성립하지 않는다.&lt;/p&gt;
+
+&lt;h1 id=&quot;ts-타입체커&quot;&gt;TS 타입체커&lt;/h1&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+// ts
+let sample = &quot;this is a sample&quot;;
+console.log(sample.uppercase());
+// uppercase 라는 메소드가 string 형식에 없다!
+// toUpperCase() 를 사용하시겠습니까?
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이런식으로 sample 이 string 이라는걸 명시해주지 않아도 타입스크립트는 초기값으로부터 추론한다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;코드의 의도가 무엇인지 타입 구문을 통해 타입스크립트에게 알려줄 수 있기 때문에 코드의 동작과 의도가 다른 부분을 찾을 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;코드의 의도를 표현하려면 명시적으로 선언해라 ex) interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+interface person {
+  name: string;
+  age: number;
+}
+
+const people: Person[] = [
+  // Person 예시
+  { name: &quot;John&quot;, age: 5 },
+  //...
+];
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;자동-형변환-체크&quot;&gt;자동 형변환 체크?&lt;/h1&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typescript
+const a = 2 + &quot;3&quot;; // 자바스크립트 런타임에서 정상, String 타입의 &apos;23&apos;
+const b = null + 7; // 자바스크립트 런타임에서 정상, Number 타입의 7, 그러나 typescript 는 오류를 발생시킴
+const c = [] + 12; // 자바스크립트 런타임에서 정상, String 타입의 &apos;12&apos;, 그러나 typescript 는 오류를 발생시킴
+// 근데 이건 왜 String 타입이 되는걸까?
+alert(&quot;Hi&quot;, &quot;world&quot;); // 자바스크립트 런타임에서 정상, 앞의 &quot;Hi&quot; 만 나옴. 하지만 alert는 arg가 0개~1개 인데 2개를 가져왔다고 ts 오류
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;모든걸-다-잡아주지는-않는다&quot;&gt;모든걸 다 잡아주지는 않는다.&lt;/h1&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+const a = [&quot;hi&quot;];
+console.log(a[2]); // 컴파일은 정상, 런타임에서 오류
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;문법의 엄격함은 온전히 취향의 차이이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;타입스크립트-컴파일러의-셋팅에-따라-바뀐다&quot;&gt;타입스크립트 컴파일러의 셋팅에 따라 바뀐다.&lt;/h1&gt;
+
+&lt;p&gt;tsconfig.json 파일에서 여러 옵션으로 셋팅을 줄 수 있다. 타입스크립트를 어떻게 사용할 지 동료들에게 알려줄 수 있다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; 옵션은 타입 선언이 없으면 암시적으로 any 타입으로 선언하는 옵션인데, false 와 true 로 옵션을 켜고 끌 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; 는 모든 타입에 null 과 undefined 를 할당할 수 있는지에 대한 옵션이다.&lt;/p&gt;
+
+&lt;p&gt;null 을 명시적으로 허용하려면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;const x : number | null = null;&lt;/code&gt; 처럼 사용하는 것이 좋다. 만약 이렇게 되면 Null check 를 위한 assertion(단언문) 이 필요하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+if (x.abc) {
+  // null 이 아닐때
+}
+x!.abc; // x가 Null 이 아니라고 단언한다
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;웬만하면 noImplicit, strictNullChecks 는 설정해두고 시작해라. 안그러면 undefined is not a Object 오류를 계속 만날 것이다.&lt;/p&gt;
+
+&lt;p&gt;엄격하게 잡고 싶으면 그냥 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strict&lt;/code&gt; 옵션을 true 로 줘라.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="TypeScript" />
+      
+
+      
+        <summary type="html">이펙티브 타입스크립트 책과 이펙티브 타입스크립트 스터디 영상을 공부하며 정리한 내용입니다.</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">Express.js 따라 만들기</title>

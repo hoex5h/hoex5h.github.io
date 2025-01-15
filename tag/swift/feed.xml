@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/swift/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T11:18:34+00:00</updated>
+  <id>https://hoex5h.github.io/tag/swift/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">[Swift] Cocoa Pod install Error</title>
+      <link href="https://hoex5h.github.io/Swift-_Cocoa_Pod_install_Error" rel="alternate" type="text/html" title="[Swift] Cocoa Pod install Error" />
+      <published>2025-01-14T03:52:00+00:00</published>
+      <updated>2025-01-14T03:52:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BSwift%5D_Cocoa_Pod_install_Error</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Swift-_Cocoa_Pod_install_Error">&lt;h1 id=&quot;cocoa-pod-install-error&quot;&gt;Cocoa Pod install Error&lt;/h1&gt;
+
+&lt;h2 id=&quot;에러-내용&quot;&gt;에러 내용&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+You may have encountered a bug in the Ruby interpreter or extension libraries.
+Bug reports are welcome.
+For details: &amp;lt;https://www.ruby-lang.org/bugreport.html&amp;gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;원인&quot;&gt;원인&lt;/h3&gt;
+
+&lt;p&gt;M1 맥북에서 일어나는 버그라고 하는데,, M1이 출시한지 이렇게나 오래 되었는데 아직도 ㅠ&lt;/p&gt;
+
+&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+$ sudo arch -x86_64 gem install ffi
+$ arch -x86_64 pod install
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 해서 해결할 수 있다고 한다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Swift" />
+      
+
+      
+        <summary type="html">Cocoa Pod install Error</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Swift] @AppStorage</title>
+      <link href="https://hoex5h.github.io/Swift-_@AppStorage" rel="alternate" type="text/html" title="[Swift] @AppStorage" />
+      <published>2025-01-14T03:52:00+00:00</published>
+      <updated>2025-01-14T03:52:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BSwift%5D_@AppStorage</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Swift-_@AppStorage">&lt;h1 id=&quot;appstorage&quot;&gt;@AppStorage&lt;/h1&gt;
+
+&lt;p&gt;Swift 에서도 코틀린처럼 기기 내부에 데이터를 저장할 수 있는 방법이 있다.&lt;/p&gt;
+
+&lt;p&gt;코틀린에서는 SharedPreference 를 사용했었는데, Swift 에서는 @AppStorage 를 사용한다.&lt;/p&gt;
+
+&lt;p&gt;다만 차이점이 있었는데,&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+@AppStorage(&quot;onboarding&quot;) var isOnboardingViewActive : Bool = true
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 코드대로만 보면 어느 파일에서든 “onboarding” 프로퍼티를 사용하려면 true(혹은 false) 로 초기화를 해야하는 것처럼 보인다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;사실은 계속 초기화가 되는 것이 아니라, 기기 내부 저장소에서 onboarding 프로퍼티를 찾지 못하는 경우에만 true로 초기화 한다는 뜻이고, 이미 존재한다면 해당 초기화 구문은 무시된다고 한다.&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Swift" />
+      
+
+      
+        <summary type="html">@AppStorage</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[Swift] Undefined symbol:</title>
+      <link href="https://hoex5h.github.io/Swift-_Undefined_symbol-_" rel="alternate" type="text/html" title="[Swift] Undefined symbol: " />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BSwift%5D_Undefined_symbol:_</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Swift-_Undefined_symbol-_">&lt;h1 id=&quot;undefined-symbol-objc_class_--&quot;&gt;Undefined symbol: &lt;em&gt;OBJC_CLASS&lt;/em&gt;$_ [ ]&lt;/h1&gt;
+
+&lt;p&gt;네이버 맵 API를 적용시키려고 하는데 Xcode가 계속 Undefined symbol: &lt;em&gt;OBJC_CLASS&lt;/em&gt;$_ [ ] 에러 메세지만 뿜어댔다.
+분명 git-lfs 로 설치도 했고, podfile 에 NMapsMap 도 잘 넣어놨는데 해당 에러 메세지가 계속 발생했다.&lt;/p&gt;
+
+&lt;p&gt;열심히 찾아본 결과 git-lfs 를 이용하여 정상적으로 설치했다면 프레임워크의 용량이 약 240MB 가 된다고 하는데, 내 폴더의 용량은 3.3MB 였다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이유는 git-lfs 를 설치하고 초기화를 해주지 않아서였다..&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+brew install git-lfs
+cd [project_path]
+git-lfs install
+pod cache clean NMapsMap
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여기서 git-lfs install 커맨드를 통해 git-lfs 를 초기화 시켜주어야 정상적으로 설치를 할 수 있다고 한다.
+앞서, 이것저것 설치해보면서 깔렸을 NMapsMap 이랑 Pods 폴더를 pod cache clean 으로 없애주자.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Swift" />
+      
+
+      
+        <summary type="html">Undefined symbol: OBJC_CLASS$_ [ ]</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

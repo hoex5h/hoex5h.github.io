@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
   <link href="https://hoex5h.github.io/tag/review/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
-  <updated>2025-01-15T10:55:50+00:00</updated>
+  <updated>2025-01-15T11:18:34+00:00</updated>
   <id>https://hoex5h.github.io/tag/review/feed.xml</id>
 
   
@@ -30,6 +30,197 @@
   
   
 
+  
+    <entry>
+      <title type="html">[네부캠 챌린지] 챌린지 최종 회고</title>
+      <link href="https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0" rel="alternate" type="text/html" title="[네부캠 챌린지] 챌린지 최종 회고" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5B%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80%5D_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0">&lt;p&gt;베이직부터 시작해서 벌써 챌린지까지 마무리가 되었다.&lt;/p&gt;
+
+&lt;p&gt;어렵지 않으면 도전이 아니라는 모토처럼 챌린지는 잠을 쪼개가면서 해야할 정도로 힘들었지만, 마냥 힘든 감정만 있던건 아니고&lt;/p&gt;
+
+&lt;p&gt;내 스파게티 코드를 남들에게 보여줘야하는 두려움과 다른 사람의 코드를 보고 배울 수 있고 피드백을 통해 내 코드를 개선할 수 있다는 기대감이 공존하는 지킬앤하이드 같은 4주였다.&lt;/p&gt;
+
+&lt;p&gt;이 글을 읽는 사람이 챌린지에 입과하는 사람이라면 챌린지 과정이 어떤 느낌인지 깨닫는데 걸리는 시간을 줄이고.&lt;/p&gt;
+
+&lt;p&gt;챌린지를 수료한 동료 캠퍼라면 같이 챌린지 과정을 돌아보는데 도움이 되었으면 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;나는-제대로-아는게-없다&quot;&gt;나는 제대로 아는게 없다&lt;/h1&gt;
+
+&lt;p&gt;상당히 과격한 첫 제목 같지만 챌린지 내내 이 생각을 가지고 살았다. 진짜 제대로 아는게 없다.&lt;/p&gt;
+
+&lt;p&gt;미션이 주어지면 분명 학교 다니면서 몇 번 들어봤을, 수업도 들어봤던 내용이어도 검색하고 학습하지 않고선 진행할 수가 없었다.&lt;/p&gt;
+
+&lt;p&gt;그러다보니 구현을 시작하는게 점점 늦어지고, 조급해지고, 동시에 학습 시간을 줄이고 구현하려고 하면서 스스로 자책도 조금 하는 1,2 주차를 보냈던 것 같다.&lt;/p&gt;
+
+&lt;p&gt;구현을 못할수록 그 미션은 매우 못했다고, 구현을 그나마 좀 했다면 그 미션은 어느정도 완성했다고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;착각&lt;/code&gt;했다.&lt;/p&gt;
+
+&lt;p&gt;거의 2주차가 끝나갈때쯤 되어서야 미션을 구현하는거에만 너무 많이 매달리지 말자고 생각했던 것 같다.&lt;/p&gt;
+
+&lt;p&gt;나만 어렵고 나만 고민하는게 아니고 모든 동료 캠퍼분들이 스스로의 기반을 토대로 학습과 구현사이에서 저울질 하고 있다 라고 깨닫게 되었다.&lt;/p&gt;
+
+&lt;p&gt;1주차 2주차에는 제대로 아는게 없다는 사실에 좌절했다면, 그 뒤로는 인정하고 어떻게 하면 챌린지 기간동안 내가 더 많은 걸 얻어갈 수 있을까를 고민했다.&lt;/p&gt;
+
+&lt;p&gt;그래서 다른 동료 캠퍼들의 장점을 보고 배우고, 내 학습과 정리, 구현에 적용해보면서 개선해나가는걸 목표로 삼았다.&lt;/p&gt;
+
+&lt;p&gt;이전에 해오던 방식으로 구현에만 몰두해서 새벽까지 구현하던 것과는 확실히 차이가 있었고 이제는 무작정 구현만을 위해서 시간을 보내는건 나한테는 맞지 않는다고 생각한다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 시행착오를 겪으면서 어떤 방식이 나한테 맞지 않는가를 어느정도 알 것 같다. 하지만 나에게 딱 맞는, 마치 정답같은 방식은 아직도 확실하지는 않다.&lt;/p&gt;
+
+&lt;p&gt;내가 했던 생각은 “그저 지난 주 보다 더 나은 한 주가 되자” 정도 였고
+지난 주에 불만족스러웠던 점을 다음 주에 개선해보면서, 만족스러운 개선이었다면 잘하고 있다고 믿었다.&lt;/p&gt;
+
+&lt;h1 id=&quot;잘-하는-사람이-너무-많다&quot;&gt;잘 하는 사람이 너무 많다&lt;/h1&gt;
+
+&lt;p&gt;챌린지는 정말 잘 하는 동료 캠퍼분들이 많다. 코드가 깔끔하거나, 설계가 명확하거나 학습정리가 완벽하다거나 등등..&lt;/p&gt;
+
+&lt;p&gt;볼 때마다 주눅이 들 것 같은 장점을 가지신 분들이 정말 많다.&lt;/p&gt;
+
+&lt;p&gt;사실 네부캠을 비롯해서 거의 모든 사람이 남들과 비교하고 자신을 깎아내리는걸 하지 않기를 바란다.&lt;/p&gt;
+
+&lt;p&gt;근데 막상 같이 얘기해보고 코드를 뜯어보고 같이 화면을 바라보고 있으면 그게 쉽지는 않다.&lt;/p&gt;
+
+&lt;p&gt;자기 자신을 자책하고 남을 부러워하는걸 안하려고 해도 자꾸 하게 된다.
+그래서 자책하고 부러워도 하면서 그 사람의 장점을 좀 흡수해보는 시도를 한다면 충분하다고 생각한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;학습-정리&quot;&gt;학습 정리&lt;/h1&gt;
+
+&lt;p&gt;이번 챌린지를 진행하면서 학습 정리가 중요하다는걸 많이 느꼈다.&lt;/p&gt;
+
+&lt;p&gt;1주차 2주차에는 네부캠에서 하라고 시키니까 한다는 느낌이 강했다. 어느 순간 내가 내 블로그에 들어가서 이전에 정리해둔걸 찾으면서,
+내 학습 정리를 제일 자주 보는 사람은 나인데 왜 이렇게 대충했지 라는 생각이 많이 들었다.
+그래서 최소한 자신이 보기에 괜찮을 정도로 정리나 분류가 필요하지 않을까라는 생각을 하게 되었다.&lt;/p&gt;
+
+&lt;p&gt;이럴 땐 역시 동료 캠퍼분들만한 참고서가 또 없다. 동료분들의 학습 정리를 보면서 많이 배우고 차용하려고 노력했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;앞으로는&quot;&gt;앞으로는&lt;/h1&gt;
+
+&lt;p&gt;챌린지를 통해 느끼고 배운 점들은 단순히 취업 준비를 넘어서, 앞으로 개발자로서 꾸준히 참고할 지침서 같은 느낌이다.&lt;/p&gt;
+
+&lt;p&gt;이 경험을 단순히 ‘열심히 했다’에서 그치지 않고, 나만의 습관으로 만들고 꾸준히 발전시켜 나가고 싶다.&lt;/p&gt;
+
+&lt;p&gt;지금까지는 방향보다는 그저 어디론가 나아가는 데만 집중해 왔다.&lt;/p&gt;
+
+&lt;p&gt;하지만 이번 챌린지에서는 나만의 속도와 방향을 찾기 위해 노력했다.
+앞으로도 개발자로서 내 방식대로 길을 찾고 정리하며, 끊임없이 돌아보는 과정을 이어가고자 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;끝으로&quot;&gt;끝으로&lt;/h1&gt;
+
+&lt;p&gt;챌린지 과정은 재밌기도 하고 힘들기도 하고 시간이 빨리 지나가기도 하고 기대되기도 하고 두렵기도 한.. 그런 과정이다.&lt;/p&gt;
+
+&lt;p&gt;인생에 이런 기회가 자주 없을거라는 수료생분의 말씀에 적극적으로 공감하면서,&lt;/p&gt;
+
+&lt;p&gt;힘들어서 눈물이 나올 것 같지만 얻어가는게 정말 많아서 너무나도 만족스러운 4주가 되었던 것 같다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Review" />
+      
+
+      
+        <summary type="html">베이직부터 시작해서 벌써 챌린지까지 마무리가 되었다.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[네부캠 챌린지] 3주차 회고</title>
+      <link href="https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0" rel="alternate" type="text/html" title="[네부캠 챌린지] 3주차 회고" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5B%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80%5D_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0">&lt;h1 id=&quot;3주차-회고&quot;&gt;3주차 회고&lt;/h1&gt;
+
+&lt;p&gt;3주차는 동료들과 함께하는 시간이 더 늘어났다. 기대 반, 걱정 반으로 한 주를 보냈는데 3주차가 다른 날들에 비해 어떤 점이 달랐는지 회고해보려고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;생활-패턴&quot;&gt;생활 패턴&lt;/h2&gt;
+
+&lt;p&gt;사실 2주차까지도 생활 패턴을 잘 지키지 못했다. 1주차를 진행하면서 ‘늦어도 2시에 자야겠다’ 라고 생각을 했었는데 2주차에서는 ‘늦어도 4시엔 자야겠다’ 라는 생각으로 바뀌었고 3주차를 진행하면서는 ‘잠을 자긴 해야겠다’ 로 바뀐 것 같다.&lt;/p&gt;
+
+&lt;p&gt;여러모로 잠을 못 자서 힘든 한 주긴 했지만, 컨디션이 아예 망가져서 하루를 헛되게 날렸다거나 하는 날이 생기진 않았고 ‘정신적인 고통이 조금 느껴졌던 한 주’ 정도라고 생각해서 컨디션 관리는 이쯤이면 만족하고 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;동료-개선프로그래밍&quot;&gt;동료 개선/프로그래밍&lt;/h2&gt;
+
+&lt;p&gt;이번 주차에서 동료와 함께 설계하고, 동료와 함께 프로그래밍을 하면서 ‘잘못하면 내가 민폐를 끼칠 수도 있겠다’ 는 생각에 걱정이 조금 있었다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;다행히도 친절한 동료분들을 만나서 생각보다 즐겁고, 자유로이 의견을 공유하는 분위기 속에서 진행을 했다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그러나 내가 했던 걱정이 잘못된 걱정이라는 생각은 딱히 들지 않았고, 언제든지 실력차가 많이 나는 개발자들을 만나야만 하는 일이 생긴다면 저런 걱정을 하면서 더욱 열심히 하는 수 밖에 없다고 생각한다. 저 걱정에서 자유로울 수 있는 사람이 있을까?&lt;/p&gt;
+
+&lt;p&gt;아무튼 동료와 함께 개선을 하면서는 동료가 어떤 관점으로 코드를 짜는지 많이 배웠다. 나는 주로 코드가 굴러가는 것이 먼저라고 생각하면서도 늘 ‘지금 다시 돌아가면 더 깔끔한 코드를 짤 수 있을 것 같은데’ 라는 생각에 사로잡히는 것 같다. 하지만 매번 챌린지 미션을 하면서 시간이 남았던 적이 없었기에 생각은 생각으로만 두고 기존에 돌아가던 코드에서 다시 또 새로운 코드들을 누적해나간다.&lt;/p&gt;
+
+&lt;p&gt;그리고 이번에 동료의 관점을 좀 자세히 살펴보면서, 우선시하는 사항들에 대해서 만큼은 설계를 깊게 하고 구현을 하는게 맞다고 느꼈다. 나는 늘 구현을 하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;의존성&lt;/code&gt; 에 대해 생각을 하는데 설계가 깊지 못하다보니 생각했던 것 외의 의존성이 여기저기서 생겨난다. 그리고 구현하다보면 ‘아 코드 이거 다 지우고 다시 짜면 의존성을 조금 더 없앨 수 있겠는데..’ 라는 생각에 빠져버리는 것이다.&lt;/p&gt;
+
+&lt;p&gt;하지만 동료가 의존성을 고려할 때는, 의존성만큼은 확실하게 잡고 가는 설계를 했다. 구현이 나랑 얼마나 다른지와는 별개로 의존성만큼은 제대로 고려했다.&lt;/p&gt;
+
+&lt;p&gt;많은 생각이 드는 개선이었고 다음주에 설계를 할 때는 의존성에 대해 깊이 고민을 해보고 출발하려 한다.&lt;/p&gt;
+
+&lt;p&gt;피어 프로그래밍을 하면서는 챌린지 전반을 바라보는 시선에 대해서 많이 배웠다.&lt;/p&gt;
+
+&lt;p&gt;챌린지를 하면서 열심히 안하는 사람은 없다고 생각하지만 이번주에는 ‘챌린지를 마냥 열심히만 하는게 아니라 내 성장에 도움이 되는 방향으로 해야하는게 맞다’ 라는 생각이 들었다. ‘네부캠에서 시키는것만 잘하자, 시키는거 제출만 하자.’ 이런 생각은 무슨 의미가 있을까&lt;/p&gt;
+
+&lt;p&gt;결국 내가 언젠가 다시 보려고 하는게 학습 정리고 회고인걸 동료를 통해 더욱 깊게 배웠다.&lt;/p&gt;
+
+&lt;p&gt;그 외에도 이것저것 얘기를 많이 나누면서 코딩만이 아니라 다른 생각도 많이 해보는 기회였던 것 같다.&lt;/p&gt;
+
+&lt;h2 id=&quot;다음주에는-어떻게-할까&quot;&gt;다음주에는 어떻게 할까&lt;/h2&gt;
+
+&lt;h3 id=&quot;설계-관점&quot;&gt;설계 관점&lt;/h3&gt;
+
+&lt;p&gt;내가 설계를 하고 구현을 하면서 가장 많이 하는 고민은 의존성 인 것 같다. 구현 전반에 걸쳐 하는 고민인 만큼, 설계에서만큼은 단단해야 한다.&lt;/p&gt;
+
+&lt;p&gt;설계를 하면서 의존성에 대한 고민은 최대한 깊게 해보고 구현을 시작해보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;학습-정리-및-회고&quot;&gt;학습 정리 및 회고&lt;/h3&gt;
+
+&lt;p&gt;동료들의 개인 회고나 학습 정리를 ‘깔끔하게 정리하는 스킬’은 초짜인 내가 단기간에 습득하긴 어려운 스킬이다.&lt;/p&gt;
+
+&lt;p&gt;다음주에는 ‘내가’ 보기에 나쁘지 않은 형태로 학습 정리와 회고를 하는 것에 집중해보는 한 주가 되길 바라면서 임해볼 생각이다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Review" />
+      
+
+      
+        <summary type="html">3주차 회고</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">[네부캠 챌린지] 2주차 회고</title>
@@ -173,6 +364,243 @@
 
       
         <summary type="html">1주차 회고</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">[LiBoo Project] Green Developer 후기</title>
+      <link href="https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0" rel="alternate" type="text/html" title="[LiBoo Project] Green Developer 후기" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BLiBoo_Project%5D_Green_Developer_%ED%9B%84%EA%B8%B0</id>
+      <content type="html" xml:base="https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0">&lt;p&gt;[Green Developers] Liboo 프로젝트 후기 작성&lt;/p&gt;
+
+&lt;h1 id=&quot;liboo-프로젝트&quot;&gt;Liboo 프로젝트&lt;/h1&gt;
+
+&lt;h2 id=&quot;프로젝트-링크&quot;&gt;프로젝트 링크&lt;/h2&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+프로젝트 소개에 앞서 깃허브, 노션, 그리고 서비스 페이지 링크입니다!&lt;br /&gt;
+&lt;a href=&quot;[https://github.com/boostcampwm-2024/web22-LiBoo](https://github.com/boostcampwm-2024/web22-LiBoo)&quot;&gt; Github &lt;/a&gt;   ｜  
+&lt;a href=&quot;[https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b?pvs=4](https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b)&quot;&gt; Notion &lt;/a&gt;   ｜  
+&lt;a href=&quot;[https://liboo.kr](https://liboo.kr/)&quot;&gt; [Liboo.kr](http://liboo.kr/) &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;프로젝트-소개&quot;&gt;프로젝트 소개&lt;/h2&gt;
+
+&lt;div align=&quot;center&quot;&gt;
+&lt;h1&gt; 라이부 LiBoo &lt;/h1&gt;
+&lt;h3&gt; 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 &lt;/h3&gt;
+&lt;br /&gt;
+&lt;p align=&quot;center&quot;&gt;
+&lt;a href=&quot;[https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b?pvs=4](https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b)&quot;&gt; Notion &lt;/a&gt;   ｜  
+&lt;a href=&quot;[https://www.figma.com/design/op5Ui6oZ4Zx2D8VUgWOKM0/LiBoo-🚀?node-id=1-2&amp;amp;node-type=canvas&amp;amp;t=zcYYT1qCtckcUdcs-0](https://www.figma.com/design/op5Ui6oZ4Zx2D8VUgWOKM0/LiBoo-%F0%9F%9A%80?node-id=1-2&amp;amp;node-type=canvas&amp;amp;t=zcYYT1qCtckcUdcs-0)&quot;&gt; Figma &lt;/a&gt;   ｜  
+&lt;a href=&quot;[https://github.com/boostcampwm-2024/web22-LiBoo/wiki](https://github.com/boostcampwm-2024/web22-LiBoo/wiki)&quot;&gt; Wiki &lt;/a&gt;   ｜  
+&lt;a href=&quot;[https://github.com/orgs/boostcampwm-2024/projects/17](https://github.com/orgs/boostcampwm-2024/projects/17)&quot;&gt; BackLog &lt;/a&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;프로젝트-개요&quot;&gt;프로젝트 개요&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;토스, 배달의 민족, 카카오 등 다양한 컨퍼런스들이 있지만 실제로 신청해서 당첨되는 것은 쉬운 일이 아닙니다.&lt;br /&gt;
+&lt;br /&gt;저희는 이러한 컨퍼런스 문화가 더욱 활발해지고, 더 많은 사람들이 기회를 얻을 수 있기를 바라는 마음으로 LiBoo 프로젝트를 기획하게 되었습니다.&lt;br /&gt;
+&lt;br /&gt;작게는 팀원 간 소규모 기술 공유부터, 크게는 네이버 부스트캠프 발표나 기업의 컨퍼런스과도 함께할 수 있는 서비스를 만들고자 합니다!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-핵심-기능&quot;&gt;📺 핵심 기능&lt;/h3&gt;
+
+&lt;h3 id=&quot;실시간-컨퍼런스-스트리밍&quot;&gt;실시간 컨퍼런스 스트리밍&lt;/h3&gt;
+
+&lt;p&gt;실시간 컨퍼런스를 시청하거나 호스트가 되어 컨퍼런스를 직접 스트리밍 할 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;실시간-채팅&quot;&gt;실시간 채팅&lt;/h3&gt;
+
+&lt;p&gt;컨퍼런스를 보며 채팅으로 소통할 수 있습니다. 질문이 있다면 질문 채팅으로 전송이 가능합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;메인-대시보드&quot;&gt;메인 대시보드&lt;/h3&gt;
+
+&lt;p&gt;동영상 미리보기, 카테고리 등을 통해 원하는 컨퍼런스를 탐색해 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;컨퍼런스-다시보기&quot;&gt;컨퍼런스 다시보기&lt;/h3&gt;
+
+&lt;p&gt;실시간으로 방송되었던 컨퍼런스를 다시 돌려볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;️-기술-스택&quot;&gt;🛠️ 기술 스택&lt;/h3&gt;
+
+&lt;p&gt;child_database&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-주차별-진행-상황&quot;&gt;🏃 주차별 진행 상황&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;주차&lt;/th&gt;
+      &lt;th&gt;내용 요약&lt;/th&gt;
+      &lt;th&gt;발표자료&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1주차&lt;/td&gt;
+      &lt;td&gt;기획 공유 및 팀 목표 설정&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://gominzip.notion.site/Week1-Web22-LiBoo-56af3bb7b2314f878667bdbbf99e791f&quot;&gt;보러가기&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2주차&lt;/td&gt;
+      &lt;td&gt;백로그 작성, 퍼블리싱, 동영상 스트리밍 아키텍처 설계&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://gominzip.notion.site/Week2-Web22-LiBoo-137673f3719e805baab4e0a9855ed885&quot;&gt;보러가기&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3주차&lt;/td&gt;
+      &lt;td&gt;CI/CD, 메인 api 서버 개발, 플레이어 커스텀, 웹소켓 학습&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://gominzip.notion.site/Week3-Web22-LiBoo-a09dcec3adea4b289d22603df59f24be&quot;&gt;보러가기&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4주차&lt;/td&gt;
+      &lt;td&gt;채팅 구현, 서비스 시연&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://gominzip.notion.site/Week4-Web22-LiBoo-13e673f3719e80e2a6b0cf5fe10d603a&quot;&gt;보러가기&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5주차&lt;/td&gt;
+      &lt;td&gt;채팅 고도화, 플레이어 고도화, 다시보기 api 설계&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://gominzip.notion.site/Week5-Web22-LiBoo-14c673f3719e80eeb14fe3f1f668e1fc&quot;&gt;보러가기&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-기술적-도전&quot;&gt;🔥 기술적 도전&lt;/h3&gt;
+
+&lt;p&gt;꾸준한 문서화를 통해 지식을 공유하고, 깊이 있는 기술적 도전을 이어나가고자 합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gominzip.notion.site/b987e92eb6c84eef9af1301877eb7c91&quot;&gt;[학습] 동영상 스트리밍 처리 프로토콜을 알아보자&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gominzip.notion.site/13b673f3719e8037b430ff7b6af397b7&quot;&gt;[학습] 웹 소켓의 실시간 양방향 통신&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gominzip.notion.site/7677c9cf96464b1d9e9c1d8afd4ab0b6&quot;&gt;[과정/근거] 패키지 매니저 및 모노레포 정하기&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gominzip.notion.site/Object-Storage-1cf0c1bde758437ea595c57cf704a029&quot;&gt;[트러블슈팅] 외부의 사용자가 Object Storage에 접근하지 못하는 권한 제어&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gominzip.notion.site/docker-yarn-berry-workspace-eff32ce3f695470a8a2d9ef4d02be1e0&quot;&gt;[트러블슈팅] Docker yarn-berry workspace 를 찾지 못하는 오류&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gominzip.notion.site/12d673f3719e8098ad94ed6b71b10ac0&quot;&gt;더 많은 기술정리 보러 가기&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;team-정권지르기-&quot;&gt;TEAM 정권지르기 👊&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;김준서&lt;/th&gt;
+      &lt;th&gt;김영길&lt;/th&gt;
+      &lt;th&gt;고민지&lt;/th&gt;
+      &lt;th&gt;김지수&lt;/th&gt;
+      &lt;th&gt;홍창현&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;[https://avatars.githubusercontent.com/u/45356754?v=4](https://avatars.githubusercontent.com/u/45356754?v=4)&quot; width=&quot;120&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;[https://avatars.githubusercontent.com/u/46553489?v=4](https://avatars.githubusercontent.com/u/46553489?v=4)&quot; width=&quot;120&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;[https://avatars.githubusercontent.com/u/101329724?v=4](https://avatars.githubusercontent.com/u/101329724?v=4)&quot; width=&quot;120&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;[https://avatars.githubusercontent.com/u/85912592?v=4](https://avatars.githubusercontent.com/u/85912592?v=4)&quot; width=&quot;120&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;[https://avatars.githubusercontent.com/u/48922050?v=4](https://avatars.githubusercontent.com/u/48922050?v=4)&quot; width=&quot;120&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;BE&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;BE&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;FE&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;FE&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;FE&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/i3kae&quot;&gt;@i3kae&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/hoeeeeeh&quot;&gt;@hoeeeeeh&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/gominzip&quot;&gt;@gominzip&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/jsk3342&quot;&gt;@jsk3342&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/spearStr&quot;&gt;@spearStr&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;ncloud-서비스&quot;&gt;Ncloud 서비스&lt;/h2&gt;
+
+&lt;p&gt;사용중인 Ncloud 서비스로는&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Object Storage&lt;/li&gt;
+  &lt;li&gt;Server 2대(production, development)&lt;/li&gt;
+  &lt;li&gt;Cloud DB (MySQL, Redis)&lt;/li&gt;
+  &lt;li&gt;public ip, storage, VPC&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;를 사용하고 있습니다!&lt;/p&gt;
+
+&lt;p&gt;실시간 컨퍼런스 플랫폼이다보니 HLS 세그먼트와 index.m3u8 파일을 Object Storage 에 업로드하고 있고,
+개발에 조금 더 용이하도록 개발용과 배포용 서버 2대를 사용하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 Cloud DB MySQL, Redis 를 사용중인데 추후에는 서버 한 대를 추가해서 직접 설치해 사용할 예정입니다!&lt;/p&gt;
+
+&lt;h2 id=&quot;ncloud-서비스-적용&quot;&gt;Ncloud 서비스 적용&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[LiBoo_Project]_Green_Developer_후기.md/0.png&quot; alt=&quot;0&quot; /&gt;&lt;em&gt;image&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-14-[LiBoo_Project]_Green_Developer_후기.md/1.png&quot; alt=&quot;1&quot; /&gt;&lt;em&gt;image&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;현재 Ncloud 의 production 서버에는 NGINX 를 도커 컨테이너로 띄워서 리버스 프록싱 하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 RTMP 서버, API 서버, Chat 서버도 마찬가지로 production 서버에 각각을 컨테이너로 띄워둔 상태입니다.&lt;/p&gt;
+
+&lt;p&gt;MySQL 과 Redis 는 현재 NCP 가 제공하는 서비스인 Cloud DB for MySQL, Redis 를 사용중인데 추후에는 Private Subnet 을 활용해서&lt;/p&gt;
+
+&lt;p&gt;개별 인스턴스에 직접 설치해 운영할 계획입니다.&lt;/p&gt;
+
+&lt;p&gt;RTMP 서버에서 rtmp 스트림을 hls 세그먼트와 index.m3u8 로 변환 후에 Object Storage 에 업로드 하면, 시청자는 해당 주소의 Object Storage 에 접근해서 영상을 시청할 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;ncloud-후기&quot;&gt;Ncloud 후기&lt;/h2&gt;
+
+&lt;p&gt;Ncloud는 기본적으로 서비스 설명이 한글로 자세히 제공되어 있어, 각 서비스의 기능과 활용 방안을 쉽게 이해할 수 있었습니다.&lt;/p&gt;
+
+&lt;p&gt;서비스 품질 측면에서도 매우 만족스러웠습니다. Object Storage를 활용해 클라이언트가 HLS 세그먼트와 index.m3u8 파일을 요청하는 작업이 끊김 없이 원활하게 수행되었습니다. 특히, 기존에 사용하던 AWS EC2에서 Ncloud로의 마이그레이션 과정도 매우 수월했습니다. EC2 API와 호환되도록 설계되어 별도의 학습 없이 바로 적용할 수 있었기 때문입니다.&lt;/p&gt;
+
+&lt;p&gt;현재 저희 서비스는 컨퍼런스를 요약해주는 AI를 도입하려는 목표를 가지고 있습니다. 이 과정에서 Hyper Clova X를 활용해 다양한 AI 서비스를 검토하고 있는데, 저희가 활용하고 싶은 유용한 기능들이 정말 많았습니다. 단순한 요약 AI뿐 아니라 컨퍼런스 실시간 자막 생성, 컨퍼런스 내용을 텍스트로 변환하여 복사/붙여넣기 기능을 제공하는 등 추가적인 서비스 확장을 고려하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 좋은 기회를 통해서 다양한 NCP 서비스와 AI 기능들을 직접 체험해보며 많은 것을 배울 수 있었고, 실제로 적용해볼 수 있어서 너무 즐거웠습니다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Review" />
+      
+
+      
+        <summary type="html">[Green Developers] Liboo 프로젝트 후기 작성</summary>
       
 
       

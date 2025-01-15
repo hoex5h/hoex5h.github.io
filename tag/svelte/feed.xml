@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" >
+  <generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator>
+  <link href="https://hoex5h.github.io/tag/svelte/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://hoex5h.github.io/" rel="alternate" type="text/html" />
+  <updated>2025-01-15T11:18:34+00:00</updated>
+  <id>https://hoex5h.github.io/tag/svelte/feed.xml</id>
+
+  
+  
+  
+
+  
+    <title type="html">hoeeeeeh | </title>
+  
+
+  
+    <subtitle>HOEH 개발 블로그</subtitle>
+  
+
+  
+
+  
+    
+      
+    
+  
+
+  
+  
+
+  
+    <entry>
+      <title type="html">[Svelte] Deploy Sveltekit</title>
+      <link href="https://hoex5h.github.io/Svelte-_Deploy_Sveltekit" rel="alternate" type="text/html" title="[Svelte] Deploy Sveltekit" />
+      <published>2025-01-14T02:40:00+00:00</published>
+      <updated>2025-01-14T02:40:00+00:00</updated>
+      <id>https://hoex5h.github.io/%5BSvelte%5D_Deploy_Sveltekit</id>
+      <content type="html" xml:base="https://hoex5h.github.io/Svelte-_Deploy_Sveltekit">&lt;h1 id=&quot;svelte-deploy-sveltekit&quot;&gt;[Svelte] Deploy Sveltekit&lt;/h1&gt;
+
+&lt;p&gt;이번에 졸업 프로젝트 하면서 간단한 프론트가 필요해서, 예전에 써본 기억이 있던 Svelte 로 뚝딱 만들었다.&lt;/p&gt;
+
+&lt;p&gt;아주 짤막하게 만들면 되는 주제에 Sveltekit 이 재밌어 보여서 한 번 써봤다.&lt;/p&gt;
+
+&lt;p&gt;그냥저냥 재밌기만 한 줄 알았는데, 이게 웬걸..? 배포할 때 build 폴더가 나오질 않는 것이었다…&lt;/p&gt;
+
+&lt;p&gt;앞으로 자주 쓸 일은 없겠지만 혹여나 이번 같이 짤막하게 프론트를 만들 일이 생길 수도 있기에&lt;/p&gt;
+
+&lt;p&gt;배포하는 방법 정도는 적어두려고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kit.svelte.dev/docs/building-your-app&quot;&gt;Sveltekit 공식문서&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Sveltekit 은 단순하게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; 만 하면 build 폴더가 뿅 하고 생기지 않는다.. 어째서??&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Before you can deploy your SvelteKit app, you need to adapt it for your deployment target.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;SvelteKit 을 배포하려면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;adapt&lt;/code&gt; 해야 한단다.. 이게 무슨 소리인가하니,&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Adapters are small plugins that take the built app as input and generate output for deployment.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;어댑터를 하나 달아주어야 하는데, 이 어댑터가 바로 deployment 를 위한 output 을 만들어 준다고 한다.&lt;/p&gt;
+
+&lt;p&gt;Cloudflare, netlify, … 등등 다양한 어탭터가 있는데, 나는 따로 서버에 직접 배포할 것이므로 Node 서버 adapter 를 선택했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://kit.svelte.dev/docs/adapter-node&quot;&gt;Sveltekit Node Server&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;막상 알고나면, 해야할 것은 별 거 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm i -D @sveltejs/adapter-node&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;커맨드를 통해서, adapter plugin 다운 받아 주시고, 프로젝트 루트 path 에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;svelte.config.js&lt;/code&gt; 에 들어간다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;text
+import adapter from &apos;@sveltejs/adapter-node&apos;;
+
+export default {
+	kit: {
+		adapter: adapter()
+	}
+};
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이후 위의 코드 처럼, 다운 받은 plugin 으로 부터 adapter 를 import 하고, kit 에 달아준다.&lt;/p&gt;
+
+&lt;p&gt;그 뒤로는 더욱 별 거 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; 하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm ci --omit dev&lt;/code&gt; 하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node build&lt;/code&gt; 하면 된다!&lt;/p&gt;
+
+&lt;p&gt;아래는 아주 간단하게 작성한 Dockerfile 이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell
+FROM node:16.14.0 AS build
+
+ARG PORT=3000
+
+WORKDIR /app
+
+COPY . ./
+
+RUN npm install
+
+RUN npm i -D @sveltejs/adapter-node
+
+RUN npm run build
+
+RUN npm ci --omit dev
+
+EXPOSE ${PORT}
+
+CMD node build
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name></name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="Svelte" />
+      
+
+      
+        <summary type="html">[Svelte] Deploy Sveltekit</summary>
+      
+
+      
+      
+    </entry>
+  
+</feed>

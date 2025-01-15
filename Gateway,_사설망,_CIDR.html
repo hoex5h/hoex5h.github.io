@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.querySelectorAll('pre code').forEach((block) => {
+            // 아래 둘 중 하나를 선택
+                hljs.highlightBlock(block); // 이전 방식
+
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Gateway, 사설망, CIDR</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Gateway, 사설망, CIDR" />
+    <meta property="og:description" content="IP 주소를 묶는 방법, CIDR란? [Network] Gateway, 사설망, CIDR IPv4 우선 IPv4 는 총 32 비트의 숫자로 구성 되어 있다. XXX.XXX.XXX.XXX 각각 8비트씩 -&gt; 2^32개! 이 중에서 일부 ip가 특수한 목적으로 선점되어 있다. 사설 ip, 루프백 ip, 멀티캐스트 ip, 0.0.0.0(현 주소), 브로드캐스트 ip… 실제로 사용할 수 있는 ip 는 2^32" />
+    <meta property="og:url" content="https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/cs.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:tag" content="Network" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gateway, 사설망, CIDR" />
+    <meta name="twitter:description" content="IP 주소를 묶는 방법, CIDR란? [Network] Gateway, 사설망, CIDR IPv4 우선 IPv4 는 총 32 비트의 숫자로 구성 되어 있다. XXX.XXX.XXX.XXX 각각 8비트씩 -&gt; 2^32개! 이 중에서 일부 ip가 특수한 목적으로 선점되어 있다. 사설 ip, 루프백 ip, 멀티캐스트 ip, 0.0.0.0(현 주소), 브로드캐스트 ip… 실제로 사용할 수 있는 ip 는 2^32" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/cs.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Network" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/cs.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/Gateway,_%EC%82%AC%EC%84%A4%EB%A7%9D,_CIDR"
+    },
+    "description": "IP 주소를 묶는 방법, CIDR란? [Network] Gateway, 사설망, CIDR IPv4 우선 IPv4 는 총 32 비트의 숫자로 구성 되어 있다. XXX.XXX.XXX.XXX 각각 8비트씩 -&gt; 2^32개! 이 중에서 일부 ip가 특수한 목적으로 선점되어 있다. 사설 ip, 루프백 ip, 멀티캐스트 ip, 0.0.0.0(현 주소), 브로드캐스트 ip… 실제로 사용할 수 있는 ip 는 2^32"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Gateway, 사설망, CIDR" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/hoeeeeeh">GitHub</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-network post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag/network/'>NETWORK</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">Gateway, 사설망, CIDR</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/cs.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <p><a href="https://www.youtube.com/watch?v=kYiQGpPVnyI">IP 주소를 묶는 방법, CIDR란?</a></p>
+
+<h1 id="network-gateway-사설망-cidr">[Network] Gateway, 사설망, CIDR</h1>
+
+<h2 id="ipv4">IPv4</h2>
+
+<p>우선 IPv4 는 총 32 비트의 숫자로 구성 되어 있다.</p>
+
+<blockquote>
+  <p>XXX.XXX.XXX.XXX 각각 8비트씩 -&gt; 2^32개!</p>
+</blockquote>
+
+<p>이 중에서 일부 ip가 특수한 목적으로 선점되어 있다.</p>
+
+<blockquote>
+  <p>사설 ip, 루프백 ip, 멀티캐스트 ip, 0.0.0.0(현 주소), 브로드캐스트 ip…</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>실제로 사용할 수 있는 ip 는 2^32 보다 적다
+</code></pre></div></div>
+
+<p>예전에는 모든 기기에 하나씩 ip 를 할당해도 여유로웠겠지만, 기기들이 늘어난 요새는 매우 힘들다.</p>
+
+<p>따라서 사설망(private network)이 필요로 해졌다.</p>
+
+<h2 id="사설망private-network">사설망(private network)</h2>
+
+<p>여러대의 기기를 하나의 사설망으로 묶고, 중복되지 않도록 사설 ip를 할당해준다.</p>
+
+<p>이때 외부와 통신하기 위해서는 public ip 를 가지고 있는 장비가 필요한데, 이것이 Gateway 이다.</p>
+
+<h2 id="gateway">Gateway</h2>
+
+<p>게이트웨이는 다른 대역으로 라우팅을 해줄 수 있는, 주로 L3 스위치급 이상의 장비이다.</p>
+
+<p>가장 많이 보이는 것은 역시 어느 집에서나 볼 수 있는 공유기다. 사설망에 있는 장비들이 외부와 통신하려고 할 때, Gateway 를 거쳐서 통신하게 되는데 Gateway 는 public ip 를 하나 할당받고, NAT(Network Address Translation) 기능을 사용하여 내부 네트워크에서 오는 여러 요청을 public IP 주소를 사용하여 외부로 전송하고, 외부에서 돌아오는 응답을 올바른 내부 장치로 전달한다. 만약 사설망의 여러 장비가 같은 목적지의 같은 포트로 통신을 하려고 한다면 게이트웨이는 NAT 테이블을 활용하여 각각의 내부 소스 IP 주소와 포트 번호를 기반으로 이 요청들을 기억하고 구분한다. 외부로 나갈 때는 일반적으로 변형된 소스 포트를 사용하여, 응답이 돌아올 때 원래의 내부 IP 주소와 포트로 정확히 매핑한다.</p>
+
+<blockquote>
+  <p>예를 들어 A 컴퓨터(192.168.0.2)가 (168.126.63.1, 443포트)에, B 컴퓨터(192.168.0.3)가 다음(168.126.63.1, 80포트)에 동시에 접근한다고 하자.</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A와 B의 목적지 ip는 동일하지만 포트가 다르기 때문에 443포트와 80포트로 A/B 의 요청을 구분할 수 있다.
+
+
+하지만 만약 A와 B 모두 443포트와 통신하려고 한다면 어떻게 될까?
+
+
+443포트에서 오는 응답을 A에게 전달해야할지, B에게 전달해야할지 구분해야 하기 때문에 Gateway는 A가 보낸 요청을 4430, B가 보낸 요청을 4431 포트로 변경해서 NAT 테이블에 저장한다. 이제 게이트웨이는 4430 포트로 응답이 돌아오는지, 4431 포트로 응답이 돌아오는지에 따라 A,B 컴퓨터에 알맞게 응답을 돌려줄 수 있다.
+</code></pre></div></div>
+
+<h2 id="cidrclassless-inter-domain-routing">CIDR(Classless Inter Domain Routing)</h2>
+
+<p>CIDR는 여러 개의 사설망을 구축하기 위해 망을 나누는 방법이다. 여기서 왜 Classless 라는 단어가 사용되었냐 하면, 옛날에는 A/B/C/D 클래스를 이용해서 망을 나눴기 때문이다. CIDR 을 쓰면 ABCD 클래스를 포함해서 더 다양하게 망을 나눌 수 있기 때문에 굳이 클래스라는 단어로 표기하기 않아도 되기 때문이다.</p>
+
+<p>CIDR의 기본적인 표기법은 192.168.0.0/24 처럼, A.B.C.D/E 와 형식이다. 그렇다면 이런 형식은 어떻게 해석할 수 있을까?</p>
+
+<p><code class="language-plaintext highlighter-rouge">192.168.0.0/24</code> 라는 예시로 살펴보면, <code class="language-plaintext highlighter-rouge">/24</code> 의 뜻은 <code class="language-plaintext highlighter-rouge">앞에서부터 24비트 이후에 오는 비트들을 사용할 수 있다</code> 라는 뜻이다. 조금 더 풀어서 설명하자면</p>
+
+<p>우선 A.B.C.D 를 각각 옥텟(=8비트, 1바이트)이라고 부르며 192.168.0.0을 8비트로 변환해서 써보면,</p>
+
+<p>11000000.10101000.00000000.00000000 일것이다. 맨 왼쪽부터 24비트 이후에 오는 비트들을 사용할 수 있다 라는 의미는, 3번째 옥텟 이후 4번째 옥텟부터 전부 사용할 수 있다는 의미이다.</p>
+
+<blockquote>
+  <p>1번옥텟(8비트).2번옥텟(8비트).3번옥텟(8비트) «여기서부터 24비트 이후!» .4번옥텟(8비트)</p>
+</blockquote>
+
+<p>즉 4번째 옥텟을 전부 이용하면 2^8을 전부 다 사용할 수 있다는 의미고 0~255 까지 전부 사용할 수 있다.
+<code class="language-plaintext highlighter-rouge">192.168.0.0/24 =&gt; 192.168.0.0 ~ 192.168.0.255</code> 까지를 나타낸 것이다.</p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Gateway, 사설망, CIDR</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#network-gateway-사설망-cidr">[Network] Gateway, 사설망, CIDR</a><ul><li><a href="#ipv4">IPv4</a></li><li><a href="#사설망private-network">사설망(private network)</a></li><li><a href="#gateway">Gateway</a></li><li><a href="#cidrclassless-inter-domain-routing">CIDR(Classless Inter Domain Routing)</a></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>

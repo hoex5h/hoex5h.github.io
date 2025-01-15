@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <!-- Highlight.js 초기화 -->
+    <script>
+        document.querySelectorAll('pre code').forEach((block) => {
+            // 아래 둘 중 하나를 선택
+                hljs.highlightBlock(block); // 이전 방식
+
+        });
+    </script>
+    <style>.hljs { background: none; }</style>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <!--    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>-->
+
+    <!-- Prism.js 기본 라이브러리 먼저 로드 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });</script>
+
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>[LiBoo Project] Green Developer 후기</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="HOEH 개발 블로그" />
+<link rel="shortcut icon" href="https://hoex5h.github.io//assets/images/favicon.png" type="image/png" />
+<link rel="canonical" href="https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="hoeeeeeh" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="[LiBoo Project] Green Developer 후기" />
+    <meta property="og:description" content="[Green Developers] Liboo 프로젝트 후기 작성 Liboo 프로젝트 프로젝트 링크 프로젝트 소개에 앞서 깃허브, 노션, 그리고 서비스 페이지 링크입니다! Github   ｜   Notion   ｜   [Liboo.kr](http://liboo.kr/) 프로젝트 소개 라이부 LiBoo 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 Notion   ｜   Figma   ｜   Wiki   ｜" />
+    <meta property="og:url" content="https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0" />
+    <meta property="og:image" content="https://hoex5h.github.io/assets/images/cover/naver_boostcamp.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta property="article:author" content="https://www.facebook.com/ghost" />
+    <meta property="article:published_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:modified_time" content="2025-01-14T02:40:00+00:00" />
+    <meta property="article:tag" content="Review" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[LiBoo Project] Green Developer 후기" />
+    <meta name="twitter:description" content="[Green Developers] Liboo 프로젝트 후기 작성 Liboo 프로젝트 프로젝트 링크 프로젝트 소개에 앞서 깃허브, 노션, 그리고 서비스 페이지 링크입니다! Github   ｜   Notion   ｜   [Liboo.kr](http://liboo.kr/) 프로젝트 소개 라이부 LiBoo 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 Notion   ｜   Figma   ｜   Wiki   ｜" />
+    <meta name="twitter:url" content="https://hoex5h.github.io/" />
+    <meta name="twitter:image" content="https://hoex5h.github.io/assets/images/cover/naver_boostcamp.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="hoeeeeeh" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Review" />
+    <meta name="twitter:site" content="@tryghost" />
+    <meta name="twitter:creator" content="@tryghost" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "hoeeeeeh",
+        "logo": "https://hoex5h.github.io/assets/images/blog-icon.png"
+    },
+    "url": "https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://hoex5h.github.io/assets/images/cover/naver_boostcamp.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hoex5h.github.io/LiBoo_Project-_Green_Developer_%ED%9B%84%EA%B8%B0"
+    },
+    "description": "[Green Developers] Liboo 프로젝트 후기 작성 Liboo 프로젝트 프로젝트 링크 프로젝트 소개에 앞서 깃허브, 노션, 그리고 서비스 페이지 링크입니다! Github   ｜   Notion   ｜   [Liboo.kr](http://liboo.kr/) 프로젝트 소개 라이부 LiBoo 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 Notion   ｜   Figma   ｜   Wiki   ｜"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="[LiBoo Project] Green Developer 후기" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
+                window.scrollTo({
+                    top: targetPosition - 60, // 네비게이션 바 고려
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const tocContainer = document.querySelector('.toc'); // 목차 컨테이너
+        const links = document.querySelectorAll('.toc a'); // 목차의 링크
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        // 쓰로틀링 함수 정의
+        const throttle = (callback, limit) => {
+            let waiting = false;
+            return (...args) => {
+                if (!waiting) {
+                    callback(...args);
+                    waiting = true;
+                    setTimeout(() => (waiting = false), limit);
+                }
+            };
+        };
+
+        // 디바운싱 함수 정의
+        const debounce = (callback, delay) => {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => callback(...args), delay);
+            };
+        };
+
+        // 목차 업데이트 함수
+        const updateToc = () => {
+            const scrollPosition = window.scrollY + 60; // 상단 바 높이 고려
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 기존 active 제거
+                    links.forEach(link => link.classList.remove('active'));
+
+                    // 현재 active 추가
+                    const activeLink = links[index];
+                    activeLink.classList.add('active');
+
+                    // 목차 컨테이너 스크롤
+                    tocContainer.scrollTo({
+                        top: activeLink.offsetTop - tocContainer.offsetHeight / 2,
+                        behavior: 'smooth',
+                    });
+                }
+            });
+        };
+
+        // 쓰로틀링 및 디바운싱 적용
+        const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
+
+        // 스크롤 및 리사이즈 이벤트
+        window.addEventListener('scroll', optimizedScrollHandler);
+        window.addEventListener('resize', debouncedResizeHandler); // 창 크기 변경 시 위치 보정
+
+    });
+
+
+</script>
+
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+
+    html {
+        scroll-padding-top: 60px;
+    }
+
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 70vh;
+        background-color: transparent;
+        overflow-y: auto;
+        padding: 2rem;
+        transition: right 0.3s ease-in-out;
+        margin-top: 60px;
+    }
+
+    .toc-toggle {
+        border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #e6369b; /* 활성화된 목차 색깔 */
+        font-weight: bold;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        font-size: 98%;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #858181;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://hoex5h.github.io/"><img src="/assets/images/blog-icon.png" alt="hoeeeeeh" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-about" role="menuitem"><a href="https://github.com/hoeeeeeh">GitHub</a></li>
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <li>
+            <script src="https://hoex5h.github.io/assets/js/lunr.js" charset="utf-8"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="포스트 검색"/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="https://hoex5h.github.io/assets/js/lunrsearchengine.js" charset="utf-8"></script>
+
+        </li>
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  tag-review post ">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag/review/'>REVIEW</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">[LiBoo Project] Green Developer 후기</h1>
+        </header>
+
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/naver_boostcamp.png)">
+        </figure>
+        
+
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <p>[Green Developers] Liboo 프로젝트 후기 작성</p>
+
+<h1 id="liboo-프로젝트">Liboo 프로젝트</h1>
+
+<h2 id="프로젝트-링크">프로젝트 링크</h2>
+
+<div align="center">
+프로젝트 소개에 앞서 깃허브, 노션, 그리고 서비스 페이지 링크입니다!<br />
+<a href="[https://github.com/boostcampwm-2024/web22-LiBoo](https://github.com/boostcampwm-2024/web22-LiBoo)"> Github </a>   ｜  
+<a href="[https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b?pvs=4](https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b)"> Notion </a>   ｜  
+<a href="[https://liboo.kr](https://liboo.kr/)"> [Liboo.kr](http://liboo.kr/) </a>
+</div>
+
+<h2 id="프로젝트-소개">프로젝트 소개</h2>
+
+<div align="center">
+<h1> 라이부 LiBoo </h1>
+<h3> 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 </h3>
+<br />
+<p align="center">
+<a href="[https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b?pvs=4](https://gominzip.notion.site/TEAM-127673f3719e803faf63c70322560d3b)"> Notion </a>   ｜  
+<a href="[https://www.figma.com/design/op5Ui6oZ4Zx2D8VUgWOKM0/LiBoo-🚀?node-id=1-2&amp;node-type=canvas&amp;t=zcYYT1qCtckcUdcs-0](https://www.figma.com/design/op5Ui6oZ4Zx2D8VUgWOKM0/LiBoo-%F0%9F%9A%80?node-id=1-2&amp;node-type=canvas&amp;t=zcYYT1qCtckcUdcs-0)"> Figma </a>   ｜  
+<a href="[https://github.com/boostcampwm-2024/web22-LiBoo/wiki](https://github.com/boostcampwm-2024/web22-LiBoo/wiki)"> Wiki </a>   ｜  
+<a href="[https://github.com/orgs/boostcampwm-2024/projects/17](https://github.com/orgs/boostcampwm-2024/projects/17)"> BackLog </a>
+</p>
+</div>
+
+<p><br /></p>
+
+<h3 id="프로젝트-개요">프로젝트 개요</h3>
+
+<blockquote>
+  <p>토스, 배달의 민족, 카카오 등 다양한 컨퍼런스들이 있지만 실제로 신청해서 당첨되는 것은 쉬운 일이 아닙니다.<br />
+<br />저희는 이러한 컨퍼런스 문화가 더욱 활발해지고, 더 많은 사람들이 기회를 얻을 수 있기를 바라는 마음으로 LiBoo 프로젝트를 기획하게 되었습니다.<br />
+<br />작게는 팀원 간 소규모 기술 공유부터, 크게는 네이버 부스트캠프 발표나 기업의 컨퍼런스과도 함께할 수 있는 서비스를 만들고자 합니다!</p>
+</blockquote>
+
+<p><br /></p>
+
+<h3 id="-핵심-기능">📺 핵심 기능</h3>
+
+<h3 id="실시간-컨퍼런스-스트리밍">실시간 컨퍼런스 스트리밍</h3>
+
+<p>실시간 컨퍼런스를 시청하거나 호스트가 되어 컨퍼런스를 직접 스트리밍 할 수 있습니다.</p>
+
+<h3 id="실시간-채팅">실시간 채팅</h3>
+
+<p>컨퍼런스를 보며 채팅으로 소통할 수 있습니다. 질문이 있다면 질문 채팅으로 전송이 가능합니다.</p>
+
+<h3 id="메인-대시보드">메인 대시보드</h3>
+
+<p>동영상 미리보기, 카테고리 등을 통해 원하는 컨퍼런스를 탐색해 볼 수 있습니다.</p>
+
+<h3 id="컨퍼런스-다시보기">컨퍼런스 다시보기</h3>
+
+<p>실시간으로 방송되었던 컨퍼런스를 다시 돌려볼 수 있습니다.</p>
+
+<p><br /></p>
+
+<p><br /></p>
+
+<h3 id="️-기술-스택">🛠️ 기술 스택</h3>
+
+<p>child_database</p>
+
+<p><br /></p>
+
+<h3 id="-주차별-진행-상황">🏃 주차별 진행 상황</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>주차</th>
+      <th>내용 요약</th>
+      <th>발표자료</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1주차</td>
+      <td>기획 공유 및 팀 목표 설정</td>
+      <td><a href="https://gominzip.notion.site/Week1-Web22-LiBoo-56af3bb7b2314f878667bdbbf99e791f">보러가기</a></td>
+    </tr>
+    <tr>
+      <td>2주차</td>
+      <td>백로그 작성, 퍼블리싱, 동영상 스트리밍 아키텍처 설계</td>
+      <td><a href="https://gominzip.notion.site/Week2-Web22-LiBoo-137673f3719e805baab4e0a9855ed885">보러가기</a></td>
+    </tr>
+    <tr>
+      <td>3주차</td>
+      <td>CI/CD, 메인 api 서버 개발, 플레이어 커스텀, 웹소켓 학습</td>
+      <td><a href="https://gominzip.notion.site/Week3-Web22-LiBoo-a09dcec3adea4b289d22603df59f24be">보러가기</a></td>
+    </tr>
+    <tr>
+      <td>4주차</td>
+      <td>채팅 구현, 서비스 시연</td>
+      <td><a href="https://gominzip.notion.site/Week4-Web22-LiBoo-13e673f3719e80e2a6b0cf5fe10d603a">보러가기</a></td>
+    </tr>
+    <tr>
+      <td>5주차</td>
+      <td>채팅 고도화, 플레이어 고도화, 다시보기 api 설계</td>
+      <td><a href="https://gominzip.notion.site/Week5-Web22-LiBoo-14c673f3719e80eeb14fe3f1f668e1fc">보러가기</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h3 id="-기술적-도전">🔥 기술적 도전</h3>
+
+<p>꾸준한 문서화를 통해 지식을 공유하고, 깊이 있는 기술적 도전을 이어나가고자 합니다.</p>
+
+<ul>
+  <li><a href="https://gominzip.notion.site/b987e92eb6c84eef9af1301877eb7c91">[학습] 동영상 스트리밍 처리 프로토콜을 알아보자</a></li>
+  <li><a href="https://gominzip.notion.site/13b673f3719e8037b430ff7b6af397b7">[학습] 웹 소켓의 실시간 양방향 통신</a></li>
+  <li><a href="https://gominzip.notion.site/7677c9cf96464b1d9e9c1d8afd4ab0b6">[과정/근거] 패키지 매니저 및 모노레포 정하기</a></li>
+  <li><a href="https://gominzip.notion.site/Object-Storage-1cf0c1bde758437ea595c57cf704a029">[트러블슈팅] 외부의 사용자가 Object Storage에 접근하지 못하는 권한 제어</a></li>
+  <li><a href="https://gominzip.notion.site/docker-yarn-berry-workspace-eff32ce3f695470a8a2d9ef4d02be1e0">[트러블슈팅] Docker yarn-berry workspace 를 찾지 못하는 오류</a></li>
+</ul>
+
+<p><a href="https://gominzip.notion.site/12d673f3719e8098ad94ed6b71b10ac0">더 많은 기술정리 보러 가기</a></p>
+
+<p><br /></p>
+
+<h3 id="team-정권지르기-">TEAM 정권지르기 👊</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>김준서</th>
+      <th>김영길</th>
+      <th>고민지</th>
+      <th>김지수</th>
+      <th>홍창현</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="[https://avatars.githubusercontent.com/u/45356754?v=4](https://avatars.githubusercontent.com/u/45356754?v=4)" width="120" /></td>
+      <td><img src="[https://avatars.githubusercontent.com/u/46553489?v=4](https://avatars.githubusercontent.com/u/46553489?v=4)" width="120" /></td>
+      <td><img src="[https://avatars.githubusercontent.com/u/101329724?v=4](https://avatars.githubusercontent.com/u/101329724?v=4)" width="120" /></td>
+      <td><img src="[https://avatars.githubusercontent.com/u/85912592?v=4](https://avatars.githubusercontent.com/u/85912592?v=4)" width="120" /></td>
+      <td><img src="[https://avatars.githubusercontent.com/u/48922050?v=4](https://avatars.githubusercontent.com/u/48922050?v=4)" width="120" /></td>
+    </tr>
+    <tr>
+      <td><strong>BE</strong></td>
+      <td><strong>BE</strong></td>
+      <td><strong>FE</strong></td>
+      <td><strong>FE</strong></td>
+      <td><strong>FE</strong></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/i3kae">@i3kae</a></td>
+      <td><a href="https://github.com/hoeeeeeh">@hoeeeeeh</a></td>
+      <td><a href="https://github.com/gominzip">@gominzip</a></td>
+      <td><a href="https://github.com/jsk3342">@jsk3342</a></td>
+      <td><a href="https://github.com/spearStr">@spearStr</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ncloud-서비스">Ncloud 서비스</h2>
+
+<p>사용중인 Ncloud 서비스로는</p>
+
+<ul>
+  <li>Object Storage</li>
+  <li>Server 2대(production, development)</li>
+  <li>Cloud DB (MySQL, Redis)</li>
+  <li>public ip, storage, VPC</li>
+</ul>
+
+<p>를 사용하고 있습니다!</p>
+
+<p>실시간 컨퍼런스 플랫폼이다보니 HLS 세그먼트와 index.m3u8 파일을 Object Storage 에 업로드하고 있고,
+개발에 조금 더 용이하도록 개발용과 배포용 서버 2대를 사용하고 있습니다.</p>
+
+<p>또한 Cloud DB MySQL, Redis 를 사용중인데 추후에는 서버 한 대를 추가해서 직접 설치해 사용할 예정입니다!</p>
+
+<h2 id="ncloud-서비스-적용">Ncloud 서비스 적용</h2>
+
+<p><img src="/upload/2025-01-14-[LiBoo_Project]_Green_Developer_후기.md/0.png" alt="0" /><em>image</em></p>
+
+<p><img src="/upload/2025-01-14-[LiBoo_Project]_Green_Developer_후기.md/1.png" alt="1" /><em>image</em></p>
+
+<p>현재 Ncloud 의 production 서버에는 NGINX 를 도커 컨테이너로 띄워서 리버스 프록싱 하고 있습니다.</p>
+
+<p>또한 RTMP 서버, API 서버, Chat 서버도 마찬가지로 production 서버에 각각을 컨테이너로 띄워둔 상태입니다.</p>
+
+<p>MySQL 과 Redis 는 현재 NCP 가 제공하는 서비스인 Cloud DB for MySQL, Redis 를 사용중인데 추후에는 Private Subnet 을 활용해서</p>
+
+<p>개별 인스턴스에 직접 설치해 운영할 계획입니다.</p>
+
+<p>RTMP 서버에서 rtmp 스트림을 hls 세그먼트와 index.m3u8 로 변환 후에 Object Storage 에 업로드 하면, 시청자는 해당 주소의 Object Storage 에 접근해서 영상을 시청할 수 있습니다.</p>
+
+<h2 id="ncloud-후기">Ncloud 후기</h2>
+
+<p>Ncloud는 기본적으로 서비스 설명이 한글로 자세히 제공되어 있어, 각 서비스의 기능과 활용 방안을 쉽게 이해할 수 있었습니다.</p>
+
+<p>서비스 품질 측면에서도 매우 만족스러웠습니다. Object Storage를 활용해 클라이언트가 HLS 세그먼트와 index.m3u8 파일을 요청하는 작업이 끊김 없이 원활하게 수행되었습니다. 특히, 기존에 사용하던 AWS EC2에서 Ncloud로의 마이그레이션 과정도 매우 수월했습니다. EC2 API와 호환되도록 설계되어 별도의 학습 없이 바로 적용할 수 있었기 때문입니다.</p>
+
+<p>현재 저희 서비스는 컨퍼런스를 요약해주는 AI를 도입하려는 목표를 가지고 있습니다. 이 과정에서 Hyper Clova X를 활용해 다양한 AI 서비스를 검토하고 있는데, 저희가 활용하고 싶은 유용한 기능들이 정말 많았습니다. 단순한 요약 AI뿐 아니라 컨퍼런스 실시간 자막 생성, 컨퍼런스 내용을 텍스트로 변환하여 복사/붙여넣기 기능을 제공하는 등 추가적인 서비스 확장을 고려하고 있습니다.</p>
+
+<p>이렇게 좋은 기회를 통해서 다양한 NCP 서비스와 AI 기능들을 직접 체험해보며 많은 것을 배울 수 있었고, 실제로 적용해볼 수 있어서 너무 즐거웠습니다.</p>
+
+
+            </div>
+        </section>
+
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+        </section>
+        
+
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+            
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+            
+            
+            
+            <article class="read-next-card"
+                     
+                     style="background-image: url(/assets/images/blog-cover.jpg)"
+                     
+            >
+                <header class="read-next-card-header">
+                    <small class="read-next-card-header-sitetitle">&mdash; hoeeeeeh &mdash;</small>
+                    
+                    <h3 class="read-next-card-header-title"><a href="/tag/review/">Review</a></h3>
+                    
+                </header>
+                <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                <div class="read-next-card-content">
+                    <ul>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_%EC%B1%8C%EB%A6%B0%EC%A7%80_%EC%B5%9C%EC%A2%85_%ED%9A%8C%EA%B3%A0">[네부캠 챌린지] 챌린지 최종 회고</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_3%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0">[네부캠 챌린지] 3주차 회고</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="/%EB%84%A4%EB%B6%80%EC%BA%A0_%EC%B1%8C%EB%A6%B0%EC%A7%80-_2%EC%A3%BC%EC%B0%A8_%ED%9A%8C%EA%B3%A0">[네부캠 챌린지] 2주차 회고</a></li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="/tag/review/">
+                    
+                    See all 5 posts  →
+                    
+                    </a>
+                </footer>
+            </article>
+            
+            
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://hoex5h.github.io/">
+            
+                <img src="/assets/images/favicon.png" alt="hoeeeeeh icon" />
+            
+            <span>hoeeeeeh</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">[LiBoo Project] Green Developer 후기</div>
+    <div class="floating-header-share">
+        <!-- Sidebar Toggle Button -->
+        <button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc" id="toc-sidebar">
+            <nav>
+                <ul><li><a href="#liboo-프로젝트">Liboo 프로젝트</a><ul><li><a href="#프로젝트-링크">프로젝트 링크</a></li><li><a href="#프로젝트-소개">프로젝트 소개</a></li></ul></li><li> 라이부 LiBoo <ul><li> 컨퍼런스를 더 가까이, LiBoo 에서 라이브로 🚀 </li><li><a href="#프로젝트-개요">프로젝트 개요</a></li><li><a href="#-핵심-기능">📺 핵심 기능</a></li><li><a href="#실시간-컨퍼런스-스트리밍">실시간 컨퍼런스 스트리밍</a></li><li><a href="#실시간-채팅">실시간 채팅</a></li><li><a href="#메인-대시보드">메인 대시보드</a></li><li><a href="#컨퍼런스-다시보기">컨퍼런스 다시보기</a></li><li><a href="#️-기술-스택">🛠️ 기술 스택</a></li><li><a href="#-주차별-진행-상황">🏃 주차별 진행 상황</a></li><li><a href="#-기술적-도전">🔥 기술적 도전</a></li><li><a href="#team-정권지르기-">TEAM 정권지르기 👊</a></li></ul></li><li><a href="#ncloud-서비스">Ncloud 서비스</a></li><li><a href="#ncloud-서비스-적용">Ncloud 서비스 적용</a></li><li><a href="#ncloud-후기">Ncloud 후기</a></li></ul></li></ul>
+
+            </nav>
+        </aside>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://hoex5h.github.io/">hoeeeeeh</a> &copy; 2025</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyllt/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    <a href="https://facebook.com/ghost" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://twitter.com/tryghost" target="_blank" rel="noopener">Twitter</a>
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+        <div id="subscribe" class="subscribe-overlay">
+            <a class="subscribe-overlay-close" href="#"></a>
+            <div class="subscribe-overlay-content">
+                
+                    <img class="subscribe-overlay-logo" src="/assets/images/blog-icon.png" alt="hoeeeeeh" />
+                
+                <h1 class="subscribe-overlay-title">Subscribe to hoeeeeeh</h1>
+                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts delivered straight to your inbox</p>
+                <form method="post" action="/subscribe/" class="">
+    <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+    <div class="form-group">
+        <input class="subscribe-email" type="email" name="email"  placeholder="youremail@example.com" />
+    </div>
+    <button class="" type="submit" disabled><span>Subscribe</span></button>
+    <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
+</form>
+
+            </div>
+        </div>
+    
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69281367-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
