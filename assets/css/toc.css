@@ -1,0 +1,63 @@
+.toc {
+    position: absolute;
+    right: 0px;
+    width: 240px;
+    color: #333333; /* 기본 텍스트 색상 (어두운 회색) */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    margin-right: 0px;
+    font-size: 0.7rem;
+    border-left: 2px solid #e0d9e7;
+    display: none;
+}
+
+@media (min-width: 75em) {
+    .toc {
+        width: 240px;
+        display: block;
+    }
+}
+
+@media (min-width: 85em) {
+    .toc {
+        width: 300px;
+        display: block;
+    }
+}
+
+@media (min-width: 95em) {
+    .toc {
+        width: 360px;
+        display: block;
+    }
+}
+
+.toc a.toc-active {
+    font-weight: bold;
+    transition: all 0.125s ease-in 0s;
+    font-size: 0.75rem;
+    color: #9075aa; /* 추천된 색상 (부드러운 회색-보라색) */
+}
+
+.toc ul {
+    list-style-type: none;
+    margin-bottom: 0.1rem;
+    padding-left: 0rem;
+}
+
+.toc ul li {
+    padding-left: .5rem;
+}
+
+.toc a {
+    color: #333333; /* 기본 링크 색상 (어두운 회색) */
+    text-decoration: none;
+}
+
+.toc a:hover {
+    color: #6a4f96; /* 추천된 테마 색상 (밝은 보라색) */
+}
