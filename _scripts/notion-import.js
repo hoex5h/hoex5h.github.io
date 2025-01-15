@@ -184,7 +184,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
             }
         );
 
-        cover = `assets/images/${cover}.jpg`;
+        cover = `assets/images/${cover}.png`;
 
         const fm = `---
 layout: post
