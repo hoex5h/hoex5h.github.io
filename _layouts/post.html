@@ -214,10 +214,9 @@ into the {body} of the default.hbs template -->
         return headerNodes;
     }
 
-    var title = document.getElementsByClassName("post-title")[0];
     var titleY = window.pageYOffset + title.getBoundingClientRect().top;
 
-    var article = document.getElementsByClassName("post-article")[0];
+    var article = document.getElementsByClassName("post-full-content")[0];
     var articleY = window.pageYOffset + article.getBoundingClientRect().top;
 
     var toc = document.getElementsByClassName("toc")[0];
