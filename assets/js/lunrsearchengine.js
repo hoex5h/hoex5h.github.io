@@ -79,9 +79,6 @@ var documents = [
 
 ];
 
-console.log(site.pages);
-
-
 var idx = lunr(function () {
     this.ref('id')
     this.field('title')
