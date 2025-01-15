@@ -80,6 +80,15 @@ sass:
   sass_dir:           _sass
   style:              compressed
 
+default:
+  scope:
+    path: ""
+  type: posts
+  values:
+    toc: true
+    toc_sticky: true
+    toc_label: "목차"
+
 exclude:
   - assets/css
   - node_modules
@@ -98,3 +107,4 @@ exclude:
   - changelog.md
   - "*.Rmd"
   - .git*
+
