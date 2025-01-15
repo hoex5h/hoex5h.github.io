@@ -10,7 +10,7 @@ disqus: false
 <!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template -->
 
-script>
+<script>
 document.getElementById('toc-toggle').addEventListener('click', function() {
 document.getElementById('toc-sidebar').classList.toggle('active');
 });
@@ -178,23 +178,6 @@ document.getElementById('toc-sidebar').classList.toggle('active');
 
     </div>
 </main>
-
-<!-- Sidebar Toggle Button -->
-<button class="toc-toggle" id="toc-toggle">☰ 목차</button>
-
-<!-- Table of Contents Sidebar -->
-<aside class="toc" id="toc-sidebar">
-    <nav>
-        <h2>목차</h2>
-        <ul>
-            {% for heading in page.content | markdownify | split: "\n" %}
-            {% if heading contains '##' %}
-            <li><a href="#{{ heading | strip_html | slugify }}">{{ heading | strip_html }}</a></li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-    </nav>
-</aside>
 
 <!-- Links to Previous/Next posts -->
 <aside class="read-next outer">
