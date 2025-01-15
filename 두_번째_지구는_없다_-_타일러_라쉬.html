@@ -137,17 +137,43 @@ into the {body} of the default.hbs template -->
             document.getElementById('toc-sidebar').classList.toggle('active');
         });
 
-        document.querySelectorAll('a').forEach(anchor => {
+        document.querySelectorAll('.toc ul li a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY; // 정확한 절대 위치
                 window.scrollTo({
-                    top: target.offsetTop + 60, // 60px 만큼 더 내려가기
+                    top: targetPosition - 60, // 네비게이션 바 고려
                     behavior: 'smooth'
                 });
             });
         });
+
+        // 목차 활성화 로직
+        const links = document.querySelectorAll('.toc a'); // 목차의 a 태그
+        const sections = Array.from(links).map(link =>
+            document.querySelector(link.getAttribute('href'))
+        );
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY + 60; // 네비게이션 높이 고려
+
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + window.scrollY; // 절대 위치 계산
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    // 활성화된 목차 항목에 active 클래스 추가
+                    links.forEach(link => link.classList.remove('active'));
+                    links[index].classList.add('active');
+                }
+            });
+        });
+
     });
+
+
 </script>
 
 
@@ -173,6 +199,11 @@ into the {body} of the default.hbs template -->
 
     .toc-toggle {
         border-radius: 25px;
+    }
+
+    .toc a.active {
+        color: #82dcff; /* 활성화된 목차 색깔 */
+        font-weight: bold;
     }
 
     /* 사이드바가 활성화되면 보이도록 */
