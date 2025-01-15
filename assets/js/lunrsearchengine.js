@@ -6,7 +6,7 @@ sitemap: false
 {% assign counter = 0 %}
 var documents = [
     {% for page in site.pages %}
-{% if page.url contains '.xml' or page.url contains 'assets' or page.url contains 'category' or page.url contains 'tag' or page.url == '/404.html' %}
+{% if page.url contains '.xml' or page.url contains 'assets' or page.url contains 'category' or page.url contains 'tag' or page.url == '/' or page.url == '/404.html' %}
 {% else %}
 {
     "id": {{ counter }},
@@ -51,7 +51,8 @@ var idx = lunr(function () {
 function lunr_search(term) {
     document.getElementById('lunrsearchresults').innerHTML = '<ul></ul>';
     if(term) {
-        document.getElementById('lunrsearchresults').innerHTML = "<p>Search results for '" + term + "'</p>" + document.getElementById('lunrsearchresults').innerHTML;
+        document.getElementById('lunrsearchresults').innerHTML = "<p style='color: black;'>검색 결과: <span style='color: orange;'>" + term + "</span></p>" + document.getElementById('lunrsearchresults').innerHTML;
+
         //put results on the screen.
         var results = idx.search(term);
         if(results.length>0){
@@ -66,7 +67,8 @@ function lunr_search(term) {
                 document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML + "<li class='lunrsearchresult'><a href='" + url + "'><span class='title'>" + title + "</span><br /><span class='body'>"+ body +"</span><br /><span class='url'>"+ url +"</span></a></li>";
             }
         } else {
-            document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult'>No results found...</li>";
+            document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult' style='color: black;'> 검색 결과가 없습니다. </li>";
+
         }
     }
     return false;
