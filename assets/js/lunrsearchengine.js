@@ -19,7 +19,7 @@ var documents = [
     "id": 1,
     "url": "https://hoex5h.github.io//",
     "title": "",
-    "body": "                                                  HOEH 개발 블로그:                           Home  About                              Subscribe                                                                                                                        환경                                                        과학                                              두 번째 지구는 없다 - 타일러 라쉬:                                       두 번째 지구는 없다 - 타일러 라쉬                                                                                                                                     김영길                                                                                   3 min read                                    "
+    "body": "                                                  HOEH 개발 블로그:                           Home  About                                                                                                                                              환경                                                        과학                                              두 번째 지구는 없다 - 타일러 라쉬:                                       두 번째 지구는 없다 - 타일러 라쉬                                                                                                                                     김영길                                                                                   3 min read                                    "
     
 },
 
