@@ -21,7 +21,7 @@ into the {body} of the default.hbs template -->
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 window.scrollTo({
-                    top: target.offsetTop - 60, // 60px 만큼 더 내려가기
+                    top: target.offsetTop + 60, // 60px 만큼 더 내려가기
                     behavior: 'smooth'
                 });
             });
