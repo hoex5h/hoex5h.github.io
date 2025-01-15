@@ -16,14 +16,7 @@
         <!-- Table of Contents Sidebar -->
         <aside class="toc" id="toc-sidebar">
             <nav>
-                <h2>목차</h2>
-                <ul>
-                    {% for heading in page.content | markdownify | split: "\n" %}
-                    {% if heading contains '##' %}
-                    <li><a href="#{{ heading | strip_html | slugify }}">{{ heading | strip_html }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                </ul>
+                {% include toc.html html=content %}
             </nav>
         </aside>
     </div>
