@@ -76,6 +76,9 @@ destination: ./_site
 production_url:  https://jekyllt.github.io/jasper2/
 source_url:  https://github.com/jekyllt/jasper2/
 
+sass:
+  style: compressed  # 압축된 CSS로 출력
+
 exclude:
   - assets/css
   - node_modules
