@@ -82,7 +82,7 @@ into the {body} of the default.hbs template -->
 
         // 쓰로틀링 및 디바운싱 적용
         const optimizedScrollHandler = throttle(updateToc, 100); // 100ms마다 실행 제한
-        const debouncedResizeHandler = debounce(updateToc, 200); // 리사이즈 후 200ms 후 실행
+        const debouncedResizeHandler = debounce(updateToc, 50); // 리사이즈 후 200ms 후 실행
 
         // 스크롤 및 리사이즈 이벤트
         window.addEventListener('scroll', optimizedScrollHandler);
