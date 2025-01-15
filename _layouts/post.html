@@ -11,10 +11,13 @@ disqus: false
 into the {body} of the default.hbs template -->
 
 <script>
-document.getElementById('toc-toggle').addEventListener('click', function() {
-document.getElementById('toc-sidebar').classList.toggle('active');
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.getElementById('toc-sidebar').classList.toggle('active');
+        });
+    });
 </script>
+
 
 <style>
     /* 기본적으로 사이드바 숨기기 */
