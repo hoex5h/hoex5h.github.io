@@ -131,6 +131,72 @@
 <!-- The tag above means: insert everything in this file
 into the {body} of the default.hbs template -->
 
+script>
+document.getElementById('toc-toggle').addEventListener('click', function() {
+document.getElementById('toc-sidebar').classList.toggle('active');
+});
+</script>
+
+<style>
+    /* 기본적으로 사이드바 숨기기 */
+    .toc {
+        position: fixed;
+        top: 0;
+        right: -240px; /* 사이드바 기본 위치 */
+        width: 240px;
+        height: 100%;
+        background-color: #f9f9f9;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        padding: 1rem;
+        transition: right 0.3s ease-in-out;
+    }
+
+    /* 사이드바가 활성화되면 보이도록 */
+    .toc.active {
+        right: 0;
+    }
+
+    /* 목차 목록 스타일 */
+    .toc ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .toc ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .toc ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .toc ul li a:hover {
+        color: #007bff;
+    }
+
+    /* 버튼 스타일 */
+    .toc-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .toc-toggle:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
 <header class="site-header outer">
     <div class="inner">
         <nav class="site-nav">
@@ -186,38 +252,33 @@ into the {body} of the default.hbs template -->
     <div class="inner">
 
         <article class="post-full  tag- tag- post ">
-            <div class="toc">
-                <a href="#">&lt;맨 위로&gt;</a>
-                <ul><li><a href="#두-번째-지구는-없다---타일러-라쉬">두 번째 지구는 없다 - 타일러 라쉬</a></li></ul>
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
+                
+                <span class="date-divider">/</span>
+                
+                
+                <a href='/tag//'>환경</a>,
+                
+                
+                
+                <a href='/tag//'>과학</a>
+                
+                
+                
+            </section>
+            <h1 class="post-full-title">두 번째 지구는 없다 - 타일러 라쉬</h1>
+        </header>
 
-            </div>
-            <header class="post-full-header">
-                <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="14 January 2025">14 January 2025</time>
-                    
-                        <span class="date-divider">/</span>
-                        
-                            
-                               <a href='/tag//'>환경</a>,
-                            
-                        
-                            
-                               <a href='/tag//'>과학</a>
-                            
-                        
-                    
-                </section>
-                <h1 class="post-full-title">두 번째 지구는 없다 - 타일러 라쉬</h1>
-            </header>
+        
+        <figure class="post-full-image" style="background-image: url(/assets/images/cover/book.png)">
+        </figure>
+        
 
-            
-            <figure class="post-full-image" style="background-image: url(/assets/images/cover/book.png)">
-            </figure>
-            
-
-            <section class="post-full-content">
-                <div class="kg-card-markdown">
-                    <h1 id="두-번째-지구는-없다---타일러-라쉬">두 번째 지구는 없다 - 타일러 라쉬</h1>
+        <section class="post-full-content">
+            <div class="kg-card-markdown">
+                <h1 id="두-번째-지구는-없다---타일러-라쉬">두 번째 지구는 없다 - 타일러 라쉬</h1>
 <p>두 번째 지구는 없다. 말 그대로 지금 사는 지구가 사라지면, 대체재는 없다는 소리다. 환경을 아끼고 심각성을 인지해야하며, 그저 개개인이 자원을 아껴쓰는 것만으로는 부족하다는 이야기가 주를 이룬다.</p>
 
 <ul>
@@ -297,15 +358,15 @@ into the {body} of the default.hbs template -->
 </ul>
 
 
-                </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Email subscribe form at the bottom of the page -->
-            
-                <section class="subscribe-form">
-                    <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
-                    <p>Get the latest posts delivered right to your inbox</p>
-                    <form method="post" action="/subscribe/" class="">
+        <!-- Email subscribe form at the bottom of the page -->
+        
+        <section class="subscribe-form">
+            <h3 class="subscribe-form-title">Subscribe to hoeeeeeh</h3>
+            <p>Get the latest posts delivered right to your inbox</p>
+            <form method="post" action="/subscribe/" class="">
     <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
 
     <div class="form-group">
@@ -315,45 +376,53 @@ into the {body} of the default.hbs template -->
     <script type="text/javascript">(function(g,h,o,s,t){h[o]('.location')[s]=h[o]('.location')[s] || g.location.href;h[o]('.referrer')[s]=h[o]('.referrer')[s] || h.referrer;})(window,document,'querySelector','value');</script>
 </form>
 
-                </section>
-            
+        </section>
+        
 
-            <footer class="post-full-footer">
-                <!-- Everything inside the #author tags pulls data from the author -->
-                <!-- #author-->
-                
-                    
-                
-                <!-- /author  -->
-            </footer>
-
-            <!-- If you use Disqus comments, just uncomment this block.
-            The only thing you need to change is "test-apkdzgmqhj" - which
-            should be replaced with your own Disqus site-id. -->
+        <footer class="post-full-footer">
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
             
+            
+            
+            <!-- /author  -->
+        </footer>
+
+        <!-- If you use Disqus comments, just uncomment this block.
+        The only thing you need to change is "test-apkdzgmqhj" - which
+        should be replaced with your own Disqus site-id. -->
+        
 
         </article>
 
     </div>
 </main>
 
+<!-- Sidebar Toggle Button -->
+<button class="toc-toggle" id="toc-toggle">☰ 목차</button>
+
+<!-- Table of Contents Sidebar -->
+<aside class="toc" id="toc-sidebar">
+    <nav>
+        <h2>목차</h2>
+        <ul>
+            
+            
+            
+        </ul>
+    </nav>
+</aside>
+
 <!-- Links to Previous/Next posts -->
 <aside class="read-next outer">
     <div class="inner">
         <div class="read-next-feed">
             
-                
-                
-                
-                
             
-
-            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-
-            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
-
+            
+            
         </div>
     </div>
 </aside>
@@ -397,79 +466,6 @@ into the {body} of the default.hbs template -->
 <!-- /post -->
 
 <!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
-
-<script>
-    function getTOCNodes(master) {
-        var nodes = Array.prototype.slice.call(master.getElementsByTagName("*"), 0);
-        var tocNodes = nodes.filter(function(elem) {
-            return elem.tagName == "A";
-        });
-        return tocNodes;
-    }
-    function getHeaderNodes(master) {
-        var nodes = Array.prototype.slice.call(master.getElementsByTagName("*"), 0);
-        var headerNodes = nodes.filter(function(elem) {
-            return elem.tagName == "H1" || elem.tagName == "H2" || elem.tagName == "H3" || elem.tagName == "H4" || elem.tagName == "H5" || elem.tagName == "H6";
-        });
-        return headerNodes;
-    }
-
-    var title = document.getElementsByClassName("post-full-title")[0];
-    var titleY = window.pageYOffset + title.getBoundingClientRect().top;
-
-    var article = document.getElementsByClassName("post-full-content")[0];
-    var articleY = window.pageYOffset + article.getBoundingClientRect().top;
-
-    var toc = document.getElementsByClassName("toc")[0];
-
-    var headerNodes = getHeaderNodes(article);
-    var tocNodes = getTOCNodes(toc);
-
-    var before = undefined;
-
-    document.addEventListener('scroll', function(e) {
-        if (window.scrollY >= articleY-60) {
-            toc.style.cssText = "position: fixed; top: 60px;";
-        }
-        else {
-            toc.style.cssText = "";
-        }
-
-        var current = headerNodes.filter(function(header) {
-            var headerY = window.pageYOffset + header.getBoundingClientRect().top;
-            return window.scrollY >= headerY - 60;
-        });
-
-        if (current.length > 0) {
-            current = current[current.length-1];
-
-            var currentA = tocNodes.filter(function(tocNode) {
-                return tocNode.innerHTML == current.innerHTML;
-            })
-
-            currentA = currentA[0];
-            if (currentA) {
-                if (before == undefined) before = currentA;
-
-                if (before != currentA) {
-                    before.classList.remove("toc-active");
-                    before = currentA;
-                }
-
-                currentA.classList.add("toc-active");
-            }
-            else {
-                if (before)
-                    before.classList.remove("toc-active");
-            }
-        }
-        else {
-            if (before)
-                before.classList.remove("toc-active");
-        }
-
-    }, false);
-</script>
 
 
         <!-- Previous/next page links - displayed on every page -->
