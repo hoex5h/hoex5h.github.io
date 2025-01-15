@@ -13,11 +13,8 @@
     <script>
         document.querySelectorAll('pre code').forEach((block) => {
             // 아래 둘 중 하나를 선택
-            if (hljs.highlightElement) {
-                hljs.highlightElement(block); // 최신 방식
-            } else {
                 hljs.highlightBlock(block); // 이전 방식
-            }
+            
         });
     </script>
     <style>.hljs { background: none; }</style>
