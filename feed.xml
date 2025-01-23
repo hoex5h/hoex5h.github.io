@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://hoex5h.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://hoex5h.github.io/" rel="alternate" type="text/html" /><updated>2025-01-23T06:21:53+00:00</updated><id>https://hoex5h.github.io/feed.xml</id><title type="html">hoeeeeeh</title><subtitle>HOEH 개발 블로그</subtitle><entry><title type="html">정점간의 최단 거리 구하기 (다익스트라, 벨만 포드, 플로이드)</title><link href="https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)" rel="alternate" type="text/html" title="정점간의 최단 거리 구하기 (다익스트라, 벨만 포드, 플로이드)" /><published>2025-01-16T02:20:00+00:00</published><updated>2025-01-16T02:20:00+00:00</updated><id>https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)</id><content type="html" xml:base="https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)">&lt;p&gt;정점간의 최단 거리를 구하는 알고리즘들에 대해서 한 번 알아보자.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://hoex5h.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://hoex5h.github.io/" rel="alternate" type="text/html" /><updated>2025-01-23T06:27:44+00:00</updated><id>https://hoex5h.github.io/feed.xml</id><title type="html">hoeeeeeh</title><subtitle>HOEH 개발 블로그</subtitle><entry><title type="html">정점간의 최단 거리 구하기 (다익스트라, 벨만 포드, 플로이드)</title><link href="https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)" rel="alternate" type="text/html" title="정점간의 최단 거리 구하기 (다익스트라, 벨만 포드, 플로이드)" /><published>2025-01-16T02:20:00+00:00</published><updated>2025-01-16T02:20:00+00:00</updated><id>https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)</id><content type="html" xml:base="https://hoex5h.github.io/%EC%A0%95%EC%A0%90%EA%B0%84%EC%9D%98_%EC%B5%9C%EB%8B%A8_%EA%B1%B0%EB%A6%AC_%EA%B5%AC%ED%95%98%EA%B8%B0_(%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC,_%EB%B2%A8%EB%A7%8C_%ED%8F%AC%EB%93%9C,_%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C)">&lt;p&gt;정점간의 최단 거리를 구하는 알고리즘들에 대해서 한 번 알아보자.&lt;/p&gt;
 
 &lt;h1 id=&quot;다익스트라&quot;&gt;다익스트라&lt;/h1&gt;
 
@@ -318,7 +318,7 @@ Graph:
 
 &lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/4.png&quot; alt=&quot;4&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
-\[D_{[c, d]}(a, b) = 4\]
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/5.png&quot; alt=&quot;5&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;위의 표현식은 a 에서 출발하여 c, d 를 거쳐 b 로 가는 경로이다.&lt;/li&gt;
@@ -328,29 +328,17 @@ Graph:
 
 &lt;p&gt;a 에서 f 로 가는 경로에서 x 를 경유하는 것과, 경유하지 않은 것을 나누어 나타내면&lt;/p&gt;
 
-\[D_S(a, f) = \min \left\{
-\begin{aligned}
-    &amp;amp; D_{S - \{x\}}(a, x) + D_{S - \{x\}}(x, f), \\
-    &amp;amp; D_{S - \{x\}}(a, f)
-\end{aligned}
-\right\}, \, x \in S\]
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/6.png&quot; alt=&quot;6&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;기호가 너무 많아서 햇갈릴 수 있는데 a → f 의 경로는 x 를 경유해서 가는 것과 경유해서 가지 않는 것의 최소값이라는 의미일 뿐이다.&lt;/p&gt;
 
 &lt;p&gt;여기서 이 점화식을 살짝 수정해서 더 보기 좋게 만들어보자.&lt;/p&gt;
 
-\[S_{k} = {0, 1, 2, ..., k}\]
-
-\[C_{k} = D_{S_{K}}\]
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/7.png&quot; alt=&quot;7&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;이렇게 두 가지의 식을 활용해서 위의 식을 바꾸면&lt;/p&gt;
 
-\[C_k(a, f) = \min \left\{
-\begin{aligned}
-    &amp;amp; C_{k-1}(a, k) + C_{k-1}(k, f), \\
-    &amp;amp; C_{k-1}(a, f)
-\end{aligned}
-\right.\]
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/8.png&quot; alt=&quot;8&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;이 된다.&lt;/p&gt;
 
@@ -358,9 +346,27 @@ Graph:
 
 &lt;p&gt;여기서&lt;/p&gt;
 
-\[C_{k-1}(a, k) , C_{k}(a,k)\]
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/9.png&quot; alt=&quot;9&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;이렇게 두 식의 차이점에 대해서 한 번 생각해보자.&lt;/p&gt;</content><author><name>[&quot;hoeeeeeh&quot;]</name></author><category term="[&quot;CS&quot;]" /><category term="[&quot;CS&quot;]" /><category term="CS" /><category term="Algorithm" /><summary type="html">정점간의 최단 거리를 구하는 알고리즘들에 대해서 한 번 알아보자.</summary></entry><entry><title type="html">네트워크 CS 지식</title><link href="https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D" rel="alternate" type="text/html" title="네트워크 CS 지식" /><published>2025-01-15T12:26:00+00:00</published><updated>2025-01-15T12:26:00+00:00</updated><id>https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D</id><content type="html" xml:base="https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D">&lt;p&gt;네트워크 CS 지식 정리&lt;/p&gt;
+&lt;p&gt;이렇게 두 식의 차이점에 대해서 한 번 생각해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/10.png&quot; alt=&quot;10&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 식은 k 를 거치지 않고 a 에서 k 까지 가는 경로를 의미한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/11.png&quot; alt=&quot;11&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;반대로 위의 식은 k 까지 거쳐서 a 에서 k 까지 가는 경로를 의미한다.&lt;/p&gt;
+
+&lt;p&gt;그런데 k 까지 가는데 k 를 거치든 안거치든 그게 다를 수 있나?&lt;/p&gt;
+
+&lt;p&gt;도착점이 k 이므로 k를 거치는것과 안거치는것은 당연히 같다.&lt;/p&gt;
+
+&lt;p&gt;따라서 위의 식이 같다라고 생각하게 되면 식은 더욱 간단해진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/upload/2025-01-16-정점간의_최단_거리_구하기_(다익스트라,_벨만_포드,_플로이드).md/12.png&quot; alt=&quot;12&quot; /&gt;&lt;em&gt;image.png&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 우리가 알던 플로이드 알고리즘인, 경유점 하나를 거쳐서 가는것과 안거쳐서 가는 것 중에서 더 짧은 것을 선택하는 식이 된다.&lt;/p&gt;</content><author><name>[&quot;hoeeeeeh&quot;]</name></author><category term="[&quot;CS&quot;]" /><category term="[&quot;CS&quot;]" /><category term="CS" /><category term="Algorithm" /><summary type="html">정점간의 최단 거리를 구하는 알고리즘들에 대해서 한 번 알아보자.</summary></entry><entry><title type="html">네트워크 CS 지식</title><link href="https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D" rel="alternate" type="text/html" title="네트워크 CS 지식" /><published>2025-01-15T12:26:00+00:00</published><updated>2025-01-15T12:26:00+00:00</updated><id>https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D</id><content type="html" xml:base="https://hoex5h.github.io/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC_CS_%EC%A7%80%EC%8B%9D">&lt;p&gt;네트워크 CS 지식 정리&lt;/p&gt;
 
 &lt;h1 id=&quot;전이중화-통신&quot;&gt;전이중화 통신&lt;/h1&gt;
 
